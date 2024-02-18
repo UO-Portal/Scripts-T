@@ -5,6 +5,13 @@ SphereServer 0.56T Official Scripts
 
 Script pack içeriğindekiler bazı yerler emülatör ile entegre çalışmaktadır.
 
+Not:
+
+Script pack geliştirirken harici fonksiyon kullanımını minimum ölçüde kullanınız. Örneğin 
+
+IF (<FLAGS>&STATF_HIDDEN) sorgusu yapabiliyorken bunu yapan harici bir IsHide, IsInvıs vb gibi ek fonksiyon yazmayınız. Ne kadar çok fonksiyon kullanımı olursa sunucu ve bu fonksiyonlar ne kadar çok çağırılırsa sunucu performansı uzun uptimelerde düşebilir.
+
+
 # CLASS
   - Char Class
     * Staff karakterler için class = Class_Staff [SKILLCLASS 0] (scripts/events/chars/class/sphere_events_char_class_staff.scp)
