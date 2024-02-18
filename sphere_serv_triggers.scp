@@ -241,16 +241,16 @@ RETURN 2
 //f_meditation_setup	//Uncomment this line to enable passive meditation (more info on sphere_skills.scp)
 
 // IF (<SERV.ACCOUNT.<ARGS>.PLEVEL> > 1)
-	// SRC.TIMERF 0,Func_Char_Start_Staff
+	// SRC.TIMERF 0,Char_Start_Staff
 // ELSE
-	// SRC.TIMERF 0,Func_Char_Start_Player
+	// SRC.TIMERF 0,Char_Start_Player
 // ENDIF
 
-// SRC.TIMERF 0,Func_Char_Start_Genel
+// SRC.TIMERF 0,Char_Start_Genel
 
 
 
-[FUNCTION Func_Char_Start_Genel]
+[FUNCTION Char_Start_Genel]
 TAG.BODY_DEFAULT_COLOR=<COLOR>
 TAG.BODY_DEFAULT_OSKIN=<OSKIN>
 
@@ -265,7 +265,7 @@ ENDIF
 
 
 
-[FUNCTION Func_Char_Start_Player]
+[FUNCTION Char_Start_Player]
 IF (<ACCOUNT.CHARS> <= 1)
 	NEWGOLD <DDEF.FIRSTSTARTMONEY_GOLD>
 ELSE

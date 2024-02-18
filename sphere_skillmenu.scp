@@ -5,53 +5,47 @@
 MAKELAST
 
 [FUNCTION MAKELAST]
-Func_MAKELAST <ARGS>
-
-[FUNCTION TEKRARYAP]
-Func_MAKELAST <ARGS>
-
-[FUNCTION Func_MAKELAST]
 LOCAL.MAKEITEM = <TAG0.CRAFT_LASTMAKE_BASEID>
 LOCAL.MAKEAMOUNT = <QVAL (<ISEMPTY <ARGS>>)?1:<ARGS>>
 
 IF !(<ACTION> == -1)
-	FUNC_SYS_ERROR Şu an zaten bir beceri kullanıyorsunuz.
+	SYSMESSAGE @38,,1,1  Şu an zaten bir beceri kullanıyorsunuz.
 	CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>Şu an zaten bir beceri kullanıyorsunuz.
 	RETURN 1
 	
 ELSEIF !(<TAG0.CRAFT_LASTMAKE_BASEID>)
-	FUNC_SYS_ERROR En son ne yaptığınızı hatırlamıyorsunuz.
+	SYSMESSAGE @38,,1,1  En son ne yaptığınızı hatırlamıyorsunuz.
 	CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>En son ne yaptığınızı hatırlamıyorsunuz.
 	RETURN 1
 	
 ELSEIF (<LOCAL.MAKEITEM> == 0) || !(<LOCAL.MAKEITEM>)
-	FUNC_SYS_ERROR En son ne yaptığınızı hatırlamıyorsunuz.
+	SYSMESSAGE @38,,1,1  En son ne yaptığınızı hatırlamıyorsunuz.
 	CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>En son ne yaptığınızı hatırlamıyorsunuz.
 	RETURN 1
 	
 ELSEIF (<LOCAL.MAKEAMOUNT> > 50000)
-	FUNC_SYS_ERROR En fazla 50.000 kere tekrar yapabilirsiniz.
+	SYSMESSAGE @38,,1,1  En fazla 50.000 kere tekrar yapabilirsiniz.
 	CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>En fazla 50.000 kere tekrar yapabilirsiniz.
 	RETURN 1
 
 ELSEIF !(<CANMAKESKILL <LOCAL.MAKEITEM>>)
-	FUNC_SYS_ERROR [<serv.itemdef.<LOCAL.MAKEITEM>.name>] Yeterli beceriye sahip değilsin. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.SKILLMAKE>)
+	SYSMESSAGE @38,,1,1  [<serv.itemdef.<LOCAL.MAKEITEM>.name>] Yeterli beceriye sahip değilsin. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.SKILLMAKE>)
 	CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>[<serv.itemdef.<LOCAL.MAKEITEM>.name>] Yeterli beceriye sahip değilsin. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.SKILLMAKE>)
 	RETURN 1
 
 ELSEIF (<ISEVENT.E_MAKELAST>)
-	FUNC_SYS_ERROR Şu an zaten yaptıklarınız tekrarlanıyor.
+	SYSMESSAGE @38,,1,1  Şu an zaten yaptıklarınız tekrarlanıyor.
 	CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>Şu an zaten yaptıklarınız tekrarlanıyor.
 	RETURN 1
 
 ELSEIF !(<CANMAKE <LOCAL.MAKEITEM>>)
-	FUNC_SYS_ERROR Yeterli malzemeye sahip değilsin. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.RESMAKE>)
+	SYSMESSAGE @38,,1,1  Yeterli malzemeye sahip değilsin. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.RESMAKE>)
 		CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>Yeterli malzemeye sahip değilsin. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.RESMAKE>)
 	RETURN 1
 ENDIF
 
 // IF (<WEIGHT> >= <MAXWEIGHT>)
-	// FUNC_SYS_ERROR Olabilecek en yüksek ağırlığa ulaştığınız için eşyayı üretemezsiniz. (<FVAL <WEIGHT>>/<FVAL <MAXWEIGHT>>)
+	// SYSMESSAGE @38,,1,1  Olabilecek en yüksek ağırlığa ulaştığınız için eşyayı üretemezsiniz. (<FVAL <WEIGHT>>/<FVAL <MAXWEIGHT>>)
 	// CTAG.Craft_Menu.Notice = <DEF.BFONT_RED>Olabilecek en yüksek ağırlığa ulaştığınız için eşyayı üretemezsiniz. (<FVAL <WEIGHT>>/<FVAL <MAXWEIGHT>>)
 	// RETURN 1
 // ENDIF
@@ -63,7 +57,7 @@ IF (<ISONLINE>)
 	ENDIF
 	
 	IF (<ISEMPTY <ARGS>>)
-		FUNC_SYS_INFO .makelast 5000 olarak da komutu kullanabilirsiniz. 5000 tekrar otomatik olarak yapılacaktır. 5000 yerine 2 ile 50.000 arasında herhangi bir rakam girebilirsiniz.
+		SYSMESSAGE @084A,,1,1  .makelast 5000 olarak da komutu kullanabilirsiniz. 5000 tekrar otomatik olarak yapılacaktır. 5000 yerine 2 ile 50.000 arasında herhangi bir rakam girebilirsiniz.
 	ENDIF
 	
 	MAKEITEM <LOCAL.MAKEITEM>
@@ -73,11 +67,11 @@ IF (<ISONLINE>)
 	CTAG.Craft_Menu.Notice = <DEF.BFONT_GREEN>Son yaptığınız eşya yapılıyor. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.NAME>)
 			
 	IF !(<ISDIALOGOPEN D_CRAFT_MENU>)
-		FUNC_SYS_SUCCESS Son yaptığınız eşya yapılıyor. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.NAME>)
+		SYSMESSAGE @044,,1,1  Son yaptığınız eşya yapılıyor. (<SERV.ITEMDEF.<LOCAL.MAKEITEM>.NAME>)
 		
 		IF (<LOCAL.MAKEAMOUNT> > 1)
-			FUNC_SYS_WARNING Tekrar sayisi: <dCTAG0.MAKE_TEKRAR>
-			FUNC_SYS_WARNING İslemi iptal etmek icin savas moduna gecmeniz yeterlidir.
+			SYSMESSAGE @033,,1,1  Tekrar sayisi: <dCTAG0.MAKE_TEKRAR>
+			SYSMESSAGE @033,,1,1  İslemi iptal etmek icin savas moduna gecmeniz yeterlidir.
 		ENDIF
 	ELSE
 		DIALOGCLOSE D_CRAFT_MENU
@@ -92,7 +86,7 @@ ENDIF
 [EVENTS e_makelast]
 ON=@USERWARMODE
 SRC.CTAG0.MAKE_TEKRAR =
-SRC.FUNC_SYS_ERROR Tekrar işleminiz sona erdi.
+SRC.SYSMESSAGE @38,,1,1  Tekrar işleminiz sona erdi.
 SRC.CTAG.Craft_Menu.Notice = <DEF.BFONT_LRED>Tekrar işleminiz sona erdi.
 SRC.EVENTS -E_MAKELAST
 IF (<ISDIALOGOPEN D_CRAFT_MENU>)
@@ -103,7 +97,7 @@ ENDIF
 
 ON=@DEATH
 SRC.CTAG0.MAKE_TEKRAR =
-SRC.FUNC_SYS_ERROR Tekrar işleminiz sona erdi.
+SRC.SYSMESSAGE @38,,1,1  Tekrar işleminiz sona erdi.
 SRC.CTAG.Craft_Menu.Notice = <DEF.BFONT_LRED>Tekrar işleminiz sona erdi.
 SRC.EVENTS -E_MAKELAST
 IF (<ISDIALOGOPEN D_CRAFT_MENU>)
@@ -115,7 +109,7 @@ ENDIF
 ON=@LOGOUT
 SKILL FAIL
 SRC.CTAG0.MAKE_TEKRAR =
-SRC.FUNC_SYS_ERROR Tekrar işleminiz sona erdi.
+SRC.SYSMESSAGE @38,,1,1  Tekrar işleminiz sona erdi.
 SRC.CTAG.Craft_Menu.Notice = <DEF.BFONT_LRED>Tekrar işleminiz sona erdi.
 SRC.EVENTS -E_MAKELAST
 IF (<ISDIALOGOPEN D_CRAFT_MENU>)
@@ -126,7 +120,7 @@ ENDIF
 
 ON=@ATTACK
 CTAG0.MAKE_TEKRAR =
-FUNC_SYS_ERROR Tekrar işleminiz sona erdi.
+SYSMESSAGE @38,,1,1  Tekrar işleminiz sona erdi.
 CTAG.Craft_Menu.Notice = <DEF.BFONT_LRED>Tekrar işleminiz sona erdi.
 EVENTS -E_MAKELAST
 IF (<ISDIALOGOPEN D_CRAFT_MENU>)
@@ -137,7 +131,7 @@ ENDIF
 
 ON=@SPELLCAST
 SRC.CTAG0.MAKE_TEKRAR =
-SRC.FUNC_SYS_ERROR Tekrar işleminiz sona erdi.
+SRC.SYSMESSAGE @38,,1,1  Tekrar işleminiz sona erdi.
 SRC.CTAG.Craft_Menu.Notice = <DEF.BFONT_LRED>Tekrar işleminiz sona erdi.
 SRC.EVENTS -E_MAKELAST
 IF (<ISDIALOGOPEN D_CRAFT_MENU>)
@@ -150,7 +144,7 @@ ON=@SKILLFAIL
 LOCAL.MAKEITEM=<TAG0.CRAFT_LASTMAKE_BASEID>
 
 CTAG0.MAKE_TEKRAR -=1
-FUNC_SYS_DEF Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
+SYSMESSAGE @,,1,1  Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
 CTAG.Craft_Menu.Notice = <DEF.BFONT_WHITE>Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
 TIMERF 1,MAKEITEM <LOCAL.MAKEITEM>
 
@@ -167,7 +161,7 @@ ENDIF
 ON=@SKILLABORT
 LOCAL.MAKEITEM=<TAG0.CRAFT_LASTMAKE_BASEID>
 CTAG0.MAKE_TEKRAR -=1
-FUNC_SYS_DEF Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
+SYSMESSAGE @,,1,1  Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
 CTAG.Craft_Menu.Notice = <DEF.BFONT_WHITE>Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
 TIMERF 1,MAKEITEM <LOCAL.MAKEITEM>
 IF (<ISDIALOGOPEN D_CRAFT_MENU>)
@@ -184,19 +178,19 @@ LOCAL.MAKEITEM=<SRC.TAG0.CRAFT_LASTMAKE_BASEID>
 SRC.CTAG0.MAKE_TEKRAR --
 
 IF (<SRC.DCTAG0.MAKE_TEKRAR> <= 0)
-	SRC.FUNC_SYS_ERROR Tekrar işleminiz sona erdi.
+	SRC.SYSMESSAGE @38,,1,1  Tekrar işleminiz sona erdi.
 	SRC.CTAG.Craft_Menu.Notice = <DEF.BFONT_LRED>Tekrar işleminiz sona erdi.
 	SRC.EVENTS -E_MAKELAST
 	SRC.CTAG0.MAKE_TEKRAR=
 
 ELIF !(<SRC.CANMAKE <LOCAL.MAKEITEM>>)
-	SRC.FUNC_SYS_ERROR <SERV.ITEMDEF.<LOCAL.MAKEITEM>.NAME> uretebilecek malzemeniz veya yeteneğiniz bulunmuyor.
+	SRC.SYSMESSAGE @38,,1,1  <SERV.ITEMDEF.<LOCAL.MAKEITEM>.NAME> uretebilecek malzemeniz veya yeteneğiniz bulunmuyor.
 	SRC.CTAG.Craft_Menu.Notice = <DEF.BFONT_LRED><SERV.ITEMDEF.<LOCAL.MAKEITEM>.NAME> uretebilecek malzemeniz veya yeteneğiniz bulunmuyor.
 	SRC.CTAG0.MAKE_TEKRAR=
 	SRC.EVENTS -E_MAKELAST
 ENDIF
 
-SRC.FUNC_SYS_DEF Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
+SRC.SYSMESSAGE @,,1,1  Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
 SRC.CTAG.Craft_Menu.Notice = <DEF.BFONT_WHITE>Kalan tekrar: <DCTAG0.MAKE_TEKRAR>/<dCTAG0.MAKE_TEKRAR_BASE>
 SRC.TIMERF 1,MAKEITEM <LOCAL.MAKEITEM>
 
@@ -248,19 +242,19 @@ CRAFT_SKILL_BLACKSMITHING_ITEMLIST I_DARK_ORACS,I_DARK_PIKE,I_HALBERD_SILVER,I_M
 
 
 
-[FUNCTION Func_Craft_Menu_Rebuild_All]	
-Func_Craft_Menu_Rebuild_Single Alchemy
-Func_Craft_Menu_Rebuild_Single Bowcraft
-Func_Craft_Menu_Rebuild_Single Carpentry
-Func_Craft_Menu_Rebuild_Single Cartography
-Func_Craft_Menu_Rebuild_Single Inscription
-Func_Craft_Menu_Rebuild_Single Tailoring
-Func_Craft_Menu_Rebuild_Single Blacksmithing
-Func_Craft_Menu_Rebuild_Single Tinkering
+[FUNCTION Craft_Menu_Rebuild_All]	
+Craft_Menu_Rebuild_Single Alchemy
+Craft_Menu_Rebuild_Single Bowcraft
+Craft_Menu_Rebuild_Single Carpentry
+Craft_Menu_Rebuild_Single Cartography
+Craft_Menu_Rebuild_Single Inscription
+Craft_Menu_Rebuild_Single Tailoring
+Craft_Menu_Rebuild_Single Blacksmithing
+Craft_Menu_Rebuild_Single Tinkering
 
 
 
-[FUNCTION Func_Craft_Menu_Rebuild_Single]	
+[FUNCTION Craft_Menu_Rebuild_Single]	
 DB.CONNECT
 IF (<DB.CONNECTED>)	
 	LOCAL.SKILLNAME <STRTOUPPER <ARGS>>
@@ -284,18 +278,18 @@ IF (<DB.CONNECTED>)
 			LOCAL.SKILL_KEY=<SERV.ITEMDEF.<LOCAL.ITEM>.SKILLMAKE.1.KEY>
 			LOCAL.SKILL_VAL=<SERV.ITEMDEF.<LOCAL.ITEM>.SKILLMAKE.1.VAL>
 			
-			LOCAL.CATEGORY=<FUNC_STRING_REPLACER <SERV.ITEMDEF.<LOCAL.ITEM>.CATEGORY>>
-			LOCAL.SUBSECTION=<FUNC_STRING_REPLACER <SERV.ITEMDEF.<LOCAL.ITEM>.SUBSECTION>>
-			LOCAL.DESCRIPTION=<FUNC_STRING_REPLACER <SERV.ITEMDEF.<LOCAL.ITEM>.DESCRIPTION>>
+			LOCAL.CATEGORY=<StrReplace <SERV.ITEMDEF.<LOCAL.ITEM>.CATEGORY>>
+			LOCAL.SUBSECTION=<StrReplace <SERV.ITEMDEF.<LOCAL.ITEM>.SUBSECTION>>
+			LOCAL.DESCRIPTION=<StrReplace <SERV.ITEMDEF.<LOCAL.ITEM>.DESCRIPTION>>
 			
 			DB.QUERY "SELECT id FROM craftitems WHERE baseid='<STRTOUPPER <LOCAL.ITEM>>'"
 			
 			IF (<DB.ROW.NUMROWS>)
-				// DB.EXECUTE "UPDATE craftitems SET name='<FUNC_STRING_REPLACER <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>', type='<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>', category='<LOCAL.CATEGORY>', subsection='<LOCAL.subsection>', description='<LOCAL.description>', skill_key='<STRTOUPPER <LOCAL.SKILL_KEY>>', skill_val='<FVAL <DLOCAL.SKILL_VAL>>' WHERE baseid='<STRTOUPPER <LOCAL.ITEM>>'"
-				DB.EXECUTE "UPDATE craftitems SET name='<FUNC_STRING_REPLACER <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>', type='<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>', category='<LOCAL.CATEGORY>', skill_key='<STRTOUPPER <LOCAL.SKILL_KEY>>', skill_val='<FVAL <DLOCAL.SKILL_VAL>>', skill_name='<LOCAL.SKILLNAME>' WHERE baseid='<STRTOUPPER <LOCAL.ITEM>>'"
+				// DB.EXECUTE "UPDATE craftitems SET name='<StrReplace <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>', type='<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>', category='<LOCAL.CATEGORY>', subsection='<LOCAL.subsection>', description='<LOCAL.description>', skill_key='<STRTOUPPER <LOCAL.SKILL_KEY>>', skill_val='<FVAL <DLOCAL.SKILL_VAL>>' WHERE baseid='<STRTOUPPER <LOCAL.ITEM>>'"
+				DB.EXECUTE "UPDATE craftitems SET name='<StrReplace <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>', type='<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>', category='<LOCAL.CATEGORY>', skill_key='<STRTOUPPER <LOCAL.SKILL_KEY>>', skill_val='<FVAL <DLOCAL.SKILL_VAL>>', skill_name='<LOCAL.SKILLNAME>' WHERE baseid='<STRTOUPPER <LOCAL.ITEM>>'"
 			ELSE
-				// DB.EXECUTE INSERT INTO craftitems (baseid,  name , type , category , subsection , description , skill_key , skill_val, skill_name) VALUES ('<STRTOUPPER <LOCAL.ITEM>>','<FUNC_STRING_REPLACER <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>','<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>','<LOCAL.CATEGORY>','<LOCAL.SUBSECTION>','<LOCAL.DESCRIPTION>','<STRTOUPPER <LOCAL.SKILL_KEY>>','<FVAL <DLOCAL.SKILL_VAL>>','<LOCAL.SKILLNAME>')
-				DB.EXECUTE INSERT INTO craftitems (baseid,  name , type , category ,  skill_key , skill_val, skill_name) VALUES ('<STRTOUPPER <LOCAL.ITEM>>','<FUNC_STRING_REPLACER <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>','<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>','<LOCAL.CATEGORY>','<STRTOUPPER <LOCAL.SKILL_KEY>>','<FVAL <DLOCAL.SKILL_VAL>>','<LOCAL.SKILLNAME>')
+				// DB.EXECUTE INSERT INTO craftitems (baseid,  name , type , category , subsection , description , skill_key , skill_val, skill_name) VALUES ('<STRTOUPPER <LOCAL.ITEM>>','<StrReplace <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>','<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>','<LOCAL.CATEGORY>','<LOCAL.SUBSECTION>','<LOCAL.DESCRIPTION>','<STRTOUPPER <LOCAL.SKILL_KEY>>','<FVAL <DLOCAL.SKILL_VAL>>','<LOCAL.SKILLNAME>')
+				DB.EXECUTE INSERT INTO craftitems (baseid,  name , type , category ,  skill_key , skill_val, skill_name) VALUES ('<STRTOUPPER <LOCAL.ITEM>>','<StrReplace <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>','<STRTOUPPER <SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>>','<LOCAL.CATEGORY>','<STRTOUPPER <LOCAL.SKILL_KEY>>','<FVAL <DLOCAL.SKILL_VAL>>','<LOCAL.SKILLNAME>')
 			ENDIF
 			
 		ENDIF
@@ -426,8 +420,8 @@ DB.CONNECT
 // ENDIF
 // DB.CLOSE
 
-DHTMLGUMP +5 +10 260 25 0 0 <def.bfont_white>Toplam üretilen eşya: <QVAL (<LOCAL.MAKEITEMCOUNT>)?<DEF.BFONT_CYAN><Func_NumericFormat <LOCAL.MAKEITEMCOUNT>>:<DEF.BFONT_RED>Yok>
-DHTMLGUMP +5 +30 260 25 0 0 <def.bfont_white>Toplam üretilen kaliteli eşya: <QVAL (<LOCAL.MAKEHQITEMCOUNT>)?<DEF.BFONT_CYAN><Func_NumericFormat <LOCAL.MAKEHQITEMCOUNT>>:<DEF.BFONT_RED>Yok> 
+DHTMLGUMP +5 +10 260 25 0 0 <def.bfont_white>Toplam üretilen eşya: <QVAL (<LOCAL.MAKEITEMCOUNT>)?<DEF.BFONT_CYAN><NumericFormat <LOCAL.MAKEITEMCOUNT>>:<DEF.BFONT_RED>Yok>
+DHTMLGUMP +5 +30 260 25 0 0 <def.bfont_white>Toplam üretilen kaliteli eşya: <QVAL (<LOCAL.MAKEHQITEMCOUNT>)?<DEF.BFONT_CYAN><NumericFormat <LOCAL.MAKEHQITEMCOUNT>>:<DEF.BFONT_RED>Yok> 
 DHTMLGUMP +5 +50 260 25 0 0 <def.bfont_white>Son üretilen: <QVAL (<SRC.TAG0.CRAFT_LASTMAKE_BASEID>)?<DEF.BFONT_CYAN><SERV.ITEMDEF.<SRC.TAG0.CRAFT_LASTMAKE_BASEID>.NAME>:<DEF.BFONT_RED>Yok>
 DHTMLGUMP +5 +70 260 25 0 0 <def.bfont_white><SRC.CTAG.Craft_Menu.Skill> : <SRC.<SERV.SKILL.<SRC.CTAG.Craft_Menu.Skill>.KEY>>
 
@@ -544,7 +538,7 @@ DIALOGCLOSE D_CRAFT_MENU
 DIALOG D_CRAFT_MENU
 
 ON=200000
-SRC.FUNC_MAKELAST
+SRC.MAKELAST
 DIALOGCLOSE D_CRAFT_MENU
 DIALOG D_CRAFT_MENU
 
@@ -595,7 +589,7 @@ IF (STRMATCH(*T_SCROLL*,<SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>)) && (<LOCAL.ITEM> != I
 ENDIF
 IF (<SRC.ISONLINE>)
 	SRC.MAKEITEM <LOCAL.ITEM>
-	SRC.FUNC_SYS_SUCCESS <SERV.ITEMDEF.<LOCAL.ITEM>.NAME> isimli eşyayı üretmeye başladın.
+	SRC.SYSMESSAGE @044,,1,1  <SERV.ITEMDEF.<LOCAL.ITEM>.NAME> isimli eşyayı üretmeye başladın.
 	SRC.CTAG.Craft_Menu.Notice <DEF.BFONT_GREEN><SERV.ITEMDEF.<LOCAL.ITEM>.NAME> isimli eşyayı üretmeye başladın.
 	DIALOGCLOSE D_CRAFT_MENU
 	DIALOG D_CRAFT_MENU
@@ -644,7 +638,7 @@ TILEPICHUE 60 70 <SERV.ITEMDEF.<LOCAL.ITEM>.ID> <DSERV.ITEMDEF.<LOCAL.ITEM>.RESD
 
 RESIZEPIC 135 50 0BB8 285 80 // EŞYA BİLGİLERİ
 
-DTEXT 145 60 0 Eşya : <FUNC_STRINGTOUPPERFIRST <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>
+DTEXT 145 60 0 Eşya : <StrTitle <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>>
 
 DBUTTON 30,400,4015,4016,1,0,0,<DEF.SMSG_CUSTOM_COLOR>,Geri
 DBUTTON 355,400,4006,4007,1,0,2,<DEF.SMSG_SUCCESS_COLOR>,Üret
@@ -696,9 +690,9 @@ IF !(STRMATCH('','<SERV.ITEMDEF.<LOCAL.ITEM>.RESOURCES>'))
 		LOCAL.ID <SERV.ITEMDEF.<LOCAL.ITEM>.RESOURCES.<DLOCAL._FOR>.KEY>
 		LOCAL.ITEMAMOUNT <SERV.ITEMDEF.<LOCAL.ITEM>.RESOURCES.<DLOCAL._FOR>.VAL>
 		IF (<SRC.RESTEST <DLOCAL.ITEMAMOUNT> <LOCAL.ID>>)
-			dcroppedtext 80 <EVAL (<LOCAL.AUMENTAR>*35)+130> 135 25 <DEF.SMSG_CUSTOM_COLOR> <SRC.FUNC_PACKITEMCOUNTER <LOCAL.ID>>/<DLOCAL.ITEMAMOUNT> <SERV.ITEMDEF.<LOCAL.ID>.NAME>
+			dcroppedtext 80 <EVAL (<LOCAL.AUMENTAR>*35)+130> 135 25 <DEF.SMSG_CUSTOM_COLOR> <SRC.PACKITEMCOUNTER <LOCAL.ID>>/<DLOCAL.ITEMAMOUNT> <SERV.ITEMDEF.<LOCAL.ID>.NAME>
 		ELSE
-			dcroppedtext 80 <EVAL (<LOCAL.AUMENTAR>*35)+130> 135 25 <DEF.SMSG_ERROR_COLOR> <SRC.FUNC_PACKITEMCOUNTER <LOCAL.ID>>/<DLOCAL.ITEMAMOUNT> <SERV.ITEMDEF.<LOCAL.ID>.NAME>
+			dcroppedtext 80 <EVAL (<LOCAL.AUMENTAR>*35)+130> 135 25 <DEF.SMSG_ERROR_COLOR> <SRC.PACKITEMCOUNTER <LOCAL.ID>>/<DLOCAL.ITEMAMOUNT> <SERV.ITEMDEF.<LOCAL.ID>.NAME>
 		ENDIF
 		TILEPICHUE 30 <EVAL (<LOCAL.AUMENTAR>*35)+130> <SERV.ITEMDEF.<LOCAL.ID>.ID> <dSERV.ITEMDEF.<LOCAL.ID>.RESDISPDNHUE>
 	ENDFOR
@@ -744,8 +738,8 @@ IF (STRMATCH(*T_SCROLL*,<SERV.ITEMDEF.<LOCAL.ITEM>.TYPE>)) && (<LOCAL.ITEM> != I
 	ENDIF
 ENDIF
 SRC.MAKEITEM <LOCAL.ITEM>
-SRC.FUNC_SYS_SUCCESS <SERV.ITEMDEF.<TAG0.CRAFT_LASTMAKE_BASEID>.NAME> isimli eşyayı üretmeye başladın.
-SRC.CTAG.Craft_Menu.Notice= <FUNC_STRINGTOUPPERFIRST <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>> isimli eşyayı üretmeye başladın.
+SRC.SYSMESSAGE @044,,1,1  <SERV.ITEMDEF.<TAG0.CRAFT_LASTMAKE_BASEID>.NAME> isimli eşyayı üretmeye başladın.
+SRC.CTAG.Craft_Menu.Notice= <StrTitle <SERV.ITEMDEF.<LOCAL.ITEM>.NAME>> isimli eşyayı üretmeye başladın.
 DIALOGCLOSE D_CRAFT_MENU
 DIALOG D_CRAFT_MENU
 		

@@ -2,12 +2,12 @@
 
 
 // SAYUA colour, talkmode, font, lang_id, text
-[FUNCTION FUNC_BANDAGE_DANGER_MSG]
+[FUNCTION BANDAGE_DANGER_MSG]
 // SAYUA 020,10,03,TRK * <ARGS> *
 SAYUA 020,0,0,TRK * <ARGS> *
 // MESSAGE @020,,1,1 * <ARGS> *
 
-[FUNCTION FUNC_BANDAGE_SUCCESS_MSG]
+[FUNCTION BANDAGE_SUCCESS_MSG]
 // SAYUA 048,10,03,TRK * <ARGS> *
 SAYUA 048,0,0,TRK * <ARGS> *
 // MESSAGE @048,,1,1 * <ARGS> *
@@ -17,80 +17,79 @@ SAYUA 048,0,0,TRK * <ARGS> *
 [TYPEDEF T_BANDAGE]
 ON=@DClick
 IF (<TOPOBJ> != <SRC>)
-	SRC.FUNC_SYS_ERROR Sadece üzerinizdeyken kullanabilirsiniz.
+	SRC.SYSMESSAGE @38,,1,1  Sadece üzerinizdeyken kullanabilirsiniz.
 	RETURN 1
 ELSEIF (<SRC.FINDID.I_HEALING_MEMORY>)
-	SRC.FUNC_SYS_ERROR Şu an zaten tedavi aşamasındasınız.
+	SRC.SYSMESSAGE @38,,1,1  Şu an zaten tedavi aşamasındasınız.
 	RETURN 1
 // ELSEIF (<SRC.ISUSESKILL Magery>)
-	// SRC.FUNC_SYS_ERROR Büyü yaparken bandaj kullanamazsınız.
+	// SRC.SYSMESSAGE @38,,1,1  Büyü yaparken bandaj kullanamazsınız.
 	// RETURN 1
 ELSEIF (<SRC.FLAGS>&STATF_DEAD|STATF_STONE|STATF_FREEZE)
-	SRC.FUNC_SYS_ERROR Şu anki durumunuzda kullanamazsınız.
+	SRC.SYSMESSAGE @38,,1,1  Şu anki durumunuzda kullanamazsınız.
 	RETURN 1
 ELSEIF (<SRC.TAG0.HEALDELAY> > <SERV.TIME>)
-	SRC.FUNC_SYS_ERROR Bandajları şu an kullanamazsınız.
+	SRC.SYSMESSAGE @38,,1,1  Bandajları şu an kullanamazsınız.
 	RETURN 1
 ENDIF
 TARGET
 SRC.SYSMESSAGE <SERV.SKILL.17.PROMPT_MSG>
-// SRC.FUNC_SYS_DEF Kimi tedavi etmek istiyorsun?
 RETURN 1
 
 ON=@TARGON_ITEM
-SRC.FUNC_SYS_ERROR <def.msg_invalid_target_tr>
+SRC.SYSMESSAGE @38,,1,1  <def.msg_invalid_target_tr>
 RETURN 1
 
 on=@TARGON_GROUND
-SRC.FUNC_SYS_ERROR <def.msg_invalid_target_tr>
+SRC.SYSMESSAGE @38,,1,1  <def.msg_invalid_target_tr>
 RETURN 1
 
 ON=@TARGON_CANCEL
-SRC.FUNC_SYS_DEF Bandaj hedefi iptal edildi.
+SRC.SYSMESSAGE @,,1,1  Bandaj hedefi iptal edildi.
 
 ON=@TARGON_CHAR
 IF !(<SRC.RESTEST 1 I_BANDAGE>)
-	SRC.FUNC_SYS_ERROR Bandajınız yok.
+	SRC.SYSMESSAGE @38,,1,1  Bandajınız yok.
 	RETURN 1
 	
 ELSEIF (<TOPOBJ> != <SRC>)
-	SRC.FUNC_SYS_ERROR Sadece üzerinizdeyken kullanabilirsiniz.
+	SRC.SYSMESSAGE @38,,1,1  Sadece üzerinizdeyken kullanabilirsiniz.
 	RETURN 1
 	
 // ELSEIF (<SRC.ISUSESKILL MAGERY>)
-	// SRC.FUNC_SYS_ERROR Büyü yaparken bandaj kullanamazsınız.
+	// SRC.SYSMESSAGE @38,,1,1  Büyü yaparken bandaj kullanamazsınız.
 	// RETURN 1
 	
 ELSEIF (<SRC.FINDID.I_HEALING_MEMORY>)
-	SRC.FUNC_SYS_ERROR Şu an zaten tedavi aşamasındasınız.
+	SRC.SYSMESSAGE @38,,1,1  Şu an zaten tedavi aşamasındasınız.
 	RETURN 1
 	
 ELSEIF (<SRC.FLAGS>&STATF_DEAD|STATF_STONE|STATF_FREEZE)
-	SRC.FUNC_SYS_ERROR Şu anki durumunuzda kullanamazsınız.
+	SRC.SYSMESSAGE @38,,1,1  Şu anki durumunuzda kullanamazsınız.
 	RETURN 1
 	
 ELSEIF (<SRC.TAG0.HEALDELAY> > <SERV.TIME>)
-	SRC.FUNC_SYS_ERROR Bandajlari su an kullanamazsiniz.
+	SRC.SYSMESSAGE @38,,1,1  Bandajlari su an kullanamazsiniz.
 	RETURN 1
 	
 ELSEIF (<EVAL <SRC.P.Z>+8> < <SRC.TARG.P.Z>) 
-	SRC.FUNC_SYS_ERROR <src.targ.name> ile aynı yükselikte değilsin.
+	SRC.SYSMESSAGE @38,,1,1  <src.targ.name> ile aynı yükselikte değilsin.
 	RETURN 1
 	
 ELSEIF (<EVAL <SRC.P.Z>-8> > <SRC.TARG.P.Z>)
-	SRC.FUNC_SYS_ERROR <src.targ.name> ile aynı yükselikte değilsin.
+	SRC.SYSMESSAGE @38,,1,1  <src.targ.name> ile aynı yükselikte değilsin.
 	RETURN 1
 	
 ELSEIF !(<SRC.CANSEELOS <SRC.TARG>>)
-	SRC.FUNC_SYS_ERROR <SRC.TARG.NAME> isimli varlığı göremiyorsunuz.
+	SRC.SYSMESSAGE @38,,1,1  <SRC.TARG.NAME> isimli varlığı göremiyorsunuz.
 	RETURN 1
 	
 ELSEIF (<SRC.DISTANCE <SRC.TARG>> > 4)
-	SRC.FUNC_SYS_ERROR <SRC.TARG.NAME> yeterince yakınınızda değil.
+	SRC.SYSMESSAGE @38,,1,1  <SRC.TARG.NAME> yeterince yakınınızda değil.
 	RETURN 1
 	
 ELSEIF !(<SRC.TARG.ISHEALABLECHAR>)
-	SRC.FUNC_SYS_ERROR Bu varlığı iyileştiremezsiniz.
+	SRC.SYSMESSAGE @38,,1,1  Bu varlığı iyileştiremezsiniz.
 	RETURN 1
 ENDIF
 
@@ -105,7 +104,7 @@ ELSEIF (<SRC.TARG.FINDID.I_BLEEDING_WOLF>)
 ENDIF
 
 IF (<LOCAL.YARALI> != 1)
-	SRC.FUNC_SYS_ERROR <QVAL (<SRC.TARG> != <SRC>) ? <SRC.TARG.NAME> tedaviye ihtiyaç duymuyor. : Tedaviye ihtiyacınız yok.>
+	SRC.SYSMESSAGE @38,,1,1  <QVAL (<SRC.TARG> != <SRC>) ? <SRC.TARG.NAME> tedaviye ihtiyaç duymuyor. : Tedaviye ihtiyacınız yok.>
 	IF (<SRC.TARG.HITS> > <SRC.TARG.STR>)
 		SRC.TARG.HITS = <SRC.TARG.STR>
 	ENDIF
@@ -119,13 +118,13 @@ IF (<SRC.TARG.ISPLAYER>) && !(<SRC.TARG.NPC>)
 	IF (<SRC.TARG.UID> != <SRC>)
 		// ATANIN GUİLDİ YOKSA VE ATILANIN VARSA
 		IF !(<SRC.GUILD>) && (<SRC.TARG.GUILD>)  
-			SRC.FUNC_SYS_ERROR Guild üyesi olmayanlar guild üyelerini tedavi edemezsiniz.
+			SRC.SYSMESSAGE @38,,1,1  Guild üyesi olmayanlar guild üyelerini tedavi edemezsiniz.
 			RETURN 1
 		ENDIF
 		// ATANIN ve ATILANIN GUİLDİ VARSA VE ATILAN İLE AYNI DEĞİLSE
 		IF (<SRC.GUILD>) && (<SRC.TARG.GUILD>)  
 			IF (<SRC.TARG.GUILD.ALIGN> != <SRC.GUILD.ALIGN>)
-				SRC.FUNC_SYS_ERROR <SRC.TARG.GUILD.ALIGNTYPE> guildi <SRC.GUILD.ALIGNTYPE> guild üyelerini tedavi edemezsiniz.
+				SRC.SYSMESSAGE @38,,1,1  <SRC.TARG.GUILD.ALIGNTYPE> guildi <SRC.GUILD.ALIGNTYPE> guild üyelerini tedavi edemezsiniz.
 				RETURN 1
 			ENDIF	
 		ENDIF	
@@ -135,13 +134,13 @@ IF (<SRC.TARG.ISPLAYER>) && !(<SRC.TARG.NPC>)
 	IF (<SRC.TARG.FLAGS>&STATF_DEAD)
 		
 		IF !(<SRC.RESTEST 5 i_bandage>)
-			SRC.FUNC_SYS_ERROR Varlıkları canlandırabilmeniz için en az 5 bandajınız olmalı.
+			SRC.SYSMESSAGE @38,,1,1  Varlıkları canlandırabilmeniz için en az 5 bandajınız olmalı.
 			RETURN 1
 		ELSEIF (<SRC.TARG.REGION.FLAGS>&REGION_FLAG_HOUSE)
-			SRC.FUNC_SYS_ERROR <SRC.TARG.NAME> ev içinde olduğu için hayata döndüremezsiniz.
+			SRC.SYSMESSAGE @38,,1,1  <SRC.TARG.NAME> ev içinde olduğu için hayata döndüremezsiniz.
 			RETURN 1
 		ELSEIF (<SRC.TARG.MEMORYFINDTYPE.MEMORY_TOWN>) && !(<SRC.MEMORYFINDTYPE.MEMORY_TOWN>)
-			SRC.FUNC_SYS_ERROR Faction uyelerini iyilestiremezsiniz.
+			SRC.SYSMESSAGE @38,,1,1  Faction uyelerini iyilestiremezsiniz.
 			RETURN 1
 		ENDIF
 		
@@ -151,20 +150,20 @@ IF (<SRC.TARG.ISPLAYER>) && !(<SRC.TARG.NPC>)
 		SRC.TARG.HITS = <QVAL (<SRC.TARG.STR> >= <SERV.HitPointPercentOnRez>)?<SERV.HitPointPercentOnRez>:1>
 		SRC.TARG.EFFECT 3,0376A,1,16,0,0,0
 		SRC.CONSUME 10 i_bandage
-		SRC.FUNC_SYS_SUCCESS <SRC.TARG.NAME> isimli oyuncuyu dirilttin.
+		SRC.SYSMESSAGE @044,,1,1 <SRC.TARG.NAME> isimli oyuncuyu dirilttin.
 
 	// PLAYER CANLI İSE
 	ELSE
 		SERV.NEWITEM I_HEALING_MEMORY,1,<SRC>,1
 		NEW.LINK <SRC.TARG>	
-		SRC.FUNC_SYS_SUCCESS <QVAL (<SRC> == <SRC.TARG>)?Tedaviye başladın:<SRC.TARG.NAME> isimli oyuncuyu tedavi etmeye başladın>.
+		SRC.SYSMESSAGE @044,,1,1 <QVAL (<SRC> == <SRC.TARG>)?Tedaviye başladın:<SRC.TARG.NAME> isimli oyuncuyu tedavi etmeye başladın>.
 	ENDIF
 	
 // Player değile
 ELSE
 	SERV.NEWITEM I_HEALING_MEMORY,1,<SRC>,1
 	NEW.LINK <SRC.TARG>	
-	SRC.FUNC_SYS_SUCCESS <QVAL (<SRC> == <SRC.TARG>)?Tedaviye başladın:<SRC.TARG.NAME> isimli varlığı tedavi etmeye başladın>.
+	SRC.SYSMESSAGE @044,,1,1 <QVAL (<SRC> == <SRC.TARG>)?Tedaviye başladın:<SRC.TARG.NAME> isimli varlığı tedavi etmeye başladın>.
 ENDIF
 
 SRC.FACE <SRC.TARG>
@@ -188,7 +187,7 @@ SRC.SKILL FAIL
 SRC.FREEZETIME_CUSTOM 30
 SRC.ANIM 17
 TIMER=5
-// SRC.FUNC_POTIONCOOLDOWN_OPENDLG <SERV.ITEMDEF.I_BANDAGE.ID>,50
+// SRC.POTIONCOOLDOWN_OPENDLG <SERV.ITEMDEF.I_BANDAGE.ID>,50
 
 ON=@UNEQUIP
 SRC.EVENTS -E_HEALING
@@ -208,37 +207,37 @@ ELSE
 ENDIF
 
 IF (<CONT.FLAGS>&STATF_STONE)
-	CONT.FUNC_SYS_ERROR Şu anki durumunuzda kullanamazsınız.
+	CONT.SYSMESSAGE @38,,1,1  Şu anki durumunuzda kullanamazsınız.
 	REMOVE
 	RETURN 1
 	
 ELSEIF !(<CONT.RESTEST 1 I_BANDAGE>)
-	CONT.FUNC_SYS_ERROR Bandajiniz yok.
+	CONT.SYSMESSAGE @38,,1,1  Bandajiniz yok.
 	REMOVE
 	RETURN 1
 	
 ELSEIF !(<LOCAL.YARALI>)
-	CONT.FUNC_SYS_ERROR <QVAL (<LINK> != <CONT>) ? <LINK.NAME> tedaviye ihtiyaç duymuyor. : Tedaviye ihtiyacınız yok.>
+	CONT.SYSMESSAGE @38,,1,1  <QVAL (<LINK> != <CONT>) ? <LINK.NAME> tedaviye ihtiyaç duymuyor. : Tedaviye ihtiyacınız yok.>
 	REMOVE
 	RETURN 1
 
 ELSEIF (<LINK.FLAGS>&STATF_DEAD)
-	CONT.FUNC_SYS_ERROR <link.name> tedavi esnasinda hayatini kaybetti.
+	CONT.SYSMESSAGE @38,,1,1  <link.name> tedavi esnasinda hayatini kaybetti.
 	REMOVE
 	RETURN 1
 	
 ELSEIF (<EVAL <CONT.P.Z>+8> < <LINK.P.Z>) 
-	CONT.FUNC_SYS_ERROR <LINK.name> ile aynı yükselikte değilsin.
+	CONT.SYSMESSAGE @38,,1,1  <LINK.name> ile aynı yükselikte değilsin.
 	REMOVE
 	RETURN 1
 	
 ELSEIF (<EVAL <CONT.P.Z>-8> > <LINK.P.Z>)
-	CONT.FUNC_SYS_ERROR <LINK.name> ile aynı yükselikte değilsin.
+	CONT.SYSMESSAGE @38,,1,1  <LINK.name> ile aynı yükselikte değilsin.
 	REMOVE
 	RETURN 1
 	
 ELSEIF !(<LINK.ISHEALABLECHAR>)
-	CONT.FUNC_SYS_ERROR Bu varlığı iyileştiremezsiniz.
+	CONT.SYSMESSAGE @38,,1,1  Bu varlığı iyileştiremezsiniz.
 	REMOVE
 	RETURN 1
 ENDIF
@@ -249,10 +248,10 @@ IF (<LINK.FLAGS>&STATF_POISONED) // ZEHİR İYİLEŞTİR
 		// Success
 		LINK.CURE 100.0
 		LINK.EFFECT 3,0376A,2,10,1		
-		CONT.Func_Heal_Poison_SuccessMsg <LINK>
+		CONT.Heal_Poison_SuccessMsg <LINK>
 	ELSE
 		// Fail
-		CONT.Func_Heal_Poison_FailMsg <LINK>
+		CONT.Heal_Poison_FailMsg <LINK>
 	ENDIF
 	
 	
@@ -262,10 +261,10 @@ ELSEIF (<LINK.FINDID.I_BLEEDING>) // YARA İYİLEŞTİR
 		// Success
 		LINK.FINDID.I_BLEEDING.REMOVE
 		LINK.EFFECT 3,0376A,2,10,1	
-		CONT.Func_Heal_Bleeding_SuccessMsg <LINK>
+		CONT.Heal_Bleeding_SuccessMsg <LINK>
 	ELSE
 		// Fail
-		CONT.Func_Heal_Bleeding_FailMsg <LINK>
+		CONT.Heal_Bleeding_FailMsg <LINK>
 	ENDIF
 
 	
@@ -275,10 +274,10 @@ ELSEIF (<LINK.FINDID.I_BLEEDING_WOLF>) // WOLF YARA İYİLEŞTİR
 		// Success
 		LINK.FINDID.I_BLEEDING_WOLF.REMOVE
 		LINK.EFFECT 3,0376A,2,10,1	
-		CONT.Func_Heal_Bleeding_SuccessMsg <LINK>
+		CONT.Heal_Bleeding_SuccessMsg <LINK>
 	ELSE
 		// Fail
-		CONT.Func_Heal_Bleeding_FailMsg <LINK>
+		CONT.Heal_Bleeding_FailMsg <LINK>
 	ENDIF
 	
 ELSE // TEDAVİ ET
@@ -293,7 +292,7 @@ ELSE // TEDAVİ ET
 		LINK.HITS = <LINK.STR>
 	ENDIF
 	
-	CONT.Func_Heal_SuccessMsg <LINK>
+	CONT.Heal_SuccessMsg <LINK>
 	LINK.EFFECT 3,0376A,2,10,1
 	
 ENDIF
@@ -314,7 +313,7 @@ ENDIF
 
 // ON=@SPELLSELECT
 // IF (<SRC.FINDID.I_HEALING_MEMORY>)
-	// SRC.FUNC_SYS_ERROR Bandaj basarken büyü atamazsınız.
+	// SRC.SYSMESSAGE @38,,1,1  Bandaj basarken büyü atamazsınız.
 	// RETURN 1
 // ENDIF
 
@@ -327,7 +326,7 @@ IF (RAND(5) == 1)
 	ENDIF
 	TAG0.HEALDELAY=
 	
-	FUNC_BANDAGE_DANGER_MSG bandajları yırtılır
+	BANDAGE_DANGER_MSG bandajları yırtılır
 ENDIF
 
 on=@SkillStart
@@ -335,7 +334,7 @@ IF ((<ARGN1> == 25) || (<ARGN1> == 49))
 	IF (<FINDID.I_HEALING_MEMORY>)
 		FINDID.I_HEALING_MEMORY.REMOVE
 	ENDIF
-	FUNC_BANDAGE_DANGER_MSG bandajları yırtılır
+	BANDAGE_DANGER_MSG bandajları yırtılır
 	TAG0.HEALDELAY=
 ENDIF
 
@@ -348,14 +347,14 @@ ENDIF
 
 
 // Heal
-[FUNCTION Func_Heal_SuccessMsg]
+[FUNCTION Heal_SuccessMsg]
 REF1=<ARGS>
 IF (<UID> == <REF1>)
-	FUNC_BANDAGE_SUCCESS_MSG kendini tedavi eder
+	BANDAGE_SUCCESS_MSG kendini tedavi eder
 ELSE
-	FUNC_BANDAGE_SUCCESS_MSG <REF1.name> isimli varlığı iyileştirir
+	BANDAGE_SUCCESS_MSG <REF1.name> isimli varlığı iyileştirir
 	// REF1.TAG0.HEALDELAY=
-	REF1.FUNC_BANDAGE_SUCCESS_MSG <NAME> tarafından iyileştirilir
+	REF1.BANDAGE_SUCCESS_MSG <NAME> tarafından iyileştirilir
 ENDIF
 
 
@@ -365,22 +364,22 @@ ENDIF
 
 // Bleeding
 
-[FUNCTION Func_Heal_Bleeding_SuccessMsg]
+[FUNCTION Heal_Bleeding_SuccessMsg]
 REF1=<ARGS>
 IF (<UID> == <REF1>)
-	FUNC_BANDAGE_SUCCESS_MSG yarayı tedavi eder
+	BANDAGE_SUCCESS_MSG yarayı tedavi eder
 ELSE
-	FUNC_BANDAGE_SUCCESS_MSG <REF1.name> isimli varlığın yarasını iyileştirir
-	REF1.FUNC_BANDAGE_SUCCESS_MSG <NAME> tarafından yarası iyileştirilir
+	BANDAGE_SUCCESS_MSG <REF1.name> isimli varlığın yarasını iyileştirir
+	REF1.BANDAGE_SUCCESS_MSG <NAME> tarafından yarası iyileştirilir
 ENDIF
 
 
-[FUNCTION Func_Heal_Bleeding_FailMsg]
+[FUNCTION Heal_Bleeding_FailMsg]
 REF1=<ARGS>
 IF (<UID> == <REF1>)
-	FUNC_BANDAGE_DANGER_MSG yarayı iyileştiremez
+	BANDAGE_DANGER_MSG yarayı iyileştiremez
 ELSE
-	FUNC_BANDAGE_DANGER_MSG <REF1.NAME> üzerindeki yarayı iyileştiremez
+	BANDAGE_DANGER_MSG <REF1.NAME> üzerindeki yarayı iyileştiremez
 ENDIF
 
 
@@ -389,22 +388,22 @@ ENDIF
 
 
 // Poison
-[FUNCTION Func_Heal_Poison_SuccessMsg]
+[FUNCTION Heal_Poison_SuccessMsg]
 REF1=<ARGS>
 IF (<UID> == <REF1>)
-	FUNC_BANDAGE_SUCCESS_MSG zehiri iyileştirir
+	BANDAGE_SUCCESS_MSG zehiri iyileştirir
 ELSE
-	FUNC_BANDAGE_SUCCESS_MSG <REF1.name> isimli varlığın zehrini iyileştirir
-	REF1.FUNC_BANDAGE_SUCCESS_MSG <NAME> tarafından zehri iyileştirilir
+	BANDAGE_SUCCESS_MSG <REF1.name> isimli varlığın zehrini iyileştirir
+	REF1.BANDAGE_SUCCESS_MSG <NAME> tarafından zehri iyileştirilir
 ENDIF
 
 
-[FUNCTION Func_Heal_Poison_FailMsg]
+[FUNCTION Heal_Poison_FailMsg]
 REF1=<ARGS>
 IF (<UID> == <REF1>)
-	FUNC_BANDAGE_DANGER_MSG zehiri iyileştiremez
+	BANDAGE_DANGER_MSG zehiri iyileştiremez
 ELSE
-	FUNC_BANDAGE_DANGER_MSG <REF1.NAME> üzerindeki zehiri iyileştiremez
+	BANDAGE_DANGER_MSG <REF1.NAME> üzerindeki zehiri iyileştiremez
 ENDIF
 
 

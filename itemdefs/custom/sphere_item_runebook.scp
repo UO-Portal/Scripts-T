@@ -1,6 +1,6 @@
 
 
-[FUNCTION FUNC_RUNEBOOK_TABLE_CREATE]
+[FUNCTION RUNEBOOK_TABLE_CREATE]
 IF (<DEF.SQLITE_RUNEBOOKS>)
 	IF !(<TAG0.LINK>)
 		LDB.CONNECT "db/runebooks.db"
@@ -198,7 +198,7 @@ IF (<SRC.CTAG0.RunebookDclick.DELAY> > <SERV.TIME>)
 	RETURN 1
 ENDIF
 IF !(<TAG0.LINK>)
-	FUNC_Runebook_Table_Create
+	runebook_Table_Create
 ENDIF
 IF (<CONT>) && (<TOPOBJ.UID> != <SRC.UID>) && (<SRC.ACCOUNT.PLEVEL> < 6)
 	SRC.SYSMESSAGE @38,,1,1 Sadece yerdeki veya kendi çantanızdaki Runebookları açabilirsiniz.
@@ -255,7 +255,7 @@ IF !(<SRC.ISINPACK <UID>>)
 ENDIF
 // Rune ekle
 IF ((<ARGO.BASEID> == I_RUNE_MARKER) || (<ARGO.TYPE> == T_RUNE))
-	Func_Runebook_Add_Rune <ARGO.UID>
+	Runebook_Add_Rune <ARGO.UID>
 ELSE
 	SRC.SYSMESSAGE @38,,1,1 Bu eşyanın kitap ile bir ilgisi yok.
 ENDIF
@@ -276,7 +276,7 @@ IF (<MORE2> == 2)
 		TARGET
 		RETURN 1
 	ENDIF
-	Func_Runebook_Add_Rune <SRC.TARG.UID>
+	Runebook_Add_Rune <SRC.TARG.UID>
 ENDIF
 RETURN 1
 
@@ -296,7 +296,7 @@ ENDIF
 
 
 
-[FUNCTION FUNC_RUNEBOOK_ADD_RUNE]
+[FUNCTION RUNEBOOK_ADD_RUNE]
 REF1=<ARGS>   // Rune
 // UID = RUNEBOOK
 
@@ -323,7 +323,7 @@ ELSEIF !(<SRC.ISINPACK <REF1>>)
 	RETURN 1
 ENDIF
 
-FUNC_Runebook_Table_Create
+Runebook_Table_Create
 
 IF !(<TAG0.RUNEBOOK_LASTPAGE>)
 	TAG0.RUNEBOOK_LASTPAGE=1
@@ -334,8 +334,8 @@ IF (<LDB.CONNECTED>)
 
 	LDB.Query "SELECT * FROM 'Runebook_<UID>' WHERE rune_uid IS NULL"
 	IF (<LDB.ROW.NUMROWS>)
-		LDB.EXECUTE "UPDATE 'Runebook_<UID>' SET rune_uid="<REF1>", rune_name="<REF1.NAME>", rune_morep="<REF1.MOREP>", rune_px="<REF1.MOREX>", rune_py="<REF1.MOREY>", rune_pz="<REF1.MOREZ>", rune_pm="<REF1.MOREM>", region_name="<FUNC_STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>", region_text="<FUNC_STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>", region_flags="<SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.FLAGS>", page="<TAG0.RUNEBOOK_LASTPAGE>", ordering="0" WHERE id='<LDB.ROW.0.id>'"
-		//LDB.QUERY INSERT INTO 'Runebook_<UID>' (rune_uid, rune_name, rune_morep, rune_px, rune_py, rune_pz, rune_pm, region_name, region_text, region_flags, page, ordering) VALUES ("<REF1>","<REF1.NAME>","<REF1.MOREP>","<REF1.MOREX>","<REF1.MOREY>","<REF1.MOREZ>","<REF1.MOREM>","<FUNC_STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>","<FUNC_STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>","<SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.FLAGS>","<TAG0.RUNEBOOK_LASTPAGE>","0")
+		LDB.EXECUTE "UPDATE 'Runebook_<UID>' SET rune_uid="<REF1>", rune_name="<REF1.NAME>", rune_morep="<REF1.MOREP>", rune_px="<REF1.MOREX>", rune_py="<REF1.MOREY>", rune_pz="<REF1.MOREZ>", rune_pm="<REF1.MOREM>", region_name="<STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>", region_text="<STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>", region_flags="<SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.FLAGS>", page="<TAG0.RUNEBOOK_LASTPAGE>", ordering="0" WHERE id='<LDB.ROW.0.id>'"
+		//LDB.QUERY INSERT INTO 'Runebook_<UID>' (rune_uid, rune_name, rune_morep, rune_px, rune_py, rune_pz, rune_pm, region_name, region_text, region_flags, page, ordering) VALUES ("<REF1>","<REF1.NAME>","<REF1.MOREP>","<REF1.MOREX>","<REF1.MOREY>","<REF1.MOREZ>","<REF1.MOREM>","<STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>","<STRING_REPLACER <SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.NAME>>","<SERV.MAP(<REF1.MOREX>,<REF1.MOREY>,<REF1.MOREZ>,<REF1.MOREM>).REGION.FLAGS>","<TAG0.RUNEBOOK_LASTPAGE>","0")
 	ENDIF
 	SRC.SYSMESSAGE @,,1,1 Runeyi kitaba eklediniz.
 	SRC.SOUND=79
@@ -977,8 +977,8 @@ LDB.CONNECT "db/runebooks.db"
 IF (<LDB.CONNECTED>)
 	lDB.QUERY "SELECT rowid, id FROM '<SRC.CTAG0.RUNEBOOK_FROM>' WHERE rune_uid='<UID>'"
 	IF (<dLDB.ROW.NUMROWS>)
-		LDB.EXECUTE "UPDATE '<SRC.CTAG0.RUNEBOOK_FROM>' SET region_text='<FUNC_STRING_REPLACER <ARGTXT[0]>>' WHERE rune_uid='<UID>'"
-		SRC.SYSMESSAGE @,,1,1 Rune adı <FUNC_STRING_REPLACER <ARGTXT[0]>> olarak değişti.
+		LDB.EXECUTE "UPDATE '<SRC.CTAG0.RUNEBOOK_FROM>' SET region_text='<StrReplace <ARGTXT[0]>>' WHERE rune_uid='<UID>'"
+		SRC.SYSMESSAGE @,,1,1 Rune adı <STRING_REPLACER <ARGTXT[0]>> olarak değişti.
 		// MORE2=
 		// SRC.DCLICK <UID>
 	ENDIF
@@ -992,7 +992,7 @@ LDB.CONNECT "db/runebooks.db"
 IF (<LDB.CONNECTED>)
 lDB.QUERY "SELECT rowid, id FROM '<SRC.CTAG0.RUNEBOOK_FROM>' WHERE rune_uid='<UID>'"
 	IF (<dLDB.ROW.NUMROWS>)
-		lDB.EXECUTE "UPDATE '<SRC.CTAG0.RUNEBOOK_FROM>' SET region_text='<FUNC_STRING_REPLACER <SERV.MAP(<Ldb.row.0.region_p>).REGION.NAME>>' WHERE rune_uid='<UID>'"
+		lDB.EXECUTE "UPDATE '<SRC.CTAG0.RUNEBOOK_FROM>' SET region_text='<StrReplace <SERV.MAP(<Ldb.row.0.region_p>).REGION.NAME>>' WHERE rune_uid='<UID>'"
 		SRC.SYSMESSAGE @,,1,1 Rune adı varsayılan olarak değişti.
 		// MORE2=
 		// SRC.DCLICK <UID>
@@ -1066,7 +1066,7 @@ DHTMLGUMP 20 20 220 25 1 0 <DEF.CENTER>GATE TRAVEL
 TILEPIC 20 60 <SERV.ITEMDEF.I_RUNE_GATE_TRAVEL.ID>
 
 IF (<LINK>) && (<LINK.ISITEM>)
-	CALL Func_Map_Colors <LINK.P.X>,<LINK.P.Y>,<LINK.P.Z>,<LINK.P.M>
+	CALL Map_Colors <LINK.P.X>,<LINK.P.Y>,<LINK.P.Z>,<LINK.P.M>
 	DHTMLGUMP 70 50 170 25 1 0 <LOCAL.REGIONCOLOR_HTML><LINK.REGION.NAME>
 	DHTMLGUMP 70 80 170 25 1 0 <LINK.P>
 	// IF (<LINK.ISNEARTYPE T_SPELL 1>)

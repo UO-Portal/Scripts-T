@@ -1,0 +1,1529 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+
+[FUNCTION StrReplace]
+local.str=<asc <args>>
+local.string=s
+for i 0 strlen(<local.str>)
+    local.check=<strarg <local.str>>
+    local.last=<local.check>
+    if (<local.check> == 00)
+        return <strsub 1 <eval strlen(<local.string>)-2> <local.string>>
+    endif
+    if (<local.check>=<asc '>)
+        local.string <strsub 0 <eval strlen(<local.string>)-1> <local.string>>\s
+    else
+        local.string <strsub 0 <eval strlen(<local.string>)-1> <local.string>><chr <local.check>>s
+    endif
+    local.str=<streat <local.str>>
+endfor
+return <strsub 1 <eval strlen(<local.string>)-2> <local.string>>
+
+
+[FUNCTION StrTitle]
+//in: yo bro
+//out: Yo Bro
+// serv.log <args>
+LOCAL.WORD=<STRARG <ARGS>>
+LOCAL.RES = <STRTOUPPER <STRSUB 0 1 <LOCAL.WORD>>><STRSUB 1 STRLEN(<LOCAL.WORD>)-1 <LOCAL.WORD>>
+ARGS=<STREAT <ARGS>>
+WHILE !(<ISEMPTY <ARGS>>)
+	LOCAL.WORD=<STRARG <ARGS>>
+	LOCAL.RES=<LOCAL.RES> <STRTOUPPER <STRSUB 0 1 <LOCAL.WORD>>><STRSUB 1 STRLEN(<LOCAL.WORD>)-1 <LOCAL.WORD>>
+	ARGS=<STREAT <ARGS>>
+ENDWHILE
+RETURN <LOCAL.RES>
+
+
+[FUNCTION CustomLog]
+SERV.LOG [Name=<NAME>, UID=<UID>, Region=<P>/<REGION.NAME>, Account=<ACCOUNT>, IP=<ACCOUNT.LASTIP>]
+SERV.LOG <ARGS>
+
+
+[Function SetProcessDelay]
+IF !(<ISGM>)
+	IF (<CTAG0.<ARGV0>.Delay> > <SERV.TIME>)
+		SYSMESSAGE @38,,1,1 You must wait to perform another action. (<f_stonesys_determine_timeleft <CTAG0.<ARGV0>.DELAY>>)
+		RETURN 1
+	ENDIF
+	CTAG0.<ARGV0>.DELAY = <EVAL <SERV.TIME>+<ARGV1>>
+ENDIF
+
+
+[FUNCTION OwnerMemDel]
+IF (<ISEMPTY <ARGS>>)
+	REF1=<ARGS>
+ENDIF
+FORCHARMEMORYTYPE memory_ipet
+	remove
+ENDFOR
+FORCHARMEMORYTYPE memory_friend
+	remove
+ENDFOR
+FORCHARMEMORYTYPE memory_guard
+	remove
+ENDFOR
+IF (<REF1>)
+	ATTACK=<REF1>
+ENDIF
+OWNER=
+RELEASE
+SAY @,,1,1 <NAME> appears to have decided that it is better off without a master!
+
+
+
+
+[FUNCTION RANDMOVE]
+LOCAL._DIRECTIONS=S,W,N,E,SW,NE,ES,WN,NW,SE
+MOVE <ARRAY <LOCAL._DIRECTIONS>,<R1,<ARRAYCOUNT <LOCAL._DIRECTIONS>>>> <ARGS>
+
+
+
+
+// Add Gold Function
+// Use; I = 5000 (Char)
+// Use; NEW = 5000 (Item)
+[FUNCTION ADDGold]
+WHILE (<ARGS> > 0)
+  SERV.NEWITEM I_GOLD
+  IF (<ARGS> > <SERV.ItemsMaxAmount>)
+    NEW.AMOUNT=<SERV.ItemsMaxAmount>
+  ELSE
+    NEW.AMOUNT=<ARGS>
+  ENDIF
+  NEW.CONT=<UID>
+  ARGS -= <NEW.AMOUNT>
+ENDWHILE
+
+
+// Add Gold Function
+// Use; I = 5000 (Char)
+// Use; NEW = 5000 (Item)
+[FUNCTION ADDSilver]
+WHILE (<ARGS> > 0)
+  SERV.NEWITEM I_coin_silver
+  IF (<ARGS> > <SERV.ItemsMaxAmount>)
+    NEW.AMOUNT=<SERV.ItemsMaxAmount>
+  ELSE
+    NEW.AMOUNT=<ARGS>
+  ENDIF
+  NEW.CONT=<UID>
+  ARGS -= <NEW.AMOUNT>
+ENDWHILE
+
+
+
+
+
+
+//Kullanımı = <PERCENT 10,222>  222 = %si alınacak rakam 10 = % değeri.
+[FUNCTION PERCENT]
+RETURN <EVAL (<DARGV[1]>*<DARGV[0]>)/100>
+
+
+
+
+[FUNCTION FREEZETIME_CUSTOM]
+IF !(<ARGS>)
+	TAG0.NOMOVETILL=
+ELSEIF (<ARGS> < 0)
+	TAG0.NOMOVETILL=<EVAL <SERV.TIME> + (999999999 * 6)>
+ELSE
+	// TAG0.NOMOVETILL=<EVAL <SERV.TIME> + (<ARGS> * 6)>
+	TAG0.NOMOVETILL=<EVAL <SERV.TIME> + <ARGS>>
+ENDIF
+
+
+	
+[FUNCTION HITS_FIX]
+IF (<HITS> >= <STR>)
+	HITS = <STR>
+ENDIF
+	
+	
+[FUNCTION GIVE_HITS_FIX]
+IF (<HITS> >= <STR>)
+	HITS=<STR>
+ENDIF
+IF (<HITS> < <STR>)
+	LOCAL.HITS=<ARGS>
+	HITS +=<DLOCAL.HITS>
+	SYSMESSAGE @,1 "+<DLOCAL.HITS> Hits"
+ELSE
+	HITS=<STR>
+ENDIF
+
+IF (<HITS> >= <STR>)
+	HITS=<STR>
+ENDIF
+
+
+[FUNCTION GIVE_MANA_FIX]
+IF (<MANA> >= <INT>)
+	MANA=<INT>
+ENDIF
+IF (<MANA> < <INT>)
+	LOCAL.MANA=<ARGS>
+	MANA +=<DLOCAL.MANA>
+	SYSMESSAGE @,1 "+<DLOCAL.MANA> Mana"
+ELSE
+	MANA=<INT>
+ENDIF
+IF (<MANA> >= <INT>)
+	MANA=<INT>
+ENDIF
+
+
+
+[FUNCTION GIVE_STAM_FIX]
+IF (<STAM> >= <DEX>)
+	STAM=<DEX>
+ENDIF
+IF (<STAM> < <DEX>)
+	LOCAL.STAM=<ARGS>
+	STAM +=<DLOCAL.STAM>
+	SYSMESSAGE @,1 "+<DLOCAL.STAM> Stam"
+ELSE
+	STAM=<DEX>
+ENDIF
+IF (<STAM> >= <DEX>)
+	STAM=<DEX>
+ENDIF
+
+
+
+
+
+
+
+[FUNCTION FULLSTAT_DAMAGE]
+// HITS
+TAKE_HITS_FIX <ARGV[0]>
+// STAM
+TAKE_MANA_FIX <ARGV[1]>
+// MANA
+TAKE_STAM_FIX <ARGV[2]>
+
+
+
+
+// TAKE STAT
+
+[FUNCTION TAKE_HITS_FIX]
+IF (<HITS> >= 1)
+	LOCAL.DROP = <QVAL (<ISEMPTY <ARGS>>)?1:<ARGS>>
+	
+	HITS -=<DLOCAL.DROP>
+	SYSMESSAGE @38,,1,1  "-<DLOCAL.DROP> Hits"
+ENDIF
+
+
+[FUNCTION TAKE_MANA_FIX]
+IF (<MANA> > 1)
+	LOCAL.DROP = <QVAL (<ISEMPTY <ARGS>>)?1:<ARGS>>
+	MANA -=<DLOCAL.DROP>
+	SYSMESSAGE @38,,1,1  "-<DLOCAL.DROP> Mana"
+ENDIF
+
+[FUNCTION TAKE_STAM_FIX]
+IF (<STAM> > 1)
+	LOCAL.DROP = <QVAL (<ISEMPTY <ARGS>>)?1:<ARGS>>
+	STAM -=<DLOCAL.DROP>
+SYSMESSAGE @38,,1,1  "-<DLOCAL.DROP> Stam"
+ENDIF
+
+
+
+
+
+
+
+
+// Full Stats Function
+[FUNCTION FULLSTATS]
+HITS <STR>
+MANA <INT>
+STAM <DEX>
+CURE
+IF (<FINDID.I_RUNE_POISON>)
+	FINDID.I_RUNE_POISON.REMOVE
+ENDIF
+IF (<FINDID.I_BLEEDING>)
+	FINDID.I_BLEEDING.REMOVE
+ENDIF
+IF (<FINDID.I_BLEEDING_WOLF>)
+	FINDID.I_BLEEDING_WOLF.REMOVE
+ENDIF
+
+
+
+
+
+[FUNCTION StrTitle]
+LOCAL.WORD=<STRARG <ARGS>>
+LOCAL.RES = <STRTOUPPER <STRSUB 0 1 <LOCAL.WORD>>><STRSUB 1 STRLEN(<LOCAL.WORD>)-1 <LOCAL.WORD>>
+ARGS=<STREAT <ARGS>>
+WHILE !(<ISEMPTY <ARGS>>)
+	LOCAL.WORD=<STRARG <ARGS>>
+	LOCAL.RES=<LOCAL.RES> <STRTOUPPER <STRSUB 0 1 <LOCAL.WORD>>><STRSUB 1 STRLEN(<LOCAL.WORD>)-1 <LOCAL.WORD>>
+	ARGS=<STREAT <ARGS>>
+ENDWHILE
+RETURN <LOCAL.RES>
+
+
+
+
+
+[FUNCTION STATFIX]
+SPELLEFFECT S_DISPEL,1000,0,<UID>
+
+IF (<FINDTYPE.T_SPELL>)
+	IF (<FINDTYPE.T_SPELL.BASEID> != I_HANDR_1)
+		FINDTYPE.T_SPELL.REMOVE
+	ENDIF
+ENDIF
+
+TARGETCLOSE
+
+EVENTS +E_STAT
+
+MODDEX=0
+MODINT=0
+MODSTR=0
+
+OSTR=<ARGV[0]>
+ODEX=<ARGV[1]>
+OINT=<ARGV[2]>
+
+STR = <OSTR>
+DEX = <ODEX>
+INT = <OINT>
+
+MAXHITS=
+MAXSTAM=
+MAXMANA=
+
+IF (<HITS> >= <STR>)
+	HITS=<STR>
+ENDIF
+IF (<STAM> >= <DEX>)
+	STAM=<DEX>
+ENDIF
+IF (<MANA> >= <INT>)
+	MANA=<INT>
+ENDIF
+
+STATLOCK[1] = 2
+STATLOCK[2] = 2
+STATLOCK[0] = 2
+UPDATE
+
+
+
+
+
+
+
+// Custom All Dialog Close Function
+[FUNCTION DIALOGCLOSEALL]
+CLEARCTAGS DialogList
+
+IF (<ISPLAYER>) && (<ISONLINE>)
+
+	IF (<DIALOGLIST.COUNT> > 0)
+		FOR d 0 <eval <DIALOGLIST.COUNT>-1>
+			CTAG0.DialogList.Count ++
+			CTAG0.DialogList.D<CTAG0.DialogList.Count> <DIALOGLIST.<dLOCAL.d>.ID>
+		ENDFOR
+	ENDIF
+	
+	IF (<CTAG0.DialogList.Count> > 0)
+		FOR 1 <CTAG0.DialogList.Count>
+			IF !((STRMATCH('ScrRes','<CTAG0.DialogList.D<DLOCAL._FOR>>')) || (STRMATCH('D_SUNUCU_EV','<CTAG0.DialogList.D<DLOCAL._FOR>>')) ||  (STRMATCH('D_KREDI','<CTAG0.DialogList.D<DLOCAL._FOR>>')) || (STRMATCH('D_NOTICE','<CTAG0.DialogList.D<DLOCAL._FOR>>')) || (STRMATCH('D_YETKILI_MIN','<CTAG0.DialogList.D<DLOCAL._FOR>>'))  || (STRMATCH('D_YETKILI_MAX','<CTAG0.DialogList.D<DLOCAL._FOR>>')) || (STRMATCH('D_PIN_ENTER','<CTAG0.DialogList.D<DLOCAL._FOR>>')))
+				DIALOGCLOSE <CTAG0.DialogList.D<DLOCAL._FOR>> // <ARGN2>
+			ENDIF
+			// DIALOGCLOSE <CTAG0.DialogList.D<DLOCAL._FOR>>
+		ENDFOR
+		// CLEARCTAGS DialogList
+	ENDIF
+ENDIF
+
+
+
+
+
+
+[PLEVEL 9]
+WRITEFILE
+DELETEFILE
+
+[FUNCTION WRITEFILE]
+IF (STRMATCH(*.scp*,'<ARGS>')) 
+	RETURN 1
+ELSEIF (STRMATCH(*.php*,'<ARGS>'))
+	RETURN 1
+ENDIF
+
+IF !(<FILE.INUSE>)
+	FILE.MODE.CREATE=1
+	FILE.MODE.APPEND=1
+	FILE.MODE.WRITEFLAG=1
+	IF (<FILE.OPEN <STRARG <ARGS>>>)
+		FILE.WRITELINE <STREAT <ARGS>>
+		FILE.CLOSE
+	ENDIF
+ENDIF
+
+
+
+[FUNCTION DELETEFILE]
+IF (STRMATCH(*.scp*,'<ARGS>')) 
+	RETURN 1
+ELSEIF (STRMATCH(*.php*,'<ARGS>'))
+	RETURN 1
+ENDIF
+	IF !(<FILE.INUSE>)
+	FILE.MODE.APPEND=1
+	FILE.DELETEFILE <ARGS>
+	FILE.CLOSE
+ENDIF
+
+
+
+
+[FUNCTION NumberFormat]
+IF (<EVAL STRLEN(<ARGS>)> > 3)
+LOCAL.CURRENTDIGIT=<EVAL STRLEN(<ARGS>)>
+	WHILE (<LOCAL.CURRENTDIGIT> > 3)
+	   ARGS = <STRSUB 0 <EVAL <dLOCAL.CURRENTDIGIT>-3> <ARGS>>.<STRSUB <EVAL <LOCAL.CURRENTDIGIT> - 3> 9999 <ARGS>>
+	   LOCAL.CURRENTDIGIT -=3
+	ENDWHILE
+ENDIF
+RETURN <ARGS>
+
+
+
+
+
+
+[FUNCTION TARGETF_REMOVE]
+IF !(<ARGO>)
+	SRC.SYSMESSAGE @38,,1,1  <def.msg_invalid_target_tr>
+	RETURN 1
+ENDIF
+IF (<ARGO.TAG0.SILINMEZ>)
+	SRC.SYSMESSAGE @38,,1,1  Bu eşya/varlık silinmez.
+	SRC.TARGETF TARGETF_REMOVE
+	RETURN 1
+ENDIF
+	
+IF (<ARGO.ISCHAR>)
+
+	IF (<ARGO.ISPLAYER>)
+		ARGO.REMOVE_PLAYER
+	ELSE
+		ARGO.REMOVE_CHAR
+	ENDIF
+
+ELSEIF (<ARGO.ISITEM>)
+	// IF ((<ARGO.TAG0.MULTICOMPONENT>) || (<ARGO.ISEVENT.ei_house_door>) || (<ARGO.ISEVENT.ei_house_component>))
+		// SRC.SYSMESSAGE @38,,1,1  Ev komponentleri silinemez.
+		// RETURN 1
+	// ENDIF
+	ARGO.REMOVE_ITEM
+ELSE
+   RETURN 1
+ENDIF
+
+SRC.TARGETF TARGETF_REMOVE
+RETURN 1
+
+
+
+
+
+//  Custom Player Remove Function
+[FUNCTION REMOVE_PLAYER]
+IF (<SRC.UID> == <UID>)
+	SRC.SYSMESSAGE @38,,1,1  You cannot removed yourself.
+	RETURN 1
+ENDIF
+SRC.SYSMESSAGE @38,,1,1  Oyuncular bu şekilde silinemez.
+
+
+
+
+
+//  Custom Item Remove Function
+[FUNCTION REMOVE_ITEM]
+SRC.LOG Item Removed: <QVAL (<TOPOBJ>)?:Sahibi ; <TOPOBJ.NAME>> [UID : <TOPOBJ.UID>] Name : <NAME> Serial : <UID>
+
+IF (<TYPE> == T_CONTAINER)
+	IF (<RESCOUNT> > 0)
+		FOR 0 <EVAL <RESCOUNT>-1>
+			REF1=<FINDCONT.<DLOCAL._FOR>>
+			IF (<REF1>)
+				SRC.LOG Container Removed : <EVAL <DLOCAL._FOR>+1>. ESYA : <REF1.NAME> [UID : <REF1.UID>] [ID : <REF1.BASEID>]
+			ENDIF
+		ENDFOR
+	ENDIF
+ENDIF
+
+SRC.SYSMESSAGE @38,,1,1  Item: <NAME> removed.
+REMOVE
+
+
+
+// Custom Char Remove Function
+[FUNCTION REMOVE_CHAR]
+IF (<OWNER>)
+SRC.LOG Mount Removed :  Name : <NAME> Serial : <UID> <QVAL (<OWNER>) ? Owner=<OWNER.NAME>:>
+ENDIF
+SRC.SYSMESSAGE @38,,1,1  Char: <NAME> removed.
+REMOVE
+
+
+
+
+//  Custom Flip Function
+[FUNCTION TARGETF_FLIP]
+REF1=<ARGO>
+IF (<REF1>)
+	REF1.FLIP
+	SRC.SYSMESSAGE @,,1,1 Flipped: <REF1.NAME>
+	SRC.TARGETF TARGETF_FLIP
+ELSE
+	RETURN 1
+ENDIF
+
+
+
+
+//  Custom Tele Function
+[FUNCTION TARGETFG_MTELE]
+TARGETFG TELE
+SYSMESSAGE Nereye teleport olmak istiyorsun?
+
+[FUNCTION TELE]
+IF (<SRC.PRIVSHOW>)
+	SRC.GO <SRC.TARGP>
+ELSE
+	SRC.MOVETO <SRC.TARGP>
+ENDIF
+SRC.TARGETFG TELE
+RETURN 1
+
+
+
+
+
+
+[FUNCTION CROPTEXT]
+IF ((STRLEN(<STREAT <ARGS>>)) > <STRARG <ARGS>>)
+	RETURN <STRSUB 0 <STRARG <ARGS>> <STREAT <ARGS>>>...
+ELSE
+	RETURN <STREAT <ARGS>>
+ENDIF
+
+
+
+
+
+[FUNCTION ANKH]
+IF (<DIR> == 2) || (<DIR> == 6)
+	SERV.NEWITEM 7576
+	NEW.P <P>
+	NEW.TYPE T_SHRINE
+	NEW.NAME Ankh
+	NEW.ATTR ATTR_STATIC|ATTR_MOVE_NEVER
+
+	SERV.NEWITEM 7575
+	NEW.P <P>
+	NEW.MOVE S
+	NEW.TYPE T_SHRINE
+	NEW.NAME Ankh
+	NEW.ATTR ATTR_STATIC|ATTR_MOVE_NEVER
+ENDIF
+
+IF (<DIR> == 4) || (<DIR> == 0)
+	SERV.NEWITEM 7773
+	NEW.P <P>
+	NEW.TYPE T_SHRINE
+	NEW.NAME Ankh
+	NEW.ATTR ATTR_STATIC|ATTR_MOVE_NEVER
+
+	SERV.NEWITEM 7772
+	NEW.P <P>
+	NEW.MOVE E
+	NEW.TYPE T_SHRINE
+	NEW.NAME Ankh
+	NEW.ATTR ATTR_STATIC|ATTR_MOVE_NEVER
+ENDIF
+
+
+
+
+
+
+[PLEVEL 1]
+TARGETAL
+HEDEF
+HEDEFAL
+HEDEFLE
+
+[FUNCTION HEDEFAL]
+CUSTOM_TARGET
+
+[FUNCTION TARGETAL]
+CUSTOM_TARGET
+
+[FUNCTION HEDEF]
+CUSTOM_TARGET
+
+[FUNCTION HEDEFLE]
+CUSTOM_TARGET
+
+
+[FUNCTION CUSTOM_TARGET]
+TARGET
+SYSMESSAGE Select target...
+
+
+
+//
+[FUNCTION PACKITEMCOUNTER]
+IF (<FINDLAYER.LAYER_PACK>)
+	FORCONT <FINDLAYER.LAYER_PACK.UID> 9999
+		IF (<BASEID> == <ARGV[0]>)
+			LOCAL.ADET +=<AMOUNT>
+		ENDIF
+	ENDFOR
+	RETURN <DLOCAL.ADET>
+ENDIF
+RETURN 0
+
+
+[FUNCTION BANKITEMCOUNTER]
+IF (<FINDLAYER.layer_bankbox>)
+	FORCONT <FINDLAYER.layer_bankbox.UID> 9999
+		IF (<BASEID> == <ARGV[0]>)
+			LOCAL.ADET +=<AMOUNT>
+		ENDIF
+	ENDFOR
+	RETURN <DLOCAL.ADET>
+ENDIF
+RETURN 0
+
+
+[FUNCTION CANTA_MALZEME_SAY]
+FORCONT <FINDLAYER.21.UID> 9999
+	IF (<BASEID> == <ARGV[0]>)
+		LOCAL.ADET +=<AMOUNT>
+	ENDIF
+ENDFOR
+RETURN <DLOCAL.ADET>
+
+
+
+[FUNCTION BANKA_MALZEME_SAY]
+FORCONT <FINDLAYER.29.UID> 9999
+	IF (<BASEID> == <ARGV[0]>)
+		LOCAL.ADET +=<AMOUNT>
+	ENDIF
+ENDFOR
+RETURN <DLOCAL.ADET>
+
+
+
+
+
+[FUNCTION Map_Colors]
+// argv0 = x , argv1 = y, argv2 = z , argv3 = m
+IF ((<ISNUM <ARGV[0]>>) || (<ISNUM <ARGV[1]>>) || (<ISNUM <ARGV[2]>>) || (<ISNUM <ARGV[3]>>))
+LOCAL.P <ARGV[0]>,<ARGV[1]>,<ARGV[2]>,<ARGV[3]>
+
+	IF !(<ISEMPTY <LOCAL.P>>)
+
+		IF (<SERV.MAP(<LOCAL.P>).REGION.FLAGS>&REGION_FLAG_GUARDED)
+			LOCAL.REGIONCOLOR_MARK 084A
+			LOCAL.REGIONCOLOR_HTML <DEF.BFONT_BLUE>
+			LOCAL.REGIONCOLOR_TEXT 084a
+				
+		ELIF (<SERV.MAP(<LOCAL.P>).REGION.FLAGS>&REGION_FLAG_UNDERGROUND)
+			LOCAL.REGIONCOLOR_MARK 03B0
+			LOCAL.REGIONCOLOR_HTML <DEF.BFONT_GRAY_RUNEBOOK>
+			LOCAL.REGIONCOLOR_TEXT 0450
+			
+		ELIF (<SERV.MAP(<LOCAL.P>).REGION.FLAGS>&REGION_FLAG_SAFE)
+			LOCAL.REGIONCOLOR_MARK 08A1
+			LOCAL.REGIONCOLOR_HTML <DEF.BFONT_GREEN>
+			LOCAL.REGIONCOLOR_TEXT 044
+			
+		ELSE
+			LOCAL.REGIONCOLOR_MARK 0845
+			LOCAL.REGIONCOLOR_HTML <DEF.BFONT_RED>
+			LOCAL.REGIONCOLOR_TEXT 38
+		ENDIF
+
+	ENDIF
+ENDIF
+
+
+
+
+// LOCAL.REGIONCOLOR_MARK 0845
+// LOCAL.REGIONCOLOR_HTML <DEF.BFONT_RED>
+// LOCAL.REGIONCOLOR_TEXT 38
+[FUNCTION CharName_Colors]
+REF100=<ARGS>
+IF (<REF100>)
+	IF (0<REF100.ACCOUNT.PLEVEL> > 1)
+		LOCAL.CharNameColor_HTML <DEF.BFONT_PURPLE>
+		LOCAL.CharNameColor_Text 030
+		
+	ELSEIF (<REF100.FLAGS>&STATF_DEAD)
+		LOCAL.CharNameColor_HTML <DEF.BFONT_GRAY>
+		LOCAL.CharNameColor_Text 0455
+		
+	ELSEIF (<REF100.ISPK>)
+		LOCAL.CharNameColor_HTML <DEF.BFONT_RED>
+		LOCAL.CharNameColor_Text 38
+		
+	ELSEIF !(<REF100.ISPK>)
+		LOCAL.CharNameColor_HTML <DEF.BFONT_BLUE>
+		LOCAL.CharNameColor_Text 063
+		
+	ELSE
+		LOCAL.CharNameColor_HTML <DEF.BFONT_BLACK>
+		LOCAL.CharNameColor_Text <DEF.SMSG_CUSTOM_COLOR>
+	ENDIF
+ENDIF
+
+
+
+
+[FUNCTION CharRegion_Colors]
+REF1=<ARGS>
+IF (<REF1>)
+	IF (<REF1.ISONLINE>)
+		IF (<REF1.REGION.GUARDED>)
+			LOCAL.CharRegionColor_HTML <DEF.BFONT_BLUE>
+			LOCAL.CharRegionColor_TEXT 063
+			
+		ELSEIF (<REF1.ISINSAFE>)
+			LOCAL.CharRegionColor_HTML <DEF.BFONT_GREEN>
+			LOCAL.CharRegionColor_TEXT 044
+			
+		ELSEIF (<REF1.REGION.FLAGS>&region_flag_underground)
+			LOCAL.CharRegionColor_HTML <DEF.BFONT_GRAY>
+			LOCAL.CharRegionColor_TEXT 03b0
+			
+		ELSE
+			LOCAL.CharRegionColor_HTML <DEF.BFONT_RED>
+			LOCAL.CharRegionColor_TEXT 38
+		ENDIF
+	ELSE
+		LOCAL.CharRegionColor_HTML <DEF.BFONT_RED>
+		LOCAL.CharRegionColor_TEXT 38
+	ENDIF
+ENDIF
+
+
+
+
+
+[FUNCTION MOVEBACK]
+IF (<ARGN1>)
+	DOSWITCH (<DIR>)
+	LOCAL.OK=<MOVE s>
+	LOCAL.OK=<MOVE sw>
+	LOCAL.OK=<MOVE w>
+	LOCAL.OK=<MOVE nw>
+	LOCAL.OK=<MOVE n>
+	LOCAL.OK=<MOVE ne>
+	LOCAL.OK=<MOVE e>
+	LOCAL.OK=<MOVE se>
+	ENDDO
+	IF (<LOCAL.OK>&08)
+		RETURN 1
+	ENDIF
+ENDIF
+DOSWITCH (<DIR>)
+MOVE s <ARGS>
+MOVE sw <ARGS>
+MOVE w <ARGS>
+MOVE nw <ARGS>
+MOVE n <ARGS>
+MOVE ne <ARGS>
+MOVE e <ARGS>
+MOVE se <ARGS>
+ENDDO
+// FIX
+
+
+[FUNCTION MOVEFORWARD]
+IF (<ARGN1>)
+	DOSWITCH (<DIR>)
+	LOCAL.OK=<MOVE n>
+	LOCAL.OK=<MOVE ne>
+	LOCAL.OK=<MOVE e>
+	LOCAL.OK=<MOVE se>
+	LOCAL.OK=<MOVE s>
+	LOCAL.OK=<MOVE sw>
+	LOCAL.OK=<MOVE w>
+	LOCAL.OK=<MOVE nw>
+	ENDDO
+	// IF (<LOCAL.OK>&08)
+		// RETURN 1
+	// ENDIF
+ENDIF
+DOSWITCH (<DIR>)
+MOVE n <ARGS>
+MOVE ne <ARGS>
+MOVE e <ARGS>
+MOVE se <ARGS>
+MOVE s <ARGS>
+MOVE sw <ARGS>
+MOVE w <ARGS>
+MOVE nw <ARGS>
+ENDDO
+
+
+[FUNCTION SPEEDSET]
+IF (<ISEMPTY <ARGS>>) || (<ARGS> == 0)
+	SYSMESSAGE @030,,1,1  Karakter hızı: Normal
+ELSEIF (<ARGS> == 1)
+	SYSMESSAGE @030,,1,1  Karakter hızı: Hızlı
+ELSEIF (<ARGS> == 2)
+	SYSMESSAGE @030,,1,1  Karakter hızı: Sadece yürüme
+ELSEIF (<ARGS> == 3)
+	SYSMESSAGE @030,,1,1  Karakter hızı: Hızlı yürüme
+ELSEIF (<ARGS> == 3)
+	SYSMESSAGE @030,,1,1  Karakter hızı: Yürüme/koşma kapalı
+ENDIF
+SPEEDMODE=<ARGS>
+
+
+
+
+
+
+[FUNCTION SPELL_REMOVE_ALL]
+IF (<FINDLAYER(layer_spell_stats)>) // 32
+	IF (<FINDLAYER(layer_spell_stats).TYPE> == T_SPELL)
+		FINDLAYER(layer_spell_stats).REMOVE
+	ENDIF
+ENDIF
+IF (<FINDLAYER(layer_flag_potion)>) // 44
+	IF (<FINDLAYER(layer_flag_potion).TYPE> == T_SPELL)
+		FINDLAYER(layer_flag_potion).REMOVE
+	ENDIF
+ENDIF
+
+
+
+[FUNCTION SPELLSTAT_REMOVE_ALL]
+IF (<FINDLAYER(layer_spell_stats)>) // ayer:32
+	IF (<FINDLAYER(layer_spell_stats).TYPE> == T_SPELL)
+		FINDLAYER(layer_spell_stats).REMOVE
+	ENDIF
+ENDIF
+
+
+
+[FUNCTION POTIONSTAT_REMOVE_ALL]
+IF (<FINDLAYER(layer_flag_potion)>) // layer:44
+	IF (<FINDLAYER(layer_flag_potion).TYPE> == T_SPELL)
+		FINDLAYER(layer_flag_potion).REMOVE
+	ENDIF
+ENDIF
+
+
+
+[FUNCTION SPELLSTAT_REMOVE]
+IF (<FINDLAYER(layer_spell_stats)>) //layer:32
+	IF (<FINDLAYER(layer_spell_stats).BASEID> == <ARGS>)
+		FINDLAYER(layer_spell_stats).REMOVE
+	ENDIF
+ENDIF
+
+
+
+[FUNCTION PotionSTAT_REMOVE]
+IF (<FINDLAYER(layer_flag_potion)>) // layer:44
+	IF (<FINDLAYER(layer_flag_potion).BASEID> == <ARGS>)
+		FINDLAYER(layer_flag_potion).REMOVE
+	ENDIF
+ENDIF
+
+
+
+[FUNCTION SERV.ZAMAN]
+RETURN <serv.rtime.format %d> <SERV.AYNUM <SERV.rtime.format %m>> <serv.rtime.format %Y> <SERV.DAYNAME> <serv.rtime.format %H:%M>
+
+
+[FUNCTION SERV.SAAT]
+RETURN <serv.rtime.format %H:%M>
+
+
+[FUNCTION SERV.AYNAME]
+ARGS=Aralik,Ocak,Subat,Mart,Nisan,Mayis,Haziran,Temmuz,Agustos,Eylul,Ekim,Kasim
+RETURN <ARGV[<SERV.rtime.format %m>]>
+
+
+[FUNCTION SERV.DAYNAME]
+ARGS=Pazar,P.tesi,Salı,Çarşamba,Perşembe,Cuma,C.tesi
+RETURN <ARGV[<SERV.rtime.format %w>]>
+
+
+[FUNCTION SERV.DAYNUM]
+ARGS=7,1,2,3,4,5,6
+RETURN <ARGV[<SERV.rtime.format %w>]>
+
+
+
+
+// Custom Logout Function
+[FUNCTION LOGOUT]
+IF (<ISPLAYER>) && (<ISONLINE>)
+	// DISCONNECT 2
+	SENDPACKET 0D1 0AD // LOGOUT CLIENT
+	SENDPACKET 082 04 // LOGIN DENIED
+	FOR 1 2
+		DISCONNECT 2
+	ENDFOR
+	// DISCONNECT
+	// DISCONNECT 1
+ENDIF 
+
+
+
+
+
+
+
+
+// Disconnect Timer Function
+// Use; DISCONNECTIMER 5 (seconds)
+[FUNCTION DISCONNECTIMER]
+IF (<ISCHAR>)
+	CONSUME 999999 I_DISCONNECTIMER
+	
+	SERV.NEWITEM I_DISCONNECTIMER,1,<UID>,1
+	NEW.TIMER=<ARGN1>
+	SYSMESSAGE <RemaingTime <ARGN1>> saniye sonra baglantiniz kesilecektir.
+ENDIF
+
+[ITEMDEF I_DISCONNECTIMER]
+DEFNAME=I_DISCONNECTIMER
+ID=I_MEMORY
+TYPE=T_EQ_SCRIPT
+VALUE=0
+WEIGHT=0
+LAYER=30
+NAME=Disconnect Timer
+CAN=CAN_O_NOSLEEP
+
+ON=@CREATE
+ATTR=ATTR_INVIS|ATTR_NEWBIE|ATTR_DECAY
+
+ON=@Timer
+IF (<TOPOBJ.ISONLINE>)
+	TOPOBJ.LOGOUT
+ENDIF
+REMOVE
+RETURN 1
+
+
+
+
+// Array function
+[FUNCTION ARRAY]
+LOCAL.TEMP = <ARGV[<EVAL <ARGV> - 1>]> -1
+RETURN <ARGV[<DLOCAL.TEMP>]>
+
+// Arraycount item function
+[FUNCTION ARRAYCOUNT]
+RETURN <EVAL <ARGV>>
+
+[FUNCTION GETARGV]
+LOCAL.TORET = <STRARG <ARGS>>
+ARGS = <STREAT <ARGS>>
+RETURN <ARGV[<LOCAL.TORET>]>
+
+
+
+
+// Pack & Bank Item Remover
+// Use I.PACKBANK_REMOVER i_gold
+[FUNCTION PACKBANK_REMOVER]
+// Pack
+FORCONT <FINDLAYER.21> 9999
+REF1=<UID>
+	IF (<REF1.DISPID>==<ARGS>) || (<REF1.BASEID>==<ARGS>)
+		REF1.REMOVE
+	ENDIF
+ENDFOR
+
+// Bank
+FORCONT <FINDLAYER.29> 9999
+REF2=<UID>
+	IF (<REF2.DISPID>==<ARGS>) || (<REF2.BASEID>==<ARGS>)
+		REF2.REMOVE
+	ENDIF
+ENDFOR
+
+
+
+
+
+
+// Stone Timer Function
+// Use; I.STONETIMER 5 (seconds)
+[FUNCTION STONETIMER]
+IF (<ISCHAR>) && !(<FLAGS>&STATF_STONE)
+   IF !(<FINDID.I_STONETIMER>)
+      STONE 1
+      SERV.NEWITEM I_STONETIMER
+      NEW.TIMER=<ARGS>
+      EQUIP <NEW>
+	  SYSMESSAGE @,,1,1 <RemaingTime <ARGS>> saniye stone stoneliğiniz kalkacaktır.
+   ENDIF
+ENDIF
+
+
+
+[ITEMDEF I_STONETIMER]
+DEFNAME=I_STONETIMER
+ID=I_MEMORY
+TYPE=T_EQ_SCRIPT
+VALUE=0
+WEIGHT=0
+LAYER=30
+NAME=Char Stone Timer
+
+ON=@CREATE
+ATTR=ATTR_INVIS|ATTR_NEWBIE
+
+ON=@UNEQUIP
+SRC.STONE 0
+
+ON=@TIMER
+REMOVE
+RETURN 1
+
+
+// Remove Item/Char Timer Function
+// Use; REMOVETIMER 5 (seconds)
+[FUNCTION REMOVETIMER]
+IF (<ISCHAR>)
+	SERV.NEWITEM I_REMOVETIMER,1,<UID>,1
+	NEW.TIMER=1
+	NEW.MORE1=<ARGS>
+ENDIF
+
+[ITEMDEF I_REMOVETIMER]
+DEFNAME=I_REMOVETIMER
+ID=I_MEMORY
+TYPE=T_EQ_SCRIPT
+VALUE=0
+WEIGHT=0
+LAYER=30
+CAN=CAN_O_NOSLEEP
+NAME=Remove Timer
+
+ON=@CREATE
+ATTR=ATTR_INVIS|ATTR_NEWBIE|ATTR_DECAY
+TIMER=1
+
+ON=@EQUIP
+TIMER=1
+
+ON=@Timer
+IF !(<DMORE1>)
+	TOPOBJ.REMOVE
+ELSE
+	IF (<DMORE1> == 3)
+		TOPOBJ.SAYU * 3 saniye sonra silinecektir *
+	ENDIF
+	MORE1 --
+	TIMER=1
+	TOPOBJ.SYSMESSAGE <DMORE1>
+ENDIF
+
+
+
+[FUNCTION REMOVETIMER_NPC]
+IF (<ISCHAR>)
+	SERV.NEWITEM I_REMOVETIMER_NPC,1,<UID>,1
+	NEW.MORE1=<ARGS>
+	NEW.TIMER=1
+
+ENDIF
+
+[ITEMDEF I_REMOVETIMER_NPC]
+DEFNAME=I_REMOVETIMER_NPC
+ID=I_MEMORY
+TYPE=T_EQ_SCRIPT
+VALUE=0
+WEIGHT=0
+LAYER=30
+CAN=CAN_O_NOSLEEP
+NAME=Remove Timer
+
+ON=@CREATE
+ATTR=ATTR_INVIS|ATTR_NEWBIE|ATTR_DECAY
+TIMER=1
+
+ON=@EQUIP
+TIMER=1
+SRC.EVENTS +e_removetimer_npc
+
+ON=@UNEQUIP
+SRC.EVENTS -e_removetimer_npc
+
+ON=@Timer
+IF !(<DMORE1>)
+	TOPOBJ.REMOVE
+ELSE
+	IF (<DMORE1> == 3)
+		TOPOBJ.SAYU * 3 saniye sonra silinecektir *
+	ENDIF
+	MORE1 --
+	TIMER=1
+ENDIF
+RETURN 1
+
+
+
+[events e_removetimer_npc]
+ON=@CLICK
+IF (<FINDID.I_REMOVETIMER_NPC>)
+	message @<DEF.SMSG_ERROR_COLOR>,,1,1 (<DFindid.I_REMOVETIMER_NPC.MORE1> sn sonra silinecektir.)
+ENDIF
+
+
+
+
+
+// Make mypet function
+[FUNCTION MAKEMYPET]
+CONSUME 100 I_MEMORY
+
+SERV.NEWITEM = I_MEMORY
+NEW.COLOR = MEMORY_IPET
+NEW.ATTR = ATTR_NEWBIE
+NEW.MORE1 = 04
+NEW.MORE2 = <SERV.TIME>
+NEW.MOREP = <P>
+NEW.LINK = <ARGS>
+NEW.CONT = <UID>
+
+
+[FUNCTION WARMODE]
+IF !(<ISEMPTY <ARGS>>) && (<ISNUM <ARGS>>)
+	WARMODE <ARGS>
+ELSE
+	WARMODE 0
+ENDIF
+
+
+[FUNCTION WARMODE]
+IF !(0<ARGN1>)
+	FLAGS &= ~STATF_WAR
+	IF (<ISPLAYER>) || (<ISGM>) && (<ISONLINE>)
+		SENDPACKET 072 00 00 32 00
+	ENDIF
+
+ELSE
+	FLAGS |= STATF_WAR
+	IF (<ISPLAYER>) || (<ISGM>) && (<ISONLINE>)
+		SENDPACKET 072 01 00 32 00
+	ENDIF
+ENDIF
+
+
+
+
+// Custom Peace Mode Function
+[FUNCTION PEACEMODE]
+IF (<ISCHAR>)
+	IF (<ISPLAYER>)
+		TARGETCLOSE
+		MEMDEL
+		ACTION -1
+		WARMODE 0
+		ATTACKER.CLEAR
+		SKILL FAIL	
+	ENDIF
+ENDIF
+
+
+
+
+// Custom weblink function
+[FUNCTION OpenWebUrl]
+LOCAL.HTTPs https:/
+IF (<CTAG0.OPEN_WEBURL_TIME> < <SERV.TIME>)
+   CTAG0.OPEN_WEBURL_TIME <EVAL <SERV.TIME>+8>
+   WEBLINK <LOCAL.HTTPs>/<ARGS>
+   // ClassicUO clientte bu mesaja gerek yok
+   // SYSMESSAGE @,,1,1 Yönlendiriliyorsunuz: <LOCAL.HTTP>/<ARGS>
+ELSE
+   SYSMESSAGE @38,,1,1  Başka bir yönlendirme için bekleyiniz.
+ENDIF
+
+
+
+
+// Item Unequip All Function
+[FUNCTION UnEquipAll]
+FOR 1 24
+	IF (<FINDLAYER(<DLOCAL._FOR>)>)
+	   IF (<DLOCAL._FOR> != 11) && (<DLOCAL._FOR> != 15) && (<DLOCAL._FOR> != 16) && (<DLOCAL._FOR> != 21)
+		  UNEQUIP <FINDLAYER(<DLOCAL._FOR>)>
+		  UPDATE
+	   ENDIF
+	ENDIF
+ENDFOR
+Char_Prop_Fix
+
+
+
+
+[FUNCTION STATTOTAL]
+RETURN <EVAL <STR>+<DEX>+<INT>>
+
+
+
+
+// RemaingTime
+[FUNCTION KALANSURE]
+return <RemaingTime <args>>
+
+
+// Kalansure
+[FUNCTION RemaingTime]
+LOCAL.TIMER = <ARGS>
+
+LOCAL.DAYs = <EVAL (<LOCAL.TIMER> / 86400)>
+LOCAL.TIMER -= <EVAL (<LOCAL.DAYS> * 86400)>
+LOCAL.HOURs = <EVAL (<LOCAL.TIMER> / 3600)>
+LOCAL.TIMER -= <EVAL (<LOCAL.HOURS> * 3600)>
+LOCAL.MINs = <EVAL (<LOCAL.TIMER> / 60)>
+LOCAL.TIMER -= <EVAL (<LOCAL.MINS> * 60)>
+LOCAL.SECs = <LOCAL.TIMER>
+
+IF (<LOCAL.DAYS>)
+LOCAL.TIME = "<dLOCAL.DAYs> g. "
+ENDIF
+
+IF (<LOCAL.HOURS>)
+IF !(STRCMP(<LOCAL.TIME>,0))
+LOCAL.TIME = "<dLOCAL.HOURs> sa."
+ELSE
+LOCAL.TIME .= "<dLOCAL.HOURs> sa. "
+ENDIF
+ENDIF
+
+IF (<LOCAL.MINS>)
+IF !(STRCMP(<LOCAL.TIME>,0))
+LOCAL.TIME = "<dLOCAL.MINs> dk."
+ELSE
+LOCAL.TIME .= "<dLOCAL.MINs> dk. "
+ENDIF
+ENDIF
+
+IF (<LOCAL.SECS>)
+IF !(STRCMP(<LOCAL.TIME>,0))
+LOCAL.TIME = "<dLOCAL.SECs> sn."
+ELSE
+LOCAL.TIME .= "<dLOCAL.SECs> sn."
+ENDIF
+ENDIF
+RETURN <LOCAL.TIME>
+
+
+
+[FUNCTION FormatMinutes]
+IF (<ARGN1> >= 518400)
+ return <eval <ARGN1> / 518400> yıl <eval (<ARGN1> % 518400) / 43200> ay <eval ((<ARGN1> % 518400) % 43200) / 1440> gün <eval (((<ARGN1> % 518400) % 43200) % 1440) / 60> saat <eval (((<ARGN1> % 518400) % 43200) % 1440) % 60> dakika.
+ELIF (<ARGN1> >= 43200)
+ return <eval <ARGN1> / 43200> ay <eval (<ARGN1> % 43200) / 1440> gün <eval ((<ARGN1> % 43200) % 1440) / 60> saat <eval ((<ARGN1> % 43200) % 1440) % 60> dakika.
+ELIF (<ARGN1> >= 1440)
+ return <eval <ARGN1> / 1440> gün <eval (<ARGN1> % 1440) / 60> saat <eval (<ARGN1> % 1440) % 60> dk.
+ELIF (<ARGN1> >= 60)
+ return <eval <ARGN1> / 60> saat. <eval <ARGN1> % 60> dk.
+ELSE
+ return <ARGN1> dk.
+ENDIF
+
+
+[FUNCTION FormatSeconds]
+//MAXIMUM 24H
+IF (<ARGN1> >= 86400)
+ return <eval <ARGN1> / 86400>gün, <eval (<ARGN1> % 86400) / 60>sa, <eval (<ARGN1> % 86400) % 60>dk, <eval <ARGN1> % 60>sn.
+ELIF (<ARGN1> >= 3600)
+ return <eval <ARGN1> / 3600>gün, <eval (<ARGN1>  % 3600) / 60>sa, <eval <ARGN1> % 60>
+ELIF (<ARGN1> >= 60)
+ return <eval <ARGN1> / 60>dk, <eval <ARGN1> % 60>sn.
+ELSE
+ return <ARGN1>sn.
+ENDIF
+
+
+
+
+[FUNCTION addnpc]
+LOCAL.ID=<STRARG <ARGS>>
+LOCAL.Amount=<STREAT <ARGS>>
+IF (<ISNUM <LOCAL.ID>>)
+ LOCAL.ID |= 08c000000
+ELIF !(<DEF0.<LOCAL.ID>>)
+ LOCAL.ID=0
+ENDIF
+IF (<LOCAL.Amount> < 1)
+ LOCAL.Amount=1
+ENDIF
+IF (<SERV.CHARDEF.<LOCAL.ID>>)
+ ADD <LOCAL.ID> <LOCAL.Amount>
+ELSE
+ SYSMESSAGE <DEFMSG.cmd_invalid>
+ENDIF
+
+[FUNCTION tweak]
+INFO
+
+[FUNCTION brain]	//by Darkandus
+IF (<ARGN>)
+ NPC=<ARGN>
+ELSE
+ return <NPC>
+ENDIF
+
+[FUNCTION m]
+MOVE <ARGS>
+
+[FUNCTION invulnerable]
+INVUL <ARGS>
+
+[FUNCTION invisible]
+INVIS <ARGS>
+
+[FUNCTION static]
+LOCAL.ID=<STRARG <ARGS>>
+LOCAL.Amount=<STREAT <ARGS>>
+IF (<ISNUM <LOCAL.ID>>)
+ LOCAL.ID |= 09c000000
+ELIF !(<DEF0.<LOCAL.ID>>)
+ LOCAL.ID=0
+ENDIF
+IF (<LOCAL.Amount> < 1)
+ LOCAL.Amount=1
+ENDIF
+IF (<SERV.ITEMDEF.<LOCAL.ID>>)
+ TARGETFG static_callback <LOCAL.ID>,<LOCAL.Amount>
+ SYSMESSAGE <DEFMSG.where_to_place> <SERV.ITEMDEF.<LOCAL.ID>.NAME>?
+ELSE
+ SYSMESSAGE <DEFMSG.cmd_invalid>
+ENDIF
+
+[FUNCTION static_callback]
+SERV.NEWITEM <ARGS>
+NEW.ATTR |= attr_move_never
+NEW.TIMER=-1
+NEW.P=<SRC.TARGP>
+ACT=<NEW>
+
+[FUNCTION sfx]
+SOUND <ARGS>
+
+[FUNCTION music]
+IF (<ISPLAYER>)
+ MIDILIST <ARGS>
+ENDIF
+
+[FUNCTION cliver]
+return <CLIENTVERSION>
+
+[FUNCTION clientver]
+return <CLIENTVERSION>
+
+[FUNCTION follow]
+SERV.NEWITEM i_eq_followSrc
+NEW.LINK=<QVAL (<dARGS>)? <ARGS>:<UID>>
+NEW.TIMER=2
+NEW.EQUIP
+SRC.SYSMESSAGE Following: <NEW.LINK.NAME> - Use war mode to stop following
+
+[ITEMDEF i_eq_followSrc]
+ID=i_handr_1
+NAME=Follower
+TYPE=t_eq_script
+LAYER=layer_special
+
+ON=@TargOn_Char
+LINK=<ARGO>
+
+ON=@TargOn_Item
+LINK=<ARGO>
+
+ON=@Timer
+IF !(<LINK.UID>) || (<CONT.FLAGS> & statf_war)
+ CONT.SYSMESSAGE Follow: off
+ REMOVE
+ return 0
+ELIF STRCMP("'<CONT.P>'","'<LINK.P>'")
+ CONT.FACE <LINK>
+ CONT.P=<LINK.P>
+ CONT.UPDATE
+ENDIF
+TIMER=2
+return 1
+
+[FUNCTION npccast]
+// This function can be used to force a character to cast a specific
+// spell. Works on both players and NPCs. Two arguments can be given:
+//
+// "NpcCast <spell>, <target>"
+// spell  -->  spell id to cast
+// target -->  target (optional, default: previous action's target)
+//             - can be a uid or map location
+//
+// Determine spell and skill used to cast
+LOCAL.SPELL = <EVAL <ARGV[0]> &~ 0ff000000>
+LOCAL.SKILL = <EVAL (<STREAT <SERV.SPELL.<LOCAL.SPELL>.SKILLREQ>>) &~ 0ff000000>
+IF !(<LOCAL.SKILL>)
+ LOCAL.SKILL = 25
+ENDIF
+
+// Set spell target
+IF (<ARGV> > 2)
+ ACT = 0
+ ACTP = <ARGV[1]>,<ARGV[2]>,<ARGV[3]>,<ARGV[4]>
+ELSE
+ REF1 = <ARGV[1]>
+ IF !(<REF1>)
+  REF1 = <ACT>
+  IF !(<REF1>)
+   REF1 = <UID>
+  ENDIF
+ ENDIF
+ ACT = <REF1>
+ ACTP = <REF1.P>
+ENDIF
+
+// Set character action
+ACTPRV = <UID>
+ACTARG1 = <LOCAL.SPELL>
+ACTION = <LOCAL.SKILL>
+return 1
+
+
+[FUNCTION MODMAXHITS]
+LOCAL.Result=<EVAL <ARGS>>
+IF (<ISEMPTY <ARGS>>)
+   RETURN <EVAL <TAG0.MODMAXHITS>>
+ELSE
+   TAG.MODMAXHITS=<EVAL <TAG0.MODMAXHITS>+<LOCAL.Result>>
+   IF !(<TAG0.MODMAXHITS>)
+      TAG.MODMAXHITS=
+      MAXHITS=
+   ELSE
+      MAXHITS=<EVAL <MAXHITS>+<LOCAL.Result>>
+   ENDIF
+ENDIF
+
+[FUNCTION MODMAXSTAM]
+LOCAL.Result=<EVAL <ARGS>>
+IF (<ISEMPTY <ARGS>>)
+   RETURN <EVAL <TAG0.MODMAXSTAM>>
+ELSE
+   TAG.MODMAXSTAM=<EVAL <TAG0.MODMAXSTAM>+<LOCAL.Result>>
+   IF !(<TAG0.MODMAXSTAM>)
+      TAG.MODMAXSTAM=
+      MAXSTAM=
+   ELSE
+      MAXSTAM=<EVAL <MAXSTAM>+<LOCAL.Result>>
+   ENDIF
+ENDIF
+
+[FUNCTION MODMAXMANA]
+LOCAL.Result=<EVAL <ARGS>>
+IF (<ISEMPTY <ARGS>>)
+   RETURN <EVAL <TAG0.MODMAXMANA>>
+ELSE
+   TAG.MODMAXMANA=<EVAL <TAG0.MODMAXMANA>+<LOCAL.Result>>
+   IF !(<TAG0.MODMAXMANA>)
+      TAG.MODMAXMANA=
+      MAXMANA=
+   ELSE
+      MAXMANA=<EVAL <MAXMANA>+<LOCAL.Result>>
+   ENDIF
+ENDIF
+
+
+[PLEVEL 1]
+STAFF
+
+[FUNCTION STAFF]
+DIALOGCLOSE D_PLEVEL_SET
+DIALOG D_PLEVEL_SET
+
+
+[DIALOG D_PLEVEL_SET]
+30,30
+RESIZEPIC 0 0 3000 280 300
+
+DORIGIN 20 20
+
+DTEXT +0 +0 084A Mevcut Plevel: <account.plevel> (<def.PlevelName.<account.plevel>>)
+
+FOR 1 9
+	IF (<DLOCAL._FOR> <= 8)
+		IF (<ACCOUNT.PLEVEL> == <DLOCAL._FOR>)
+			BUTTON 30 <EVAL (<DLOCAL._FOR>*20)+43> 0846 0845 1 0 <DLOCAL._FOR>
+			DTEXT 50 <EVAL (<DLOCAL._FOR>*20)+40> 044 Plevel: <dlocal._for> (<def.PlevelName.<dlocal._for>>)
+		ELSE
+			BUTTON 30 <EVAL (<DLOCAL._FOR>*20)+43> 0845 0846 1 0 <DLOCAL._FOR>
+			DTEXT 50 <EVAL (<DLOCAL._FOR>*20)+40> 0 Plevel: <dlocal._for> (<def.PlevelName.<dlocal._for>>)
+		ENDIF
+		
+	ELSE
+		DTEXT 50 <EVAL (<DLOCAL._FOR>*20)+40> 38 Plevel: <dlocal._for> (<def.PlevelName.<dlocal._for>>)
+	ENDIF
+ENDFOR
+
+
+[DIALOG D_PLEVEL_SET BUTTON]
+ON=1 8
+ACCOUNT.PLEVEL=<DARGN>
+ACCOUNT.UPDATE
+SYSMESSAGE @044,,1,1 Hesap yetkisi ayarlandi: (<def.PlevelName.<DARGN>>: <DARGN>)
+DIALOGCLOSE D_PLEVEL_SET
+DIALOG D_PLEVEL_SET
+
+
+[function f_oncommand]
+IF (<ARGN>)
+
+	// Player
+	IF (<SRC.ACCOUNT.PLEVEL> == 1)
+	
+	ENDIF
+	
+	// Staff
+	IF (<SRC.ACCOUNT.PLEVEL> > 1)
+	
+	ENDIF
+	
+ENDIF
+
+
+[EOF]
