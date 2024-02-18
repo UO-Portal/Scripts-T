@@ -9,7 +9,7 @@ Not:
 
 Script pack geliştirirken harici fonksiyon kullanımını minimum ölçüde kullanınız. Örneğin 
 
-IF ( <FLAGS> & STATF_HIDDEN) sorgusu yapabiliyorken bunu yapan harici bir IsHide, IsInvıs vb gibi ek fonksiyon yazmayınız. Ne kadar çok fonksiyon kullanımı olursa sunucu ve bu fonksiyonlar ne kadar çok çağırılırsa sunucu performansı uzun uptimelerde düşebilir.
+`IF ( <FLAGS> & STATF_HIDDEN)` sorgusu yapabiliyorken bunu yapan harici bir IsHide, IsInvıs vb gibi ek fonksiyon yazmayınız. Ne kadar çok fonksiyon kullanımı olursa sunucu ve bu fonksiyonlar ne kadar çok çağırılırsa sunucu performansı uzun uptimelerde düşebilir.
 
 
 # CLASS
