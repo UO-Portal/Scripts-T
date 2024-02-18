@@ -864,11 +864,7 @@ IF (<ACT.ISCHAR>)
 	IF !(<ACT.NPC> == brain_Animal)
 		SRC.SYSMESSAGE @38,,1,1 Sadece hayvanlarý evcilleþtirebilirsiniz.
 		RETURN 1
-		
-	ELSEIF (<ACT.FINDID.I_RUNE_SUMMON_CREATURE>)
-		SRC.SYSMESSAGE @38,,1,1 Büyü ile yaratýlmýþ hayvanlarý evcillestirmezsiniz
-		RETURN 1	
-		
+				
 	ELSEIF (<ACT.TAG0.TAMER> == <SRC>) 
 		SRC.SYSMESSAGE @38,,1,1 Hayvan artik sizi umursamiyor.
 		RETURN 1
