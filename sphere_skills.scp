@@ -17,6 +17,7 @@ ADV_RATE=10.0,200.0,800.0
 // 10.0 successes at 0% to gain .1,
 // 800.0 successes at 100% to gain .1,
 // 200.0 successes at 50% to gain .1
+
 GAINRADIUS=100.0
 // Skillgain will only be calculated if the current skill is less than the
 // actual difficulty + GAINRADIUS.  Used to prohibit skillgain by
