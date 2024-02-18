@@ -1,6 +1,11 @@
 # Scripts-T
 SphereServer 0.56T Official Scripts
 
+En son derlenen SphereServer dosyalarını aşağıdaki bağlantıdan indirebilirsiniz;
+
+[Sphere.zip](https://github.com/UO-Portal/Scripts-T/files/14324081/Sphere.zip)
+
+
 [![Source-T](https://github.com/UO-Portal/Source-T)](https://github.com/UO-Portal/Source-T) varsayılan Script Pack
 
 Script pack içeriğindekiler bazı yerler emülatör ile entegre çalışmaktadır.
