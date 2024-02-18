@@ -816,10 +816,82 @@ ADV_RATE=10.0,200.0,800.0
 RANGE=7
 
 ON=@Fail
-	SRC.SYSMESSAGE You fail to tame the creature.
+// SRC.SYSMESSAGE You fail to tame the creature.
+SRC.SYSMESSAGE @38,,1,1 Evcilleþtirmeyi baþarýsýz oldu.
 
 ON=@Abort
-	SRC.SYSMESSAGE You give up trying to tame the creature.
+// SRC.SYSMESSAGE You give up trying to tame the creature.
+SRC.SYSMESSAGE @38,,1,1 Evcilleþtirmekten vazgeçtiniz.
+
+// ON=@Wait
+// SRC.SYSMESSAGE Wait
+
+ON=@Success
+IF !(<SRC.FINDID.I_STAFF_TAMING>)
+	SRC.SYSMESSAGE @38,,1,1 Yanýnýzda Taming staff bulunmuyor.
+	RETURN 1
+ENDIF
+REF1=<ACT.SPAWNITEM>				// SPAWNITEM
+IF (<REF1>) && (<REF1.TYPE> == T_SPAWN_CHAR)
+	LOCAL.RESPAWNTIME = <EVAL (<R<REF1.MOREX>,<REF1.MOREY>>)*60>
+	DORAND 2
+		LOCAL.RESPAWNTIME -=<R60,120>
+		LOCAL.RESPAWNTIME +=<R60,120>
+	ENDDO
+	REF1.TIMER <LOCAL.RESPAWNTIME>
+ENDIF
+IF !(<ACT.TAG0.TAMER>)
+	ACT.TAG0.TAMER=<SRC>
+ENDIF
+
+ON=@Select
+IF !(<SRC.FINDID.I_STAFF_TAMING>)
+	SRC.SYSMESSAGE @38,,1,1 Yanýnýzda Taming staff bulunmuyor.
+	RETURN 1
+ELSEIF (<SRC.REGION.FLAGS>&REGION_FLAG_SAFE)
+	SRC.SYSMESSAGE @38,,1,1 Bu alanda evcilleþtirme yapamazsýnýz.
+	RETURN 1
+ENDIF
+
+ON=@Start
+REF1=<SRC.FINDID.I_STAFF_TAMING>
+
+IF !(<SRC.FINDID.I_STAFF_TAMING>)
+	SRC.SYSMESSAGE @38,,1,1 Yanýnýzda Taming staff bulunmuyor.
+	RETURN 1
+ENDIF
+IF (<ACT.ISCHAR>)
+	IF !(<ACT.NPC> == brain_Animal)
+		SRC.SYSMESSAGE @38,,1,1 Sadece hayvanlarý evcilleþtirebilirsiniz.
+		RETURN 1
+		
+	ELSEIF (<ACT.FINDID.I_RUNE_SUMMON_CREATURE>)
+		SRC.SYSMESSAGE @38,,1,1 Büyü ile yaratýlmýþ hayvanlarý evcillestirmezsiniz
+		RETURN 1	
+		
+	ELSEIF (<ACT.TAG0.TAMER> == <SRC>) 
+		SRC.SYSMESSAGE @38,,1,1 Hayvan artik sizi umursamiyor.
+		RETURN 1
+	
+	ELSEIF (<ACT.MEMORYFINDTYPE.MEMORY_FIGHT>)
+		IF (<ACT.MEMORYFINDTYPE.MEMORY_FIGHT.LINK> == <SRC>)
+			SRC.SYSMESSAGE @38,,1,1 Hayvan su an size cok kizgin.
+			RETURN 1
+		ENDIF
+		
+	ELSEIF (<SRC.TARG.SPAWNITEM>)
+		IF (<SRC.TARG.DISTANCE <SRC.TARG.SPAWNITEM>> > 5)
+			SRC.SYSMESSAGE @38,,1,1 Bu hayvan yuvasýndan uzakta.
+			RETURN 1
+		ENDIF
+	ENDIF
+ENDIF
+IF (<REF1>) && (<REF1.TOPOBJ> != <SRC>)
+	SRC.EQUIP <REF1>
+ENDIF
+
+// ON=@Stroke
+// SYSMESSAGE Stroke
 
 [SKILL 36]
 DEFNAME=Skill_TasteId
