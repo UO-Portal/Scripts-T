@@ -1,0 +1,1193 @@
+//****************************************************************************
+// SPHERE by : Menasoft �1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[DEFNAME HARDCODED]
+defaultcurrency i_gold // sunucudaki varsayilan parabirimi türü (aktif degil)
+defaultitem	i_gold  // If we cannot create the item, make it this.
+defaultchar	c_man   // If we cannot create the char, make it this.
+guards		{ c_guard 1 c_guard_f 1 }
+deffood		{ i_fruit_grapes 1 i_ham 1 i_cheese_cut 1 i_muffin 1 i_fish_cut_cooked 1 i_ribs_cooked 1 i_bird_cooked 1 i_sausages 1 i_fruit_apple 1 i_fruit_peach 1 }
+guardcall	GUARD,GUARDS // virgül (,) ile ayirarak birden fazla guard cagirma komutu girilebilir.
+
+[DEFNAME SPHERE_CUSTOM]
+link_invalid 04fffffff
+
+DlgStartPos 30,30
+
+ALL_MAGERY_REAGENTS 	I_REAG_NIGHTSHADE,I_REAG_GINSENG,I_REAG_MANDRAKE_ROOT,I_REAG_SULFUR_ASH,I_REAG_GARLIC,I_REAG_BLACK_PEARL,I_REAG_BLOOD_MOSS,I_REAG_SPIDER_SILK
+
+
+[DEFNAME brains]
+BRAIN_NONE = 0 
+BRAIN_ANIMAL = 1 
+BRAIN_HUMAN = 2 
+BRAIN_HEALER = 3
+BRAIN_GUARD = 4
+BRAIN_BANKER = 5 
+BRAIN_VENDOR = 6 
+BRAIN_BEGGAR = 7 
+BRAIN_STABLE = 8
+BRAIN_THIEF = 9
+BRAIN_MONSTER = 10
+BRAIN_BERSERK = 11
+BRAIN_UNDEAD = 12
+BRAIN_DRAGON = 13
+BRAIN_VENDOR_OFFDUTY = 14 
+BRAIN_BESERK = BRAIN_BERSERK
+
+
+[DEFNAME region_flags]
+region_antimagic_all			0000001   // all magic banned here.
+region_antimagic_recall_in		0000002   // teleport,recall in to this, and mark
+region_antimagic_recall_out		0000004   // can't recall out of here.
+region_antimagic_gate			0000008
+region_antimagic_teleport		0000010   // can't teleport into here.
+region_antimagic_damage			0000020   // just no bad magic here
+region_flag_ship				0000040   // this is a ship region. ship commands
+region_flag_nobuilding			0000080   // no building in this area
+//region_flag_globalname		0000100   // No longer in use
+region_flag_announce			0000200   // announce to all who enter.
+region_flag_insta_logout		0000400   // instant log out is allowed here (hotel).
+region_flag_underground			0000800   // dungeon type area (no weather, and not necessarily a dungeon).
+region_flag_nodecay				0001000   // things on the ground don't decay here.
+region_flag_safe				0002000   // this region is safe from all harm.
+region_flag_guarded				0004000   // try tag.guardowner
+region_flag_no_pvp				0008000   // players cannot directly harm each other here.
+region_flag_arena				0010000   // pvp is allowed, no murder or criminal acts are taken in count.
+region_flag_nomining			0020000   // Can't use mining in this region.
+region_flag_walk_noblockheight	0040000   // Ignore char height for walkchecks inside this area.
+//
+region_flag_inherit_parent_events 0100000 // This region (areadef/roomdef) inherits EVENTS from the region it's contained in
+region_flag_inherit_parent_flags  0200000 // This region (areadef/roomdef) inherits FLAGS from the region it's contained in
+region_flag_inherit_parent_tags   0400000 // This region (areadef/roomdef) inherits TAGs from the region it's contained in
+region_flag_house				0800000 // 
+
+[DEFNAME spell_flags]
+// spell flags.
+spellflag_dir_anim              00000001	// evoke type cast or directed. (animation)
+spellflag_targ_item             00000002	// need to target an object
+spellflag_targ_char             00000004	// needs to target a living thing
+spellflag_targ_obj              00000006	// can target item or char
+spellflag_targ_xyz              00000008	// can just target a location.
+spellflag_harm                  00000010	// the spell is in some way harmfull.
+spellflag_fx_bolt               00000020	// effect is a bolt to the target.
+spellflag_fx_targ               00000040	// effect is at the target.
+spellflag_field                 00000080	// create a field of stuff. (fire,poison,wall)
+spellflag_summon                00000100	// summon a creature or item.
+spellflag_good                  00000200	// the spell is a good spell. You intend to help to receiver.
+spellflag_resist                00000400	// allowed to resist this.
+spellflag_targ_noself           00000800	// cannot target spell to self
+spellflag_disabled              00008000	// spell is disabled
+spellflag_scripted              00010000	// spell is scripted
+spellflag_playeronly            00020000	// spell is not casted by npc ai
+spellflag_nounparalyze          00040000	// do not unparalyze the victim
+spellflag_no_castanim           00080000	// don't play (default) cast anim
+spellflag_targ_no_player        00100000	// if a char may be targeted, it may not be a player
+spellflag_targ_no_npc           00200000	// if a char may be targeted, it may not be an NPC
+spellflag_noprecast             00400000	// disables effects of MAGICF_PRECAST with a spell (only valid if MAGICF_PRECAST actived in Sphere.ini)
+spellflag_nofreezeoncast        00800000	// disables effects of MAGICF_FREEZEONCAST with a spell (only valid if MAGICF_FREEZEONCAST actived in Sphere.ini)
+spellflag_area                  01000000	// area effect (uses local.arearadius)
+spellflag_poly					02000000	// polymorph yourself
+spellflag_targ_dead				04000000	// target is dead (for resurrection-like spells)
+spellflag_damage				08000000	// kinda harm but deals damage to the targ, damage type is LOCAL.DamageType.
+spellflag_bless					010000000  // Benefitial spells like Bless,Agility,etc.
+spellflag_curse					020000000  // Curses just like Weaken,Purge Magic,Curse,etc.
+spellflag_heal					040000000  // spell used to heal hitpoints
+spellflag_tick					080000000  // A spell is going to tick and causing an effect.
+
+
+
+[DEFNAME mem_flags]
+memory_sawcrime	    00001	// i saw them commit a crime or i was attacked criminally. i can call the guards on them.
+memory_ipet		    00002	// i am a pet. (this link is my master) (never time out)
+memory_fight		00004	// active fight going on now. may not have done any damage.
+memory_iaggressor	00008	// i was the agressor here. (good or evil)
+memory_harmedby	    00010	// i was attacked by them. (but they may have been retaliating)
+memory_irritatedby	00020	// i saw them snoop from me or someone.
+memory_speak		00040	// we spoke about something at some point. (or was tamed) (npc_mem_act_type)
+memory_aggreived	00080	// i was attacked and was the inocent party here !
+memory_guard	    00100	// guard this item (never time out)
+memory_ispawned	    00200	// i am spawned from this item. (never time out)
+memory_guild		00400	// this is my guild stone. (never time out)
+memory_town		    00800	// this is my town stone. (never time out)
+memory_follow		01000	// UNUSED!!!! i am following this object (never time out)
+memory_war_targ     02000	// this is one of my current war targets.
+memory_friend		04000
+
+[DEFNAME stat_flags]
+// apply to chars
+statf_invul             000000001	// invulnerability
+statf_dead              000000002
+statf_freeze            000000004	// paralyzed. (spell)
+statf_invisible         000000008	// invisible (spell).
+statf_sleeping          000000010	// you look like a corpse ?
+statf_war               000000020	// war mode on ?
+statf_reactive          000000040	// have reactive armor on.
+statf_poisoned          000000080	// poison level is in the poison object
+statf_nightsight        000000100	// all a light to you
+statf_reflection        000000200	// magic reflect on.
+statf_polymorph         000000400	// we have polymorphed to another form.
+statf_incognito         000000800	// dont show skill titles
+statf_spiritspeak       000001000	// i can hear ghosts clearly.
+statf_insubstantial     000002000	// ghost has not manifest. or gm hidden
+statf_emoteaction       000004000	// the creature will emote its actions to it's owners.
+statf_commcrystal       000008000	// the char can speak to a comm crystal in his bag
+statf_hasshield         000010000	// using a shield
+statf_archercanmove     000020000	// can move with archery
+statf_stone             000040000	// turned to stone.
+statf_hovering          000080000	// hovering (gargoyle flight)
+statf_fly               000100000	// flying or running ? (anim)
+statf_hallucinating     000400000	// eat 'shrooms or bad food.
+statf_hidden            000800000	// hidden (non-magical)
+statf_indoors           001000000	// we are covered from the rain.
+statf_criminal          002000000	// the guards will attack me. (someone has called guards)
+statf_conjured          004000000	// this creature is conjured and will expire. (leave no corpse or loot)
+statf_pet               008000000	// i am a pet/hirling. check for my owner memory.
+statf_spawned           010000000	// i am spawned by a spawn item.
+statf_saveparity        020000000	// has this char been saved or not ?
+statf_ridden            040000000	// this is the horse. (don't display me) i am being ridden
+statf_onhorse           080000000	// mounted on horseback.
+
+
+[DEFNAME attr_flags]
+// apply to items
+attr_identified	00001	// this is the identified name. ???
+attr_decay		00002	// timer currently set to decay.
+attr_newbie		00004	// not lost on death or sellable ?
+attr_move_always	00008	// always movable (else default as stored in client) (even if mul says not movalble) never decays !
+attr_move_never	00010	// never movable (else default as stored in client) never decays !
+attr_magic		00020	// don't set this while worn! this item is magic as apposed to marked or markable.
+attr_owned		00040	// this is owned by the town. you need to steal it. never decays !
+attr_invis		00080	// gray hidden item (to gm's or owners?)
+attr_cursed		00100
+attr_cursed2		00200	// cursed damned unholy
+attr_blessed		00400
+attr_blessed2		00800	// blessed sacred holy
+attr_forsale		01000	// for sale on a vendor.
+attr_stolen		02000	// the item is hot. m_uidlink = previous owner.
+attr_can_decay		04000	// this item can decay. but it would seem that it would not (attr_move_never etc)
+attr_static		08000	// worldforge merge marker. (not used)
+
+[DEFNAME can_flags]
+// monster "can" type flags.
+mt_male         00000
+mt_nonmover     00000
+mt_ghost        00001 // Moves through doors
+mt_swim         00002 // Moves on water
+mt_walk         00004 // Can walk on land
+mt_passwalls    00008 // Walk through walls
+mt_fly          00010
+mt_fire_immune  00020
+mt_indoors      00040 // Can go under roof
+mt_hover        00080 // Hovers (can follow gargoyle flight paths)
+mt_equip        00100
+mt_usehands     00200
+mt_mount        00400 // can ride mountables
+mt_female       00800
+mt_nonhum       01000 // Body type for combat messages
+mt_run          02000
+mt_nodclicklos  04000 // when dclicking sth., ignore LOS checks
+mt_nodclickdist 08000 // when dclicking sth., ignore distance checks
+
+[DEFNAME alignments]
+// ranges of karma ?
+evil                  {-10000 -6001}
+chaotic               {-6000 -2001}
+good                  {2000 10000}
+wicked                {-10000 -6001}
+belligerent           {-6000 -2001}
+neutral               {-2000 1999}
+kindly                {2000 5999}
+goodhearted           {6000 10000}
+
+infamous              {-10000 -6001}
+outlaw                {-6000 -2001}
+anonymous             {-2000 1999}
+known                 {2000 5999}
+famous                {6000 10000}
+
+
+[DEFNAME midis]
+// midi music defs
+midi_oldult01			0	//loop
+midi_create			1	//loop
+midi_dragflit			2	//loop
+midi_oldult02			3	//loop
+midi_oldult03			4	//loop
+midi_oldult04			5	//loop
+midi_oldult05			6	//loop
+midi_oldult06			7	//loop
+midi_stones1			8
+midi_britain1			9	//loop
+midi_britain2			10
+midi_bucsden			11	//loop
+midi_jhelom			12
+midi_lbcastle			13
+midi_linelle			14
+midi_magincia			15	//loop
+midi_minoc			16	//loop
+midi_ocllo			17	//loop
+midi_samlethe			18	//loop
+midi_serpents			19
+midi_skarabra			20	//loop
+midi_trinsic			21	//loop
+midi_vesper			22
+midi_wind			23
+midi_yew			24	//loop
+midi_cave01			25
+midi_dungeon9			26	//loop
+midi_foresta			27	//loop
+midi_intown01			28	//loop
+midi_junglea			29	//loop
+midi_mountaina			30	//loop
+midi_plains			31	//loop
+midi_sailing			32
+midi_swampa			33	//loop
+midi_tavern01			34
+midi_tavern02			35
+midi_tavern03			36
+midi_tavern04			37	//loop
+midi_combat1			38	//loop
+midi_combat2			39	//loop
+midi_combat3			40	//loop
+midi_approach			41	//loop
+midi_death			42
+midi_victory			43
+midi_btcastle			44
+midi_nujelm			45
+midi_dungeon2			46	//loop
+midi_cove			47	//loop
+midi_moonglow			48	//loop
+//Samurai Empire
+midi_Zento			49	//loop
+midi_TokunoDungeon		50	//loop
+midi_Taiko			51	//loop
+//Mondain's Legacy
+midi_Dread_horn_area		52	//loop
+midi_Elf_city_1			53	//loop
+midi_Grizzle_dungeon		54	//loop
+midi_Melisandes_lair		55	//loop
+midi_Paroxysmus_lair		56	//loop
+midi_GwennoConversation		57
+midi_GoodEndGame		58
+midi_GoodVsEvil			59
+midi_GreatEarthSerpents		60
+midi_Humanoids			61
+midi_MinocNegative		62
+midi_Paws			63
+midi_SelimsBar			64
+midi_SerpentIsleCombat		65
+midi_ValoriaShips		66
+//Stygian Abyss
+midi_TheWanderer		67
+midi_Castle			68
+midi_Festival			69
+midi_Honor			70
+midi_Medieval			71
+midi_BattleOnStones		72
+midi_Docktown			73
+midi_GargoyleQueen		74
+midi_GenericCombat		75
+midi_HolyCity			76
+midi_HumanLevel			77
+midi_LoginLoop			78	//loop
+midi_ForestStones		79
+midi_PrimevalLich		80
+midi_QueenPalace		81
+midi_RoyalCity			82
+midi_SlasherVeil		83
+midi_StygianAbyss		84
+midi_StygianDragon		85
+midi_Void			86
+midi_CodexShrine		87
+//High Seas
+midi_AnvilStrikeInMinoc		88
+midi_ASkaranLullaby		89
+midi_BlackthornsMarch		90
+midi_DupresNightInTrinsic	91
+midi_FayaxionAndTheSix		92
+midi_FlightOfTheNexus		93
+midi_GalehavenJaunt		94
+midi_JhelomToArms		95
+midi_MidnightInYew		96
+midi_MoonglowSonata		97
+midi_NewMaginciaMarch		98
+midi_NujelmWaltz		99
+midi_SherrysSong		100
+midi_StarlightInBritain		101
+midi_TheVesperMist		102
+
+[DEFNAME needstofix]
+// need to be defined. needs and aversions
+// none 0
+// area types.
+r_guardpost           t_junk
+r_docks               t_junk
+r_foliage             r_jungle
+r_desert              t_junk
+r_plains              t_junk
+r_civilization        t_junk
+r_caves               t_junk
+r_stables             t_junk
+r_house               t_junk
+r_snow                t_junk
+r_magical             t_junk
+r_mountains           t_junk
+r_mountains_volcanic  t_junk
+r_darkness            t_junk
+r_light               t_junk
+r_sewers              t_junk
+//no longer used?
+r_goblin_camp				t_junk
+r_dungeon_terathan_keep		t_junk
+r_dungeon_bedlam			t_junk
+r_dungeon_blighted_grove	t_junk
+r_dungeon_citadel			t_junk
+r_dungeon_prism_of_light	t_junk
+r_dungeon_twisted_weald		t_junk
+r_orc_camp					t_junk
+r_ruins						t_junk
+r_dungeon_doom				t_junk
+r_dungeon_paroxysmus		t_junk
+r_dungeon_exodus			t_junk
+r_dungeon_khaldun			t_junk
+r_dungeon_destard			t_junk
+r_dungeon_fire				t_junk
+r_dungeon_abyss				t_junk
+r_dungeon_labyrinth			t_junk
+r_black_castle				t_junk
+// item types
+t_magic               t_junk
+
+
+[TYPEDEFS]
+t_normal                  0
+t_container               1	// any unlocked container or corpse. ccontainer based
+t_container_locked        2
+t_door                    3	// 3 = door can be opened
+t_door_locked             4	// a locked door.
+t_key                     5
+t_light_lit               6	// local light giving object
+t_light_out               7	// can be lit.
+t_food                    8	// edible food. (poisoned food ?)
+t_food_raw                9	// must cook raw food unless your an animal.
+t_armor                  10	// some type of armor. (no real action)
+t_weapon_mace_smith      11	// can be used for smithing
+t_weapon_mace_sharp      12	// war axe can be used to cut/chop trees.
+t_weapon_sword           13	//
+t_weapon_fence           14	// can't be used to chop trees. (make kindling)
+t_weapon_bow             15	// bow or xbow
+t_wand                   16	// a magic storage item
+t_telepad                17	// walk on teleport
+t_switch                 18	// this is a switch which effects some other object in the world.
+t_book                   19	// read this book. (static or dynamic text)
+t_rune                   20	// can be marked and renamed as a recall rune.
+t_booze                  21	// booze      (drunk effect)
+t_potion                 22	// some magic effect.
+t_fire                   23	// it will burn you.
+t_clock                  24	// or a wristwatch
+t_trap                   25	// walk on trap.
+t_trap_active            26	// = some animation
+t_musical                27	// = a musical instrument.
+t_spell                  28	// = magic spell effect.
+t_gem                    29	// = no use yet
+t_water                  30	// = this is water (fishable) (not a glass of water)
+t_clothing               31	// = all cloth based wearable stuff
+t_scroll                 32	// = magic scroll
+t_carpentry              33	// = tool of some sort.
+t_spawn_char             34	// = spawn object. should be invis also.
+t_game_piece             35	// = can't be removed from game.
+t_portculis              36	// = z delta moving gate. (open)
+t_figurine               37	// = magic figure that turns into a creature when activated.
+t_shrine                 38	// = can res you
+t_moongate               39	// = linked to other moon gates (hard coded locations)
+t_chair                  40	// = any sort of a chair item. we can sit on.
+t_forge                  41	// = used to smelt ore blacksmithy etc.
+t_ore                    42	// = smelt to ingots.
+t_log                    43	// = make into furniture etc. lumberlogs
+t_tree                   44	// = can be chopped.
+t_rock                   45	// = can be mined for ore.
+t_carpentry_chop         46	// = tool of some sort.
+t_multi                  47	// = multi part object like house or ship.
+t_reagent                48	// = alchemy when clicked ?
+t_ship                   49	// = this is a ship multi
+t_ship_plank             50	//
+t_ship_side              51	// = should extend to make a plank
+t_ship_side_locked       52	//
+t_ship_tiller            53	// = tiller man on the ship.
+t_eq_trade_window        54	// = container for the trade window.
+t_fish                   55	// = fish can be cut up.
+t_sign_gump              56	// = things like grave stones and sign plaques
+t_stone_guild            57	// = guild stones
+t_anim_active            58	// = active anium that will recycle when done.
+t_sand                   59	// = sand on the beach
+t_cloth                  60	// = bolt or folded cloth
+t_hair                   61	//
+t_beard                  62	// = just for grouping purposes.
+t_ingot                  63	// = ingot.
+t_coin                   64	// = coin of some sort. gold or otherwise.
+t_crops                  65	// = a plant that will regrow. picked type.
+t_drink                  66	// = some sort of drink (non booze)
+t_anvil                  67	// = for repair.
+t_port_locked            68	// = this portcullis must be triggered.
+t_spawn_item             69	// = spawn other items.
+t_telescope              70	// = big telescope pic.
+t_bed                    71	// = bed.
+t_gold                   72	// = gold coin
+t_map                    73	// = map object with pins.
+t_eq_memory_obj          74	// = a char has a memory link to some object. (i am fighting with someone. this records the fight.)
+t_weapon_mace_staff      75	// = staff type of mace. or just other type of mace.
+t_eq_horse               76	// = equipped horse object represents a riding horse to the client.
+t_comm_crystal           77	// = communication crystal.
+t_game_board             78	// = this is a container of pieces.
+t_trash_can              79	// = delete any object dropped on it.
+t_cannon_muzzle          80	// = cannon muzzle. not the other cannon parts.
+t_cannon                 81	// = the rest of the cannon.
+t_cannon_ball            82	//
+t_armor_leather          83	// = non metallic armor (t_clothing)
+t_seed                   84	// = fruit to seed
+t_junk                   85	// = never used
+t_crystal_ball           86	//
+t_swamp                  87	// = swamp (smelly)
+t_message                88	// = user written message item. (for bboard ussually)
+t_reagent_raw            89	// = freshly grown reagents...not processed yet.
+t_eq_client_linger       90	// = change player to npc for a while.
+t_snow                   91	// = snow
+t_it_stone               92	// = double click for items
+t_unused_93              93
+t_explosion              94	// = async explosion.
+t_eq_npc_script          95	// = script npc actions in the form of a book. (get rid of this in favor of waiting on m_events)
+t_web                    96	// = walk on this and transform into some other object.
+t_grass                  97	// = can be eaten by grazing animals
+t_arock                  98	// = a rock or boulder. can be thrown by giants.
+t_tracker                99	// = points to a linked object.
+t_sound                 100	// = this is a sound source.
+t_stone_town            101	// = town stones. everyone free to join.
+t_weapon_mace_crook     102	//
+t_weapon_mace_pick      103	//
+t_leather               104	// = leather or skins of some sort.(not wearable)
+t_ship_other            105	// = some other part of a ship.
+t_bboard                106	// = a container and bboard object.
+t_spellbook             107	// = spellbook (with spells)
+t_corpse                108	// = special type of item.
+t_track_item            109	// - track a id or type of item.
+t_track_char            110	// = track a char or range of char id's
+t_weapon_arrow          111	//
+t_weapon_bolt           112	//
+t_eq_vendor_box         113	// = an equipped vendor .
+t_eq_bank_box           114	// = an equipped bank box
+t_deed                  115	//
+t_loom                  116	//
+t_bee_hive              117	//
+t_archery_butte         118	//
+t_eq_murder_count       119	// = my murder count flag.
+t_eq_stuck              120	// we are stuck in a web
+t_trap_inactive         121	//  = a safe trap.
+//t_unused_122          122
+t_bandage               123	//  = can be used for healing.
+t_campfire              124	//  = this is a fire but a small one.
+t_map_blank             125
+t_spy_glass             126
+t_sextant               127
+t_scroll_blank          128
+t_fruit                 129
+t_water_wash            130	// water that will not contain fish. (for washing or drinking)
+t_weapon_axe            131	// not the same as a sword. but uses swordsmanship skill
+t_weapon_xbow           132
+t_spellicon             133
+t_door_open             134
+t_meat_raw              135	// just a meaty part of a corpse. (uncooked meat)
+t_garbage               136
+t_keyring               137
+t_table                 138	// doesn't really do anything.
+t_floor                 139
+t_roof                  140
+t_feather               141	// a birds feather
+t_wool                  142	// wool cut frm a sheep.
+t_fur                   143
+t_blood                 144	// blood of some creature
+t_foliage               145	// does not go invis when reaped. but will if eaten
+t_grain                 146
+t_scissors              147
+t_thread                148
+t_yarn                  149
+t_spinwheel             150
+t_bandage_blood         151	//  = can't be used for healing.
+t_fish_pole             152
+t_shaft                 153	// bolt or arrow.
+t_lockpick              154
+t_kindling              155
+t_train_dummy           156
+t_train_pickpocket      157
+t_bedroll               158
+t_bellows               159
+t_hide                  160	// made into leather.
+t_cloth_bolt            161
+t_board                 162	// = logs are plained into decent lumber
+t_pitcher               163
+t_pitcher_empty         164
+t_dye_vat               165
+t_dye                   166
+t_potion_empty          167	// empty bottle.
+t_mortar                168
+t_hair_dye              169
+t_sewing_kit            170
+t_tinker_tools          171
+t_wall                  172	// wall of a structure.
+t_window                173	// window for a structure.
+t_cotton                174	// cotton from the plant
+t_bone                  175
+t_eq_script             176	// pure scriptable item equipped.
+t_ship_hold             177	// ships hold.
+t_ship_hold_lock        178
+t_lava                  179
+t_shield                180	// equippable armor.
+t_jewelry               181
+t_dirt                  182	// a patch of dirt where i can plant something
+t_script                183
+t_spellbook_necro       184	// AOS Necromancy spellbook (should have MOREZ=100 by default)
+t_spellbook_pala        185	// AOS Paladin spellbook (should have MOREZ=200 by default)
+t_spellbook_extra       186	// some spellbook for script purposes (MOREZ=basic offset)
+t_spellbook_bushido     187	// SE Bushido spellbook (should have MOREZ=400 by default)
+t_spellbook_ninjitsu    188	// SE Ninjitsu spellbook (should have MOREZ=500 by default)
+t_spellbook_arcanist    189	// ML Spellweaver spellbook (should have MOREZ=600 by default)
+t_multi_custom          190	// Customisable multi
+t_spellbook_mystic      191	// SA Mysticism spellbook (should have MOREZ=677 by default)
+t_hoverover             192	// Hover-over item (CAN_C_HOVER can hover over blocking items)
+t_spellbook_bard        193	// SA Bard spellbook (should have MOREZ=700 by default)
+t_weapon_throwing       194   // Throwing Weapon
+t_cartography           195   // cartography tool
+t_cooking               196   // cooking tool
+t_pilot                 197   // t_pilot (PacketWheelBoatMove)
+t_rope                  198   // almost the same as a ship plank, but not lockable by default.
+t_weapon_whip			199
+
+// New SphereX types starting from 300
+t_spawn_champion		300   // Champion Spawn
+t_multi_addon			301   // AddOn
+t_armor_chain           302
+t_armor_ring            303
+t_talisman              304
+t_armor_bone			305
+t_weapon_wrest			306
+
+[DEFNAME layers]
+layer_hand1		1
+layer_hand2		2
+layer_shoes		3
+layer_pants		4	// bone legs + pants.
+layer_shirt		5
+layer_helm		6
+layer_gloves		7
+layer_ring		8
+layer_talisman		9	// talisman (se and ml)
+layer_collar		10 	// gorget or necklace.
+layer_hair		11
+layer_half_apron	12
+layer_chest		13	// armor chest
+layer_wrist		14	// watch
+layer_light		15	// a itemid_light_src equip item can be put here.
+layer_beard		16	// try to have only men have this.
+layer_tunic		17	// jester suit or full apron.
+layer_ears		18	// earrings
+layer_arms		19	// armor
+layer_cape		20	// cape
+layer_pack		21	// only used by itemid_backpack
+layer_robe		22	// robe over all.
+layer_skirt		23	// skirt or kilt.
+layer_legs		24	// 0x18 = plate legs.
+
+// these are not part of the paper doll (but get sent to the client)
+layer_horse		25	// ride this object. (horse objects are strange?)
+layer_vendor_stock	26 // the stuff the vendor will restock and sell to the players
+layer_vendor_extra	27 // the stuff the vendor will resell to players but is not restocked. (bought from players)
+layer_vendor_buys	28 // the stuff the vendor can buy from players but does not stock.
+layer_bankbox		29 // contents of my bank box.
+
+// internally used layers - don't bother sending these to client.
+layer_special		30	// can be multiple of these. memories
+layer_dragging		31
+
+// spells that are effecting us go here.
+layer_spell_stats             		32	// stats effecting spell. these cancel each other out.
+layer_spell_reactive	     		33
+layer_spell_night_sight       		34
+layer_spell_protection        		35
+layer_spell_incognito         		36
+layer_spell_magic_reflect     		37
+layer_spell_paralyze          		38	// or turned to stone.
+layer_spell_invis             		39
+layer_spell_polymorph         		40
+layer_spell_summon            		41	// magical summoned creature.
+
+layer_flag_poison             		42
+layer_flag_criminal					43  	// criminal or murderer ?
+layer_flag_potion					44   // some magic type effect done by a potion. (they cannot be dispelled)
+layer_flag_spiritspeak        		45
+layer_flag_wool					46   // regrowing wool.
+layer_flag_drunk					47   // booze effect.
+layer_flag_clientlinger       		48
+layer_flag_hallucination				49   // shrooms etc.
+layer_flag_potionused				50   // track the time till we can use a potion again.
+layer_flag_stuck					51   // in a trap or web.
+layer_flag_murders  	     		52	// how many murders do we have ? and decay timer.
+layer_flag_bandage	    				53	// bandages go here for healing
+layer_auction	    				54	// layer for script purposes to equip container on character (like auction system)
+
+[DEFNAME def_gumps]
+// name the gumps.
+g_btn_green_ok			081a
+g_btn_green_ok_press	081b
+g_btn_gray_apply		5204
+g_btn_gray_apply_press	5205
+
+[DEFNAME dam_flags]
+dam_god                 00001     //unblockable "god" damage
+dam_physical            00002     //some sort of physical damage (as opposed to magical)
+dam_magic               00004     //some sort of magical damage
+dam_poison              00008     //poisonous or biological (harm spell) damage
+dam_fire                00010     //fire-based damage
+dam_lightning           00020     //electrical damage (lightning)
+dam_drain               00040     //draining damage
+dam_general             00080     //damage that hits the entire body, rather than just one part of it
+dam_acidic              00100     //acidic damage (will destroy armor)
+dam_cold_old           	00200     //cold-based damage (old flag, should update to dam_cold_new)
+dam_slash               00400     //damage done by slashing (swords, etc)
+dam_pierce              00800     //damage done with spear and such.
+dam_cold_new           	01000     //cold-based damage
+dam_cold                01200     //cold-based damage (matches both old and new cold damage flag)
+dam_energy              02000     //energy-based damage
+dam_noreveal           	04000     //damage that does not reveal the attacker.
+dam_nounparalyze        08000	  //victim won't be unparalyzed
+
+
+[DEFNAME can_i_flags]
+CAN_I_DOOR              00001	// Is a door UFLAG4_DOOR
+CAN_I_WATER             00002	// Need to swim in it. UFLAG1_WATER
+CAN_I_PLATFORM          00004	// we can walk on top of it. (even tho the item itself might block) UFLAG2_PLATFORM
+CAN_I_BLOCK             00008	// need to walk thru walls or fly over. UFLAG1_BLOCK
+CAN_I_CLIMB             00010	// step up on it, UFLAG2_CLIMBABLE
+CAN_I_FIRE              00020	// Is a fire. Ussually blocks as well. UFLAG1_DAMAGE
+CAN_I_ROOF              00040	// We are under a roof. can't rain on us. UFLAG4_ROOF
+CAN_I_HOVER             00080	// We are hovering. UFLAG4_HOVEROVER
+CAN_I_PILE              00100	// Can item be piled UFLAG2_STACKABLE (*.mul)
+CAN_I_DYE               00200	// Can item be dyed UFLAG3_CLOTH? (sort of)
+CAN_I_FLIP              00400	// will flip by default.
+CAN_I_LIGHT             00800	// UFLAG3_LIGHT
+CAN_I_REPAIR            01000	// Is it repairable (difficulty based on value)
+CAN_I_REPLICATE         02000	// Things like arrows are pretty much all the same.
+CAN_I_DCIGNORELOS       04000	// when dclicked, ignore LOS checks
+CAN_I_DCIGNOREDIST      08000	// when dclicked, ignore distance checks
+CAN_I_BLOCKLOS         010000	// blocks LOS, but not walking thru
+
+[DEFNAME tile_flags]			// by Shadowlord
+tilef_background        000000001	// No idea. None whatsoever. Maybe it's the blackness.
+tilef_weapon            000000002	// I smack thee with this here ... club?
+tilef_transparent       000000004	// Yeah. So we can see through it?
+tilef_translucent       000000008	// Okay...
+tilef_wall              000000010	// Hey look, we can't walk through it!
+tilef_damaging          000000020	// Lava, perhaps? Fires, hmm!
+tilef_impassable        000000040	// Mountains and stuff, I'll wager.
+tilef_wet               000000080	// Water? Or mud? Or a slick road in a rainstorm? Probably the first.
+tilef_unknown           000000100	// Uh...
+tilef_surface           000000200	// Tables or something?
+tilef_bridge            000000400	// I wonder why they'd have a flag for that.
+tilef_stackable         000000800	// Can be stacked
+tilef_window            000001000	// So we can see/shoot out?
+tilef_noshoot           000002000	// ? We can't shoot out or something? So, like a glass window maybe?
+tilef_prefixA           000004000	// A card
+tilef_prefixAn          000008000	// An apple
+tilef_internal          000010000	// hair, beards, etc
+tilef_foliage           000020000	// Probably bushes and tree leaves and stuff.
+tilef_partialHue        000040000	// semi-glowy?
+tilef_unknown_1         000080000	// Well, gee. I should see if it's used on anything...
+tilef_map               000100000	// Sounds good to me.
+tilef_container         000200000	// They flag these!?
+tilef_wearable          000400000	// Omigod!
+tilef_lightSource       000800000	// I'm getting tired of typing repetitive shiznit now.
+tilef_animated          001000000	// Like fire again. And stuff. Those spinny propeller thingies!
+tilef_hoverover         002000000	// Can be hovered over
+tilef_unknown_2         004000000	// I really hope some of these unknowns are n/w/s/e facing flags.
+tilef_armor             008000000	// Armor, okay, so does that count shields? Hmmm?
+tilef_roof              010000000	// "Don't fall through me!" Or why isn't it just flagged surface or something?
+tilef_door              020000000	// Okay...
+tilef_stairBack         040000000	// Don't we have stairs that go forward or left too? This could cover both...
+tilef_stairRight        080000000	// Well, whatever, you can climb them, so, hey... Good use for a
+
+
+// ARGN2 in f_oncreate_char
+[DEFNAME profession_ids]
+prof_unknown			0
+prof_warrior			1
+prof_magician			2
+prof_blacksmith		3
+prof_necromancer	4
+prof_paladin			5
+prof_samurai			6
+prof_ninja				7
+
+
+[DEFNAME resdisp_version]
+// RESDISP is a property of the user ACCOUNT
+RDS_PRET2A      0
+RDS_T2A         1
+RDS_LBR         2
+RDS_AOS         3
+RDS_SE          4
+RDS_ML          5
+RDS_KR          6
+RDS_SA          7
+RDS_HS			8
+RDS_TOL			9
+
+
+// When client or server send a speech packet these have a type
+// You can use them to send a packet or to check ARGN1 in the global speech hook
+[DEFNAME talkmode_type]
+talkmode_system		0	// Normal system message. ( server -> client && client -> server )
+talkmode_prompt		1	// Display as system prompt. ( server -> client )
+talkmode_emote		2	// *smiles* at object. ( client -> server )
+talkmode_say			3	// A chacter speaking. ( server -> client )
+talkmode_obj			4	// At Object ( server -> client )
+talkmode_nothing	5	// Does not display ( server -> client )
+talkmode_item			6	// Text labeling an item. Preceeded by "You see" ( server -> client )
+talkmode_noscroll	7	// As a status msg. Does not scroll ( server -> client )
+talkmode_whisper	8	// ;	only those close can here. ( client -> server )
+talkmode_yell			9	// ! can be heard 2 screens away. ( client -> server )
+talkmode_spell		10	// Used by spells ( server -> client )
+talkmode_guild		13	// \ guild speech ( client -> server )
+talkmode_alliance	14	// alliance speech ( client -> server )
+
+
+[DEFNAME skill_flags]
+// These flags are used in SKILL definitions
+SKF_SCRIPTED      0001   // fully scripted, no hardcoded behaviour
+SKF_FIGHT         0002   // considered a fight skill, maintains fight active
+SKF_MAGIC         0004   // considered a magic skill
+SKF_CRAFT         0008   // considered a crafting skill, compatible with MAKEITEM function
+SKF_IMMOBILE      0010   // skilluser can not move while skilluse
+SKF_SELECTABLE    0020   // from skill list. ATTENTION: This does _not_ place the button next to the skill in the client's skill list! For this you have to edit skills.mul.
+SKF_NOMINDIST     0040   // you can mine, fish, chop, hack on the same point you are standing on
+SKF_NOANIM        0080   // don't show hardcoded anim for this skill
+SKF_NOSFX         0100   // don't play hardcoded sound for this skill
+SKF_RANGED        0200   // considered a ranged skill (combine with SKF_FIGHT)
+SKF_GATHER		  0400	 // Gathering skill.
+SKF_DISABLED	  0800   // This skill cannot be used at all.
+
+[DEFNAME skill_titles]
+// Skill ranges for the titles
+SKILLTITLE_NEOPHYTE		300	// this skill lever or higher applies this skilltitle (until a greater one is reached)
+SKILLTITLE_NOVICE		400
+SKILLTITLE_APPRENTICE	500
+SKILLTITLE_JOURNEYMAN	600
+SKILLTITLE_EXPERT		700
+SKILLTITLE_ADEPT		800
+SKILLTITLE_MASTER		900
+SKILLTITLE_GRANDMASTER	1000
+SKILLTITLE_ELDER		1100	// This works with the normal skills and Bushido/Ninjitsu too.
+SKILLTITLE_LEGENDARY	1200	// Same here
+
+[DEFNAME trigger_argtype]
+TAT_AS_ARGN   1      // Treat the arguments as ARGN1/2/3
+TAT_AS_ARGS   2      // Treat the arguments as ARGS (with ARGV[x] enabled)
+TAT_AS_ARGO   3      // Treat the arguments as ARGO
+
+[DEFNAME misc_own]
+empty_cliloc      1042971
+empty_cliloc2     1070722
+empty_cliloc3     1114778
+empty_cliloc4     1114779
+
+[DEFNAME los_flags]
+los_nb_local_terrain	00001	// Terrain inside a region I am standing in does not block LOS
+los_nb_local_static	00002	// Static items inside a region I am standing in do not block LOS
+los_nb_local_dynamic	00004	// Dynamic items inside a region I am standing in do not block LOS
+los_nb_local_multi	00008	// Multi items inside a region I am standing in do not block LOS
+los_nb_terrain		00010	// Terrain does not block LOS at all
+los_nb_static		00020	// Static items do not block LOS at all
+los_nb_dynamic		00040	// Dynamic items do not block LOS at all
+los_nb_multi		00080	// Multi items do not block LOS at all
+los_nb_windows		00100	// Windows do not block LOS (e.g. Archery + Magery)
+los_no_other_region	00200	// Do not allow LOS path checking to go out of your region
+los_nc_multi		00400	// Do not allow LOS path checking to go through (no cross) a multi region (except the one you are standing in)
+los_fishing		00800	// Do not allow LOS path checking to go through objects or terrain which do not represent water
+los_nc_water		01000	// Do not allow LOS path checking to go through water.
+
+[DEFNAME passive_buff_icons]
+passivebufficon_Hidden				1012
+passivebufficon_ActiveMeditation	1013
+passivebufficon_Incognito			1032
+passivebufficon_Disguised			1033
+passivebufficon_Polymorph			1035
+passivebufficon_GargoyleFly			1054
+passivebufficon_Despair				1060
+
+[DEFNAME debuff_icons]
+debufficon_NoRemount			1001
+debufficon_DeathStrike			1006
+debufficon_EvilOmen				1007
+debufficon_HealingThrottle		1008
+debufficon_StaminaThrottle		1009
+debufficon_BloodOathCurse		1015
+debufficon_CorpseSkin			1016
+debufficon_MindRot				1017
+debufficon_PainSpike			1018
+debufficon_Strangle				1019
+debufficon_ThunderStorm			1022
+debufficon_EssenceOfWind		1023
+debufficon_MortalStrike			1027
+debufficon_Paralyze				1037
+debufficon_Poison				1038
+debufficon_Bleed				1039
+debufficon_Clumsy				1040
+debufficon_Feeblemind			1041
+debufficon_Weaken				1042
+debufficon_Curse				1043
+debufficon_MassCurse			1044
+debufficon_Sleep				1049
+debufficon_SpellPlague			1051
+debufficon_Tribulation			1059
+debufficon_HitLowerAttack		1063
+debufficon_HitLowerDefense		1064
+debufficon_SpellFocusing		1071
+debufficon_RageFocusing			1072
+debufficon_ForceArrow			1076
+debufficon_Disarm				1077
+debufficon_TalonStrike			1080
+debufficon_PhysicAttack			1081
+debufficon_EnemyOfOne			1084
+debufficon_FandancerFanFire		1105
+debufficon_Rage					1106
+debufficon_Webbing				1107
+debufficon_MedusaStone			1108
+debufficon_DragonSlasherFear	1109
+debufficon_AuraOfNausea			1110
+debufficon_HowlOfCacophony		1111
+debufficon_GazeDespair			1112
+debufficon_HiryuPhysicalResistance	1113
+debufficon_RuneBeetleCorruption	1114
+debufficon_BloodWormAnemia		1115
+debufficon_RotwormBloodDisease	1116
+debufficon_SkillUseDelay		1117
+debufficon_FactionStatLoss		1118
+debufficon_HeatOfBattle			1119
+debufficon_CriminalStatus		1120
+debufficon_ArmorPierce			1121
+debufficon_SplinteringEffect	1122
+debufficon_SwingSpeed			1123
+debufficon_Humility				1127
+debufficon_Stagger				1131
+debufficon_Pierce				1134
+debufficon_Onslaught			1137
+debufficon_ElementalFury		1139
+debufficon_DeathRay				1155
+debufficon_InjectedStrike		1161
+debufficon_PlayingTheOdds		1164
+debufficon_DragonTurtle			1165
+debufficon_Thrust				1168
+debufficon_Sparks				1176
+debufficon_Swarm				1177
+debufficon_BoneBreaker			1178
+debufficon_Feint				1185
+debufficon_Discordance			1189
+
+[DEFNAME buff_icons]
+bufficon_NoRearm				1002
+bufficon_NightSight				1005
+bufficon_DivineFury				1010
+bufficon_EnemyOfOne				1011
+bufficon_BloodOathCaster		1014
+bufficon_GiftOfRenewal			1020
+bufficon_AttuneWeapon			1021
+bufficon_EtherealVoyage			1024
+bufficon_FiftOfFife				1025
+bufficon_ArcaneEmpowerment		1026
+bufficon_ReactiveArmor			1028
+bufficon_Protection				1029
+bufficon_ArchProtection			1030
+bufficon_MagicReflection		1031
+bufficon_AnimalForm				1034
+bufficon_Invisibility			1036
+bufficon_Agility				1045
+bufficon_Cunning				1046
+bufficon_Strength				1047
+bufficon_Bless					1048
+bufficon_StoneForm				1050
+bufficon_GargoyleBerserk		1052
+bufficon_Inspire				1055
+bufficon_Invigorate				1056
+bufficon_Resilience				1057
+bufficon_Perseverance			1058
+bufficon_FishPie				1062
+bufficon_HitDualWield			1065
+bufficon_Block					1066
+bufficon_DefenseMastery			1067
+bufficon_Despair				1068
+bufficon_HealingEffect			1069
+bufficon_SpellFocusing			1070
+bufficon_RageFocusing			1073
+bufficon_Warding				1074
+bufficon_Yribulation			1075
+bufficon_Surge					1078
+bufficon_Feint					1079
+bufficon_Consecrate				1082
+bufficon_GrapesOfWrath			1083
+bufficon_HorrificBeast			1085
+bufficon_LichForm				1086
+bufficon_VampiricEmbrace		1087
+bufficon_CurseWeapon			1088
+bufficon_ReaperForm				1089
+bufficon_InmolatingWeapon		1090
+bufficon_Enchant				1091
+bufficon_HonorableExecution		1092
+bufficon_Confidence				1093
+bufficon_Evasion				1094
+bufficon_CounterAttack			1095
+bufficon_LightningStrike		1096
+bufficon_MomentumStrike			1097
+bufficon_OrangePetals			1098
+bufficon_RoseOfTrinsic			1099
+bufficon_PoisonImmunity			1100
+bufficon_Veterinary				1101
+bufficon_Perfection				1102
+bufficon_Honored				1103
+bufficon_ManaPhase				1104
+bufficon_WraithForm				1124
+bufficon_CityTradeDeal			1126
+bufficon_Spirituality			1128
+bufficon_Humility				1129
+bufficon_Rampage				1130
+bufficon_Toughness				1132
+bufficon_Thrust					1133
+bufficon_PlayingTheOdds			1135
+bufficon_FocusedEye				1136
+bufficon_ElementalFury			1138
+bufficon_CalledShot				1140
+bufficon_Knockout				1141
+bufficon_WarriorsGifts			1142	// Previously known as Saving Throw
+bufficon_Conduit				1143
+bufficon_EtherealBurst			1144
+bufficon_MysticWeapon			1145
+bufficon_ManaShield				1146
+bufficon_AnticipateHit			1147
+bufficon_Warcry					1148
+bufficon_Shadow					1149
+bufficon_WhiteTigerForm			1150
+bufficon_Bodyguard				1151
+bufficon_HeightenedSenses		1152
+bufficon_Tolerance				1153
+bufficon_DeathRay				1154
+bufficon_Intuition				1156
+bufficon_EnchantedSummoning		1157
+bufficon_ShieldBash				1158
+bufficon_Whispering				1159
+bufficon_CombatTraining			1160
+bufficon_InjectedStrike			1162
+bufficon_UnknownTomato			1163
+bufficon_Boarding				1166
+bufficon_Potency				1167
+bufficon_FistsOfFury			1169
+bufficon_BarrabHemolymphConcentrate	1170
+bufficon_JukariBurnPoultice		1171
+bufficon_KurakAmbushersEssence	1172
+bufficon_BarakoDraftOfMight		1173
+bufficon_UraliTranceTonic		1174
+bufficon_SakkhraProphylaxis		1175
+bufficon_Sparks					1179
+bufficon_Swarm					1180
+bufficon_BoneBreaker			1181
+bufficon_StatueTransformation	1182
+bufficon_CorasManaRage			1183
+bufficon_VirtueShield			1184
+bufficon_CaddelliteInfused		1186
+bufficon_PotionOfGloriousFortune	1187
+bufficon_MysticalPolymorphTotem		1188
+
+[DEFNAME buff_clilocs]
+buffcliloc_Empty				1070722
+buffcliloc_NoRemount_1			1075635
+buffcliloc_NoRemount_2			1075636
+buffcliloc_ActiveMeditation_1	1075657
+buffcliloc_ActiveMeditation_2	1075658
+buffcliloc_Curse_1				1075835
+buffcliloc_Curse_2				1075836
+buffcliloc_Weaken_1				1075837
+buffcliloc_Weaken_2				1075838
+buffcliloc_MassCurse_1			1075839
+buffcliloc_MassCurse_2			1075840
+buffcliloc_Agility_1			1075841
+buffcliloc_Agility_2			1075842
+buffcliloc_Cunning_1			1075843
+buffcliloc_Cunning_2			1075844
+buffcliloc_Strength_1			1075845
+buffcliloc_Strength_2			1075846
+buffcliloc_Bless_1				1075847
+buffcliloc_Bless_2				1075848
+buffcliloc_ReactiveArmor_1		1075812
+buffcliloc_ReactiveArmor_2		1075813
+buffcliloc_Protection_1			1075814
+buffcliloc_Protection_2			1075815
+buffcliloc_ArchProtection		1075816
+buffcliloc_ArchProtection		1075815
+buffcliloc_Invisibility_1		1075825
+buffcliloc_Invisibility_2		1075826
+buffcliloc_Paralyze_1			1075827
+buffcliloc_Paralyze_2			1075828
+buffcliloc_MagicReflection_1	1075817
+buffcliloc_MagicReflection_2	1075818
+buffcliloc_Clumsy_1				1075831
+buffcliloc_Clumsy_2				1075832
+buffcliloc_Feeblemind_1			1075833
+buffcliloc_Feeblemind_2			1075834
+buffcliloc_Incognito_1			1075819
+buffcliloc_Incognito_2			1075820
+buffcliloc_Polymorph_1			1075824
+buffcliloc_Polymorph_2			1075823
+buffcliloc_Poison_1				1017383
+buffcliloc_Poison_2				1070722
+buffcliloc_Nightsight_1			1075643
+buffcliloc_Nightsight_2			1075644
+buffcliloc_Hidden_1				1075655
+buffcliloc_Hidden_2				1075656
+buffcliloc_GargoyleFly_1		1112193
+buffcliloc_GargoyleFly_2		1112567
+buffcliloc_GrapesOfWrath_1		1032247
+buffcliloc_GrapesOfWrath_2		1153762
+buffcliloc_HorrificBeast_1		1060514
+buffcliloc_HorrificBeast_2		1153763
+buffcliloc_LichForm_1			1060515
+buffcliloc_LichForm_2			1153767
+buffcliloc_VampiricEmbrace_1	1060521
+buffcliloc_VampiricEmbrace_2	1153768
+buffcliloc_WraithForm_1			1060524
+buffcliloc_WraithForm_2			1153829
+buffcliloc_ReaperForm_1			1071034
+buffcliloc_ReaperForm_2			1153781
+buffcliloc_StoneForm_1			1080145
+buffcliloc_StoneForm_2			1080146
+buffcliloc_CriminalStatus_1		1153802
+buffcliloc_CriminalStatus_2		1153828
+buffcliloc_BarrabHemolymphConcentrate_1	1156724
+buffcliloc_BarrabHemolymphConcentrate_2	1156738
+buffcliloc_JukariBurnPoultice_1		1156726
+buffcliloc_JukariBurnPoultice_2		1156739
+buffcliloc_KurakAmbushersEssence_1	1156728
+buffcliloc_KurakAmbushersEssence_2	1156740
+buffcliloc_BarakoDraftOfMight_1		1156729
+buffcliloc_BarakoDraftOfMight_2		1156741
+buffcliloc_UraliTranceTonic_1		1156734
+buffcliloc_UraliTranceTonic_2		1156742
+buffcliloc_SakkhraProphylaxis_1		1156732
+buffcliloc_SakkhraProphylaxis_2		1156743
+buffcliloc_Sparks_1					1157330
+buffcliloc_Sparks_2					1157329
+buffcliloc_Swarm_1					1157328
+buffcliloc_Swarm_2					1157327
+buffcliloc_BoneBreaker_1			1157318
+buffcliloc_BoneBreaker_2			1157319
+buffcliloc_StatueTransformation_1	1158018
+buffcliloc_StatueTransformation_2	1158017
+buffcliloc_CorasManaRage_1			1158283
+buffcliloc_CorasManaRage_2			1158284
+buffcliloc_VirtueShield_1			1158382
+buffcliloc_VirtueShield_2			1158383
+buffcliloc_CaddelliteInfused_1			1158662
+buffcliloc_CaddelliteInfused_2			1158677
+buffcliloc_PotionOfGloriousFortune_1			1158688
+buffcliloc_PotionOfGloriousFortune_2			1158720
+buffcliloc_MysticalPolymorphTotem_1	1158780
+buffcliloc_MysticalPolymorphTotem_2	1158017
+buffcliloc_Discordance_1			1044075
+buffcliloc_Discordance_2			1158786
+
+[DEFNAME ref_types]
+tref_serv		000001
+tref_file		000002
+tref_newfile		000004
+tref_db			000008
+tref_resdef		000010
+tref_resbase		000020
+tref_functionargs	000040
+tref_fileobj		000080
+tref_fileobjcont	000100
+tref_account		000200
+tref_stonemember	000800
+tref_serverdef		001000
+tref_sector		002000
+tref_world		004000
+tref_gmpage		008000
+tref_client		010000
+tref_object		020000
+tref_char		040000
+tref_item		080000
+
+[DEFNAME death_flags]
+DEATH_NOFAMECHANGE	01
+DEATH_NOCORPSE		02
+DEATH_NOLOOTDROP	04
+DEATH_NOCONJUREDEFFECT	08
+DEATH_HASCORPSE		010
+
+[DEFNAME noto_types]
+NOTO_GOOD		1
+NOTO_GUILD_SAME		2
+NOTO_NEUTRAL		3
+NOTO_CRIMINAL		4
+NOTO_GUILD_WAR		5
+NOTO_EVIL		6
+NOTO_INVUL		7
+
+// CanUse flags
+// Uses new internal variable CANUSE. Script for this is in the addon's folder in the script pack.
+// Used on items for checks or npcs (mounts, golems, etc)
+[DEFNAME canuse_flags]
+can_u_all			0
+can_u_male			01
+can_u_female		02
+can_u_human			04
+can_u_elf			08
+can_u_gargoyle		010
+can_u_none			020
+
+[DEFNAME swing_types]
+WAR_SWING_INVALID 		= -1	
+WAR_SWING_EQUIPPING 	= 0	// we are recoiling our weapon.
+WAR_SWING_READY 		= 1 	// we can swing at any time.
+WAR_SWING_SWINGING 		= 2	// we are swinging our weapon.
+
+
+[DEFNAME expansions]
+expansion_t2a			0
+expansion_renaissance	1
+expansion_thirddawn		2
+expansion_lbr			3
+expansion_aos			4
+expansion_se			5
+expansion_ml			6
+expansion_sa			7
+expansion_hs			8
+expansion_tol			9
+
+[DEFNAME theme_packs]
+theme_gothic		1
+theme_rustic		2
+
+// Waypoint types used by MAPWAYPOINT function (enhanced clients only)
+[DEFNAME mapwaypoint_types]
+mapwaypoint_remove				0
+mapwaypoint_corpse				1
+mapwaypoint_partymember			2
+mapwaypoint_questgiver			4
+mapwaypoint_newplayerquest		5
+mapwaypoint_healer				6
+mapwaypoint_shrine				11
+mapwaypoint_moongate			12
+mapwaypoint_greendot			14
+mapwaypoint_greendot_flashing	15
+
+[EOF]

@@ -1,7 +1,7 @@
 # Scripts-T
-SphereServer Unofficial 056.T Emulator Script Pack
+SphereServer 0.56T Official Scripts
 
-[![Sphere 056T](https://github.com/UOPortal/Source-56T)](https://github.com/UOPortal/Source-56T) varsayılan Script Pack
+[![SphereServer 0.56T](https://github.com/UOPortal/Source-56T)](https://github.com/UOPortal/Source-56T) varsayılan Script Pack
 
 Script pack içeriğindekiler bazı yerler emülatör ile entegre çalışmaktadır.
 
