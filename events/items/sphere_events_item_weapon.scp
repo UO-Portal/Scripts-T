@@ -1,0 +1,39 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[TYPEDEF ei_item_weapon]
+On=@Click
+IF (<ATTR>&ATTR_IDENTIFIED)
+	COLOR=<SERV.ITEMDEF.<BASEID>.RESDISPDNHUE>
+ENDIF
+IF !(<ATTR>&ATTR_MAGIC) && (<MOREY> > 0)
+	ATTR |= ATTR_MAGIC
+ENDIF
+IF (<ATTR>&ATTR_MAGIC)
+	MESSAGE a magical <SERV.ITEMDEF.<ID>.NAME>
+	IF (<ATTR>&ATTR_IDENTIFIED)
+		IF (STRMATCH(*vanq*,'<NAME>'))
+			LOCAL.MAGICNAME = vanquishing
+		ELSEIF (STRMATCH(*power*,'<NAME>'))
+			LOCAL.MAGICNAME = power		
+		ELSEIF (STRMATCH(*force*,'<NAME>'))
+			LOCAL.MAGICNAME = force			
+		ELSEIF (STRMATCH(*might*,'<NAME>'))
+			LOCAL.MAGICNAME = might		
+		ELSEIF (STRMATCH(*ruin*,'<NAME>'))
+			LOCAL.MAGICNAME = ruin
+		ENDIF
+		MESSAGE [<LOCAL.MAGICNAME>]
+	ENDIF
+	RETURN 1
+ENDIF
+
+
+
+
+[eof]

@@ -1,0 +1,40 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[TYPEDEF T_STONE_GUILD]
+ON=@Click
+	MESSAGE [<NAME><QVAL (<ISEMPTY <ABBREV>>)?:, <ABBREV>>]
+	MESSAGE Guildstone
+return 1
+
+ON=@DCLICK
+IF (<DISTANCE> > 2)
+	SRC.SYSMESSAGE @38,,1,1 Guildstoneye uzaksýnýz.
+	
+ELIF (<MEMBER.COUNT>==0)&&(!<MASTERUID>)
+	F_GUILDSYS_ADDCHARTOGUILD <UID>,<SRC.UID>,1
+	
+ELIF (!<MASTERUID>)
+	F_GUILDSYS_ADDCHARTOGUILD <UID>,<MEMBER.0.UID>,1
+	
+ELIF (<MEMBERFROMUID.<SRC.UID>.UID>!=<SRC.UID>)&&(!<SRC.ISGM>)
+	SRC.SYSMESSAGE @38,,1,1 Bu guild ile bir baðýnýz yok.
+	
+ELIF (<MEMBERFROMUID.<SRC.UID>.PRIV> == <DEF0.STONEPRIV_ACCEPTED>)
+	F_GUILDSYS_ADDCHARTOGUILD <UID>,<SRC.UID>,1
+	
+ELIF (<MEMBERFROMUID.<SRC.UID>.PRIV>==<DEF0.STONEPRIV_CANDIDATE>)&&(!<SRC.ISGM>)
+	SRC.SYSMESSAGE @,,1,1 Guildmaster tarafýndan onaylanmayý bekliyorsunuz...
+	
+ELIF (<MEMBERFROMUID.<SRC.UID>.PRIV>==<DEF0.STONEPRIV_MEMBER>)||(<MASTERUID>==<SRC.UID>)||(<SRC.ISGM>)
+	DIALOGCLOSE D_GUILD_MAIN
+    SDIALOG D_GUILD_MAIN,0
+ENDIF
+RETURN 1
+
+[EOF]

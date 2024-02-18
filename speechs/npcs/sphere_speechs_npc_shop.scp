@@ -1,0 +1,73 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+
+[SPEECH spk_npc_shopkeeper]
+ON=*sell*
+SELL
+
+ON=*buy*
+BUY
+
+
+
+ON=*teach*
+LOCAL.SKILLKEY=<STRSUB 6 99 <ARGS>>
+IF (STRMATCH('teach','<LOCAL.SKILLKEY>'))
+	DIALOGCLOSE D_TEACH_INFO
+	DIALOG D_TEACH_INFO
+ELSE
+	SRC.SYSMESSAGE @,,1,1 Hangi beceriyi nasıl teach yapacağınızı görmek için sadece 'teach' yazınız.
+	TRAIN <LOCAL.SKILLKEY>
+ENDIF
+
+
+[SPEECH spk_banker]
+ON=*bank*
+SRC.BANKSELF
+
+ON=*balance*
+IF (<SERV.FeatureTOL> & 02)	//FEATURE_TOL_VIRTUALGOLD
+	SAY Thy current bank balance is <eval <SRC.VIRTUALGOLD>/1000000000> platinum and <eval <SRC.VIRTUALGOLD>%1000000000> gold.
+ELSE
+	SAY Thy current bank balance is <SRC.BANKBALANCE> gold.
+ENDIF
+
+
+
+
+
+[SPEECH spk_bodysculptor]
+ON=*buy*
+IF (<SRC.f_isGarg>)
+	SRC.SYSMESSAGE Gargoyles cannot use the services of a body sculptor.
+	return 1
+ELIF !((<SRC.CLIENTISKR>) || (<SRC.CLIENTISSA>))
+	SRC.SYSMESSAGE Your legacy self looks too good to change.
+	return 1
+ELIF !((<SRC.f_isHuman>) || (<SRC.f_isElf>)) || (<SRC.FLAGS> & statf_polymorph)
+	return 1
+ENDIF
+SDIALOG d_body_sculptor
+
+
+[SPEECH spk_hairstylist]
+ON=*buy*
+IF (<SRC.FLAGS> & statf_dead)
+	SRC.SYSMESSAGE You cannot use the services of a hairstylist right now.
+	return 1
+ELIF (<SRC.f_isGarg>)
+	SRC.SYSMESSAGE A hairstylist cannot style your horns!
+	return 1
+ELIF !((<SRC.f_isHuman>) || (<SRC.f_isElf>)) || (<SRC.FLAGS> & statf_polymorph)
+	SRC.SYSMESSAGE Your current form does not allow for new styles.
+	return 1
+ENDIF
+SDIALOG d_hairstylist
+
+[EOF]

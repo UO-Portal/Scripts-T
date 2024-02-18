@@ -1,0 +1,88 @@
+//****************************************************************************
+// SPHERE by : Menasoft �1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[COMMENT sphere_spellmenu]
+The sphereserver has a number of hardcoded spellmenu's, this file contains the softcoded component.  The prupose of each is as follows:
+// Spells
+sm_summon				= Triggered by the Magery "summoning" spell
+sm_summon_familiar	= Triggered by the Necromancy "Summon Familiar" spell
+sm_polymorph			= Triggered by the Magery Polymorph spell
+
+//////////////
+// Spells Menu
+//////////////
+
+[SKILLMENU sm_summon]
+Summon
+
+ON=i_PET_SCORP <name>
+TEST=MAGERY 75.0
+SUMMON=c_SCORPION_GIANT
+
+ON=i_PET_BEAR <name>
+TEST=MAGERY 50.0
+SUMMON=c_Bear_Brown
+
+ON=i_PET_CHICKEN <name>
+TEST=MAGERY 35.0
+SUMMON=c_CHICKEN
+
+ON=i_pet_horse_brown_lt <name>
+TEST=MAGERY 35.0
+SUMMON=HORSES
+
+
+[SKILLMENU sm_Summon_Familiar]
+Summon Familiar
+
+ON=i_pet_demon_horde <name>
+TEST=NECROMANCY 30.0,SPIRITSPEAK 30.0
+SUMMON=c_demon_horde_minion
+
+ON=i_pet_wisp <name>
+TEST=NECROMANCY 50.0,SPIRITSPEAK 50.0
+SUMMON=c_wisp
+
+ON=i_pet_wolf_grey <name>
+TEST=NECROMANCY 60.0,SPIRITSPEAK 60.0
+SUMMON=c_wolf_dark
+
+ON=i_pet_vampirebat <name>
+TEST=NECROMANCY 100.0,SPIRITSPEAK 100.0
+SUMMON=c_vampire_bat
+
+
+
+[SKILLMENU sm_polymorph]
+Polymorph
+
+ON=i_pet_MAN Man
+TEST=MAGERY 40.0
+POLY C_MAN
+
+ON=i_pet_woman Woman
+TEST=MAGERY 40.0
+POLY C_WOMAN
+
+ON=i_PET_CHICKEN Chicken
+TEST=MAGERY 40.0
+POLY c_CHICKEN
+
+ON=i_pet_DOG Dog
+TEST=MAGERY 60.0
+POLY c_DOG
+
+ON=i_PET_DEMON Demon
+TEST=MAGERY 85.0
+POLY c_DEMON
+
+// ON=i_pet_DRAGON Dragon
+// TEST=MAGERY 98.0
+// POLY { c_dragon 1 c_dragon_red 1 }
+
+[EOF]

@@ -1,0 +1,39 @@
+﻿//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[events e_npc_monster]
+ON=@click
+// MESSAGE (Monster)
+
+
+////////////////////////
+// Other Events 
+////////////////////////
+
+[EVENTS e_Undead]
+
+[EVENTS e_Carnivores]
+
+[EVENTS e_Carnivores2]
+
+[EVENTS e_Carnivores3]
+
+[EVENTS e_Terathan]
+
+[EVENTS e_Ophidian]
+
+[EVENTS e_Horses]
+
+[EVENTS e_Ostards]
+
+[EVENTS e_Minotaurs]
+
+[EVENTS e_solen_spit]
+
+
+[eof]

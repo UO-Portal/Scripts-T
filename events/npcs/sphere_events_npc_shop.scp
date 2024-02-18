@@ -1,0 +1,24 @@
+﻿//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[events e_npc_shopkeepers]
+ON=@CLICK
+MESSAGE (<StrTitle <job>>)
+
+ON=@DCLICK
+IF (<SRC.ISDIFF <UID>>)
+	SRC.SYSMESSAGE @38,,1,1 <NAME>: <DEFMSG.REACH_FAIL>
+	RETURN 1
+ELSEIF (<SRC.FLAGS>&STATF_DEAD)
+	SRC.SYSMESSAGE @38,,1,1 Ölüyken bunu yapamazsınız.
+	RETURN 1
+ENDIF
+BUY
+RETURN 1
+
+[eof]

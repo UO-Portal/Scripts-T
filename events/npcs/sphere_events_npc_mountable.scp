@@ -1,0 +1,15 @@
+﻿//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[events e_npc_mountables]
+ON=@CLICK
+IF (<OWNER>)
+MESSAGE (<OWNER.NAME>)
+ENDIF
+
+[eof]

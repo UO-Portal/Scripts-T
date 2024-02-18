@@ -1,0 +1,45 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+
+[DIALOG d_pet_release]
+<DEF.DlgStartPos>
+NOMOVE
+
+DORIGIN 20 30
+
+RESIZEPIC 0 0 5054 270 140
+RESIZEPIC 10 10 3000 250 120
+
+IF (<FLAGS> & statf_dead)
+    DHTMLGUMP +0 +0 230 60 1 1 Ölü bir evcil hayvanı serbest bırakmak, onu hiçbir iyileşme şansı olmadan yok edecektir. Devam etmek istiyor musunuz?
+ELSE
+    DHTMLGUMP +0 +0 230 60 1 1 Evcil hayvanınızı serbest bırakmak istediğinizden emin misiniz? Çağrılan Evcil Hayvanlar kalıcı olarak yok olacak!
+ENDIF
+
+BUTTON +0 +70 4005 4007 1 0 1
+DHTMLGUMP +30 +70 75 20 0 0 <DEF.BFONT_DRED>Tamam
+
+BUTTON +150 +70 4005 4007 1 0 0
+DHTMLGUMP +180 +70 75 20 0 0 <DEF.BFONT_GREEN>Vazgec
+
+[DIALOG d_pet_release BUTTON]
+ON=1
+IF !(<SRC.CANSEELOS <UID>>) 
+SRC.SYSMESSAGE @38,,1,1 Varliga uzaksiniz.
+RETURN 1
+ELSEIF !(<ISMYPET>)
+SRC.SYSMESSAGE @38,,1,1 Varlik size ait degil.
+RETURN 1
+ENDIF
+LOCAL.RESULT <SRC.SetProcessDelay PetRelease,100>
+IF !(<LOCAL.RESULT>)
+    RELEASE
+ENDIF
+
+[eof]

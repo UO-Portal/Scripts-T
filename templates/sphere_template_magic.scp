@@ -1,0 +1,496 @@
+﻿//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[TEMPLATE random_magic_custom_greater]
+ITEM={ random_item_misc_rare 1 random_magic_skillstone 1 random_magic_clothing 1 random_magic_jewelry 1 }
+
+[TEMPLATE random_magic_custom_lesser]
+ITEM={ random_magic_statuette 1 random_magic_clothing_lesser 1 random_magic_jewelry_lesser 1 }
+
+[TEMPLATE monster_reg_bag]
+CONTAINER=i_bag
+ITEM=i_reag_mandrake_root,{2 5},R2
+ITEM=i_reag_blood_moss,{2 5},R2
+ITEM=i_reag_black_pearl,{2 5},R2
+ITEM=i_reag_sulfur_ash,{2 5},R2
+ITEM=i_reag_nightshade,{2 5},R2
+ITEM=i_reag_garlic,{2 5},R2
+ITEM=i_reag_ginseng,{2 5},R2
+ITEM=i_reag_spider_silk,{2 5},R2
+
+[TEMPLATE monster_regbag_necromancy]
+CONTAINER=i_bag
+ITEM=i_reag_batwing,{2 5},R3
+ITEM=i_reag_blood_vial,{2 5},R3
+ITEM=i_reag_pig_iron,{2 5},R3
+ITEM=i_reag_grave_dust,{2 5},R3
+ITEM=i_reag_nox_crystal,{2 5},R3
+
+[TEMPLATE monster_regbag_mysticism]
+CONTAINER=i_bag
+ITEM=i_reag_bone,{2 5},R2
+ITEM=i_reag_dragon_blood,{2 5},R2
+ITEM=i_reag_daemon_bone,{2 5},R2
+ITEM=i_reag_fertile_dirt,{2 5},R2
+
+[TEMPLATE monster_other_reg_bag]
+CONTAINER=i_bag
+ITEM=i_reag_blackmoor,{2 5},R4
+ITEM=i_reag_blood_spawn,{2 5},R4
+ITEM=i_reag_brimstone,{2 5},R4
+ITEM=i_reag_executioners_cap,{2 5},R4
+ITEM=i_reag_eye_of_newt,{2 5},R4
+ITEM=i_reag_obsidian,{2 5},R4
+ITEM=i_reag_pumice,{2 5},R4
+ITEM=i_reag_dead_wood,{2 5},R4
+ITEM=i_reag_wyrm_heart,{2 5},R4
+
+[TEMPLATE random_magic_jewelry]
+NAME=Random magic jewelry
+ITEM={ random_magic_jewelry_lesser 1 i_ring_bless_great 1 }
+
+[TEMPLATE random_magic_jewelry_lesser]
+NAME=Random magic jewelry
+ITEM={ i_ring_str_lesser 1 i_ring_dex_lesser 1 i_ring_int_lesser 1 i_ring_bless_lesser 1 }
+
+[TEMPLATE random_magic_clothing]
+NAME=Random magic clothing
+ITEM=i_gold
+
+[TEMPLATE random_magic_clothing_lesser]
+NAME=Random magic clothing
+ITEM=i_gold
+
+[TEMPLATE random_magic_statuette]
+NAME=Random magic statuette
+ITEM=i_gold
+
+[TEMPLATE random_magic_skillstone]
+NAME=Random magic skill stone
+ITEM=i_gold
+
+//////////////////////////
+// Magic Wand Templates //
+//////////////////////////
+
+[TEMPLATE random_wand_one]
+NAME=Random magic wand (circle 1)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=First Circle
+ITEM={ i_wand_clumsy 1 i_wand_create_food 1 i_wand_feeblemind 1 i_wand_heal 1 i_wand_magic_arrow 1 i_wand_night_sight 1 i_wand_react_armor 1 i_wand_weaken 1 }
+
+[TEMPLATE random_wand_two]
+NAME=Random magic wand (circle 2)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Second Circle
+ITEM={ i_wand_agility 1 i_wand_cunning 1 i_wand_cure 1 i_wand_harm 1 i_wand_magic_trap 1 i_wand_magic_untrap 1 i_wand_protection 1 i_wand_strength 1 }
+
+[TEMPLATE random_wand_three]
+NAME=Random magic wand (circle 3)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Third Circle
+ITEM={ i_wand_bless 1 i_wand_fireball 1 i_wand_magic_lock 1 i_wand_poison 1 i_wand_telekinesis 1 i_wand_teleport 1 i_wand_unlock 1 i_wand_wall_of_stone 1 }
+
+[TEMPLATE random_wand_four]
+NAME=Random magic wand (circle 4)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Fourth Circle
+ITEM={ i_wand_archcure 1 i_wand_archprotection 1 i_wand_curse 1 i_wand_fire_field 1 i_wand_greater_heal 1 i_wand_lightning 1 i_wand_mana_drain 1 i_wand_recall 1 }
+
+[TEMPLATE random_wand_five]
+NAME=Random magic wand (circle 5)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Fifth Circle
+ITEM={ i_wand_blade_spirits 1 i_wand_dispel_field 1 i_wand_incognito 1 i_wand_magic_reflection 1 i_wand_mind_blast 1 i_wand_paralyze 1 i_wand_poison_field 1 i_wand_summon_creature 1 }
+
+[TEMPLATE random_wand_six]
+NAME=Random magic wand (circle 6)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Sixth Circle
+ITEM={ i_wand_dispel 1 i_wand_energy_bolt 1 i_wand_explosion 1 i_wand_invisibility 1 i_wand_mark 1 i_wand_mass_curse 1 i_wand_paralyze_field 1 i_wand_reveal 1 }
+
+[TEMPLATE random_wand_seven]
+NAME=Random magic wand (circle 7)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Seventh Circle
+ITEM={ i_wand_chain_lightning 1 i_wand_energy_field 1 i_wand_flamestrike 1 i_wand_gate_travel 1 i_wand_mana_vampire 1 i_wand_mass_dispel 1 i_wand_meteor_swarm 1 i_wand_polymorph 1 }
+
+[TEMPLATE random_wand_eight]
+NAME=Random magic wand (circle 8)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Eighth Circle
+ITEM={ i_wand_earthquake 1 i_wand_energy_vortex 1 i_wand_resurrection 1 i_wand_summon_elem_air 1 i_wand_summon_daemon 1 i_wand_summon_elem_earth 1 i_wand_summon_elem_fire 1 i_wand_summon_elem_water 1 }
+
+[TEMPLATE random_wand_new]
+NAME=Random magic wand (special)
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=Special
+ITEM={ i_wand_identify 1 i_wand_fireworks 1 i_wand_summon_undead 1 i_wand_bone_armor 1 i_wand_light 1 i_wand_fire_bolt 1 i_wand_hallucination 1 }
+//i_wand_animate_dead removed cause its too powerful
+
+[TEMPLATE random_wand_magery]
+NAME=Random magic wand
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=All Magery
+ITEM={ random_wand_one 128 random_wand_two 64 random_wand_three 32 random_wand_four 16 random_wand_five 8 random_wand_six 4 random_wand_seven 2 random_wand_eight 1 }
+
+
+[TEMPLATE random_wand_magic]
+NAME=Random magic wand
+CATEGORY=Item Templates
+SUBSECTION=Wand Templates
+DESCRIPTION=All Wands
+ITEM={ random_wand_one 256 random_wand_two 128 random_wand_three 64 random_wand_four 32 random_wand_five 16 random_wand_six 8 random_wand_seven 4 random_wand_eight 2 random_wand_new 1 }
+
+
+
+[TEMPLATE bag_of_magery]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Magery
+CONTAINER=i_bag
+NAME=Bag of Magery
+ITEM=bag_of_magery_reagents
+ITEM=bag_of_magery_scrolls
+ITEM=i_spellbook
+MORE1=0ffffffff
+MORE2=0ffffffff
+
+[TEMPLATE bag_of_magery_reagents]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Magery Reagents
+CONTAINER=i_pouch
+NAME=Bag of Magery Reagents
+ITEM=i_reag_black_pearl,50
+ITEM=i_reag_blood_moss,50
+ITEM=i_reag_garlic,50
+ITEM=i_reag_ginseng,50
+ITEM=i_reag_mandrake_root,50
+ITEM=i_reag_nightshade,50
+ITEM=i_reag_sulfur_ash,50
+ITEM=i_reag_spider_silk,50
+
+[TEMPLATE bag_of_magery_scrolls]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Magery Scrolls
+CONTAINER=i_pouch
+NAME=Bag of Magery Scrolls
+ITEM=i_scroll_reactive_armor
+ITEM=i_scroll_clumsy
+ITEM=i_scroll_create_food
+ITEM=i_scroll_feeblemind
+ITEM=i_scroll_heal
+ITEM=i_scroll_magic_arrow
+ITEM=i_scroll_night_sight
+ITEM=i_scroll_weaken
+ITEM=i_scroll_agility
+ITEM=i_scroll_cunning
+ITEM=i_scroll_cure
+ITEM=i_scroll_harm
+ITEM=i_scroll_magic_trap
+ITEM=i_scroll_magic_untrap
+ITEM=i_scroll_protection
+ITEM=i_scroll_strength
+ITEM=i_scroll_bless
+ITEM=i_scroll_fireball
+ITEM=i_scroll_magic_lock
+ITEM=i_scroll_poison
+ITEM=i_scroll_telekinesis
+ITEM=i_scroll_teleport
+ITEM=i_scroll_unlock
+ITEM=i_scroll_wall_of_stone
+ITEM=i_scroll_archcure
+ITEM=i_scroll_archprotection
+ITEM=i_scroll_curse
+ITEM=i_scroll_fire_field
+ITEM=i_scroll_greater_heal
+ITEM=i_scroll_lightning
+ITEM=i_scroll_mana_drain
+ITEM=i_scroll_recall
+ITEM=i_scroll_blade_spirits
+ITEM=i_scroll_dispel_field
+ITEM=i_scroll_incognito
+ITEM=i_scroll_magic_reflection
+ITEM=i_scroll_mind_blast
+ITEM=i_scroll_paralyze
+ITEM=i_scroll_poison_field
+ITEM=i_scroll_summon_creature
+ITEM=i_scroll_dispel
+ITEM=i_scroll_energy_bolt
+ITEM=i_scroll_explosion
+ITEM=i_scroll_invisibility
+ITEM=i_scroll_mark
+ITEM=i_scroll_mass_curse
+ITEM=i_scroll_paralyze_field
+ITEM=i_scroll_reveal
+ITEM=i_scroll_chain_lightning
+ITEM=i_scroll_energy_field
+ITEM=i_scroll_flamestrike
+ITEM=i_scroll_gate_travel
+ITEM=i_scroll_mana_vampire
+ITEM=i_scroll_mass_dispel
+ITEM=i_scroll_meteor_swarm
+ITEM=i_scroll_polymorph
+ITEM=i_scroll_earthquake
+ITEM=i_scroll_energy_vortex
+ITEM=i_scroll_resurrection
+ITEM=i_scroll_summon_elem_air
+ITEM=i_scroll_summon_daemon
+ITEM=i_scroll_summon_elem_earth
+ITEM=i_scroll_summon_elem_fire
+ITEM=i_scroll_summon_elem_water
+
+
+[TEMPLATE bag_of_necromancy]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Necromancy
+CONTAINER=i_bag
+NAME=Bag of Necromancy
+ITEM=bag_of_necromancy_reagents
+ITEM=bag_of_necromancy_scrolls
+ITEM=i_spellbook_necromancy
+MORE1=0ffff
+
+[TEMPLATE bag_of_necromancy_reagents]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Necromancy Reagents
+CONTAINER=i_pouch
+NAME=Bag of Necromancy Reagents
+ITEM=i_reag_batwing,50
+ITEM=i_reag_blood_vial,50
+ITEM=i_reag_pig_iron,50
+ITEM=i_reag_grave_dust,50
+ITEM=i_reag_nox_crystal,50
+
+[TEMPLATE bag_of_necromancy_scrolls]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Necromancy Scrolls
+CONTAINER=i_pouch
+NAME=Bag of Necromancy Scrolls
+ITEM=i_scroll_animate_dead
+ITEM=i_scroll_blood_oath
+ITEM=i_scroll_corpse_skin
+ITEM=i_scroll_curse_weapon
+ITEM=i_scroll_evil_omen
+ITEM=i_scroll_horrific_beast
+ITEM=i_scroll_lich_form
+ITEM=i_scroll_mind_rot
+ITEM=i_scroll_pain_spike
+ITEM=i_scroll_poison_strike
+ITEM=i_scroll_strangle
+ITEM=i_scroll_summon_familiar
+ITEM=i_scroll_vampiric_embrace
+ITEM=i_scroll_vengeful_spirit
+ITEM=i_scroll_wither
+ITEM=i_scroll_wraith_form
+
+
+[TEMPLATE bag_of_spellweaving]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Spellweaving
+CONTAINER=i_pouch
+NAME=Bag of Spellweaving
+ITEM=bag_of_spellweaving_scrolls
+ITEM=i_spellbook_spellweaving
+MORE1=0ffff
+
+[TEMPLATE bag_of_spellweaving_scrolls]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Spellweaving Scrolls
+CONTAINER=i_pouch
+NAME=Bag of Spellweaving Scrolls
+ITEM=i_scroll_arcane_circle
+ITEM=i_scroll_gift_of_renewal
+ITEM=i_scroll_immolating_weapon
+ITEM=i_scroll_attune_weapon
+ITEM=i_scroll_thunderstorm
+ITEM=i_scroll_nature_fury
+ITEM=i_scroll_summon_fey
+ITEM=i_scroll_summon_fiend
+ITEM=i_scroll_reaper_form
+ITEM=i_scroll_wildfire
+ITEM=i_scroll_essence_of_wind
+ITEM=i_scroll_dryad_allure
+ITEM=i_scroll_ethereal_voyage
+ITEM=i_scroll_word_of_death
+ITEM=i_scroll_gift_of_life
+ITEM=i_scroll_arcane_empowerment
+
+
+[TEMPLATE bag_of_mysticism]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Mysticism
+CONTAINER=i_bag
+NAME=Bag of Mysticism
+ITEM=bag_of_mysticism_reagents
+ITEM=bag_of_mysticism_scrolls
+ITEM=i_spellbook_mystic
+MORE1=01ffff
+
+[TEMPLATE bag_of_mysticism_reagents]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Mysticism Reagents
+CONTAINER=i_pouch
+NAME=Bag of Mysticism Reagents
+ITEM=i_reag_bone,50
+ITEM=i_reag_dragon_blood,50
+ITEM=i_reag_daemon_bone,50
+ITEM=i_reag_fertile_dirt,50
+
+[TEMPLATE bag_of_mysticism_scrolls]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Magic
+DESCRIPTION=Bag of Mysticism Scrolls
+CONTAINER=i_pouch
+NAME=Bag of Mysticism Scrolls
+ITEM=i_scroll_nether_bolt
+ITEM=i_scroll_healing_stone
+ITEM=i_scroll_purge_magic
+ITEM=i_scroll_enchant
+ITEM=i_scroll_sleep
+ITEM=i_scroll_eagle_strike
+ITEM=i_scroll_animated_weapon
+ITEM=i_scroll_stone_form
+ITEM=i_scroll_spell_trigger
+ITEM=i_scroll_mass_sleep
+ITEM=i_scroll_cleansing_winds
+ITEM=i_scroll_bombard
+ITEM=i_scroll_spell_plague
+ITEM=i_scroll_hail_storm
+ITEM=i_scroll_nether_cyclone
+ITEM=i_scroll_rising_colossus
+
+
+[TEMPLATE bag_of_imbuing]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Crafting
+DESCRIPTION=Bag of Imbuing
+CONTAINER=i_bag
+NAME=Bag of Imbuing
+//ITEM=i_hammer_runic
+ITEM=bag_of_imbuing_bases
+ITEM=bag_of_imbuing_essences
+ITEM=bag_of_imbuing_ingredients
+ITEM=bag_of_imbuing_minerals
+//ITEM=i_deed_soulforge_small
+
+[TEMPLATE bag_of_imbuing_bases]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Crafting
+DESCRIPTION=Bag of Imbuing Bases
+CONTAINER=i_pouch
+NAME=Bag of Imbuing Bases
+ITEM=i_magical_residue,50
+ITEM=i_enchanted_essence,50
+ITEM=i_relic_fragment,50
+
+[TEMPLATE bag_of_imbuing_essences]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Crafting
+DESCRIPTION=Bag of Imbuing Essences
+CONTAINER=i_pouch
+NAME=Bag of Imbuing Essences
+ITEM=i_essence_achievement,50
+ITEM=i_essence_control,50
+ITEM=i_essence_diligence,50
+ITEM=i_essence_direction,50
+ITEM=i_essence_feeling,50
+ITEM=i_essence_order,50
+ITEM=i_essence_passion,50
+ITEM=i_essence_persistence,50
+ITEM=i_essence_precision,50
+ITEM=i_essence_singularity,50
+
+[TEMPLATE bag_of_imbuing_minerals]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Crafting
+DESCRIPTION=Bag of Imbuing Minerals
+CONTAINER=i_pouch
+NAME=Bag of Imbuing Minerals
+ITEM=i_dark_sapphire,50
+ITEM=i_turquoise,50
+ITEM=i_emerald_perfect,50
+ITEM=i_citrine_ecru,50
+ITEM=i_pearl_white,50
+ITEM=i_ruby_fire,50
+ITEM=i_diamond_blue,50
+ITEM=i_amber_brilliant,50
+ITEM=i_crystalline_blackrock,50
+ITEM=i_crystal_shards,50
+ITEM=i_crushed_glass,50
+ITEM=i_powdered_iron,50
+ITEM=i_void_orb,50
+ITEM=i_abyssal_cloth,50
+ITEM=i_ingot_shadow,50
+ITEM=i_ingot_blackrock,50
+ITEM=i_ingot_verite,50
+ITEM=i_ingot_valorite,50
+
+[TEMPLATE bag_of_imbuing_ingredients]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Crafting
+DESCRIPTION=Bag of Imbuing Ingredients
+CONTAINER=i_pouch
+NAME=Bag of Imbuing Ingredients
+ITEM=i_spider_carapace,50
+ITEM=i_daemon_claw,50
+ITEM=i_vial_of_vitriol,50
+ITEM=i_goblin_blood,50
+ITEM=i_lava_serpent_crust,50
+ITEM=i_undying_flesh,50
+ITEM=i_seed_of_renewal,50
+ITEM=i_elven_fletching,50
+ITEM=i_delicate_scales,50
+ITEM=i_boura_pelt,50
+ITEM=i_chaga_mushroom,50
+ITEM=i_silver_snake_skin,50
+ITEM=i_fairy_dust,50
+ITEM=i_slith_tongue,50
+ITEM=i_raptor_teeth,50
+ITEM=i_bottle_ichor,50
+ITEM=i_reflective_wolf_eye,50
+ITEM=i_fungi_luminescent,50
+ITEM=i_plant_parasitic,50
+
+[TEMPLATE bag_of_ethereal_mounts]
+CATEGORY=Provisions - GM Items
+SUBSECTION=Mounts
+DESCRIPTION=Bag of Ethereal Mounts
+CONTAINER=i_bag
+NAME=Bag of Ethereal Mounts
+ITEM=i_steed_ethereal
+ITEM=i_llama_ethereal
+ITEM=i_ostard_ethereal
+ITEM=i_kirin_ethereal
+ITEM=i_unicorn_ethereal
+ITEM=i_ridgeback_ethereal
+ITEM=i_swamp_dragon_ethereal
+ITEM=i_giant_beetle_ethereal
+
+
+[EOF]
+

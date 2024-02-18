@@ -1,0 +1,31 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+
+[DIALOG d_body_sculptor]
+<DEF.DlgStartPos>
+
+resizepic 0 0 9200 190 100
+resizepic 10 10 3000 170 80
+
+DORIGIN 20 40
+
+button +0 +0 4005 4007 1 0 1
+dhtmlgump +30 +0 100 25 1 0 Yeni yuz stili
+
+[DIALOG d_body_sculptor BUTTON]
+ON=1
+IF !(<SRC.CANSEELOS <UID>>)
+    RETURN 1
+ENDIF
+LOCAL.RESULT <SRC.SetProcessDelay ChangeFace,100>
+IF !(<LOCAL.RESULT>)
+    SRC.CHANGEFACE
+ENDIF
+
+[eof]

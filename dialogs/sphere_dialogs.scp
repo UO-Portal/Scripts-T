@@ -1,0 +1,56 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+
+[COMMENT dialog_help_section]
+FLAGS
+noclose                             // Dialog can't be closed with right click
+nodispose                           // Dialog can't be closed with closegump macro
+nomove                              // Dialog can't be moved
+
+GENERAL
+page id                             // Set dialog page id to switch between pages
+dorigin x,y                         // Set X,Y origin point to be able to use relative X,Y values on dialog objects (eg: +10 -5 will turn into originX+10, originY-5)
+tooltip clilocid                    // Add mouse-over tooltip on dialog object (required client >= 4.0.0)
+
+BACKGROUNDS
+resizepic x,y,gump,width,height     // Add resized background gump
+checkertrans x,y,width,height       // Add transparency layer (required client >= 4.0.0)
+
+PICTURES
+gumppic x,y,gump,hue                            // Add gump picture (required client >= 3.0.0 to use 'hue' value)
+gumppictiled x,y,width,height,gump              // Add repeated gump pictures to fill the given area
+picinpic x,y,gump,spritex,spritey,width,height  // Add sprite picture (required client >= 7.0.80.0)
+tilepic x,y,itemid                              // Add item picture from tiledata.mul
+tilepichue x,y,itemid,hue                       // Add hued item picture from tiledata.mul
+
+TEXTS
+text x,y,color,index (OBSOLETE)                                               // Add text (index-based)
+dtext x,y,color,text                                                          // Add text
+croppedtext x,y,width,height,color,index (OBSOLETE)                           // Add text which will be cropped if it exceed given area (index-based)
+dcroppedtext x,y,width,height,color,text                                      // Add text which will be cropped if it exceed given area
+textentry x,y,width,height,color,id,index (OBSOLETE)                          // Add text entry area (index-based)
+dtextentry x,y,width,height,color,id,text                                     // Add text entry area
+textentrylimited x,y,width,height,color,id,limit,index (OBSOLETE)             // Add text entry area limited to N chars (required client >= 5.0.0)(index-based)
+dtextentrylimited x,y,width,height,color,id,limit,text                        // Add text entry area limited to N chars (required client >= 5.0.0)
+htmlgump x,y,width,height,hasbackground,hasscrollbar,index (OBSOLETE)         // Add text using HTML format (index-based)
+dhtmlgump x,y,width,height,hasbackground,hasscrollbar,text                    // Add text using HTML format
+xmfhtmlgump x,y,width,height,clilocid,hasbackground,hasscrollbar              // Add cliloc text
+xmfhtmlgumpcolor x,y,width,height,clilocid,hasbackground,hasscrollbar,color   // Add hued cliloc text (color should be RGB decimal value)
+xmfhtmltok x,y,width,height,hasbackground,hasscrollbar,color,clilocid,@args@  // Add hued cliloc text with arguments (args seperator should be '@', eg: @arg1@arg2@)
+
+BUTTONS
+button x,y,unpressed_gump,pressed_gump,ispressable,destpage,id                                    // Add button
+buttontileart x,y,unpressed_gump,pressed_gump,ispressable,destpage,id,tileid,tilehue,tilex,tiley  // Add button with tilepic on top
+radio x,y,unchecked_gump,checked_gump,ispressed,id                                                // Add radio button
+checkbox x,y,unchecked_gump,checked_gump,ispressed,checkid                                        // Add checkbox button
+group id                                                                                          // Group a bunch of radios/checkboxes
+
+
+
+[EOF]

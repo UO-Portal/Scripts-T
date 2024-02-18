@@ -1,0 +1,18 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[SPEECH spk_char_player]
+ON=*
+IF (<SRC.ACTION> == ID(SKILL_MAGERY)) || (<SRC.ACTION> == SKILL_MAGERY)
+	SRC.SYSMESSAGE @38,,1,1 Büyü yaparken konuşamazsınız.
+	RETURN 1
+ENDIF
+
+
+
+[EOF]

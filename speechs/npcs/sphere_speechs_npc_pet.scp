@@ -1,0 +1,29 @@
+//****************************************************************************
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
+//****************************************************************************
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[SPEECH spk_npc_pet]
+ON=ATTACK
+ON=COME
+ON=DROP
+ON=DROP ALL
+ON=FOLLOW
+ON=FOLLOW ME
+ON=FRIEND
+ON=GO
+ON=GUARD
+ON=GUARD ME
+ON=KILL
+ON=RELEASE
+ON=SPEAK
+ON=STAY
+ON=STAY HERE
+ON=STOP
+ON=TRANSFER
+ON=UNFRIEND
+
+[eof]
