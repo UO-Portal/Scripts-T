@@ -1,0 +1,331 @@
+
+
+[CHARDEF 0cc]
+DEFNAME=c_horse_brown_dk
+NAME=Horse
+ICON=i_pet_horse_brown_dk
+SOUND=snd_animals_horse1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=3,4
+ARMOR=18
+DESIRES=r_forests,r_civilization
+AVERSIONS=e_carnivores2,e_carnivores3
+RESOURCES=3 i_ribs_raw,10 i_hide
+FOODTYPE=t_fruit,t_grain,t_grass
+MAXFOOD=35
+TAG.Barding.Diff=26.5
+// FollowerSlots=1
+// TEVENTS=e_horses
+CATEGORY=Mounts
+SUBSECTION=Tame
+DESCRIPTION=Horse (brown)
+
+ON=@Create
+NPC=brain_animal
+FAME=300
+KARMA=-300
+STR={20 100}
+DEX={55 75}
+INT={5 10}
+MAXHITS={25 45}
+WRESTLING={29.1 44.0}
+TACTICS={29.1 44.0}
+MAGICRESISTANCE={25.1 30.0}
+TAMING=29.1
+// RESPHYSICAL={15 20}
+// RESFIRE=0
+// RESCOLD=0
+// RESPOISON=0
+// RESENERGY=0
+
+
+
+[CHARDEF 0e2]
+DEFNAME=c_horse_gray
+NAME=Horse
+ICON=i_pet_horse_gray
+SOUND=snd_animals_horse1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=3,4
+ARMOR=18
+// DESIRES=r_jungle,r_civilization
+// AVERSIONS=e_carnivores2,e_carnivores3
+RESOURCES=3 i_ribs_raw,10 i_hide
+FOODTYPE=t_fruit,t_grain,t_grass
+MAXFOOD=35
+TAG.Barding.Diff=26.5
+// FollowerSlots=1
+// TEVENTS=e_horses
+CATEGORY=Mounts
+SUBSECTION=Tame
+DESCRIPTION=Horse (gray)
+
+
+ON=@Create
+NPC=brain_animal
+FAME=300
+KARMA=-300
+STR={20 100}
+DEX={55 75}
+INT={5 10}
+MAXHITS={25 45}
+WRESTLING={29.1 44.0}
+TACTICS={29.1 44.0}
+MAGICRESISTANCE={25.1 30.0}
+TAMING=29.1
+// RESPHYSICAL={15 20}
+// RESFIRE=0
+// RESCOLD=0
+// RESPOISON=0
+// RESENERGY=0
+
+
+
+[CHARDEF 0c8]
+DEFNAME=c_horse_tan
+NAME=Horse
+ICON=i_pet_horse_tan
+SOUND=snd_animals_horse1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=3,4
+ARMOR=18
+// DESIRES=r_plains,r_civilization
+// AVERSIONS=e_carnivores2,e_carnivores3
+RESOURCES=3 i_ribs_raw,10 i_hide
+FOODTYPE=t_fruit,t_grain,t_grass
+MAXFOOD=35
+TAG.Barding.Diff=26.5
+// FollowerSlots=1
+// TEVENTS=e_horses
+CATEGORY=Mounts
+SUBSECTION=Tame
+DESCRIPTION=Horse (tan)
+
+
+ON=@Create
+NPC=brain_animal
+FAME=300
+KARMA=-300
+STR={20 100}
+DEX={55 75}
+INT={5 10}
+MAXHITS={25 45}
+WRESTLING={29.1 44.0}
+TACTICS={29.1 44.0}
+MAGICRESISTANCE={25.1 30.0}
+TAMING=29.1
+// RESPHYSICAL={15 20}
+// RESFIRE=0
+// RESCOLD=0
+// RESPOISON=0
+// RESENERGY=0
+
+
+[CHARDEF 0e4]
+DEFNAME=c_horse_brown_lt
+NAME=Horse
+ICON=i_pet_horse_brown_lt
+SOUND=snd_animals_horse1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=3,4
+ARMOR=18
+// DESIRES=r_mountains,r_civilization
+// AVERSIONS=e_carnivores2,e_carnivores3
+RESOURCES=3 i_ribs_raw,10 i_hide
+FOODTYPE=t_fruit,t_grain,t_grass
+MAXFOOD=35
+TAG.Barding.Diff=26.5
+// FollowerSlots=1
+// TEVENTS=e_horses
+CATEGORY=Mounts
+SUBSECTION=Tame
+DESCRIPTION=Horse (light brown)
+
+ON=@Create
+NPC=brain_animal
+FAME=300
+KARMA=-300
+STR={20 100}
+DEX={55 75}
+INT={5 10}
+MAXHITS={25 45}
+WRESTLING={29.1 44.0}
+TACTICS={29.1 44.0}
+MAGICRESISTANCE={25.1 30.0}
+TAMING=29.1
+// RESPHYSICAL={15 20}
+// RESFIRE=0
+// RESCOLD=0
+// RESPOISON=0
+// RESENERGY=0
+
+[CHARDEF 0dc]
+DEFNAME=c_llama
+NAME=Llama
+ICON=i_pet_llama
+SOUND=snd_animals_llama3
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=3,6
+ARMOR=15
+// DESIRES=r_civilization
+// AVERSIONS=e_carnivores2,e_carnivores3
+FOODTYPE=t_fruit,t_grain,t_grass
+MAXFOOD=25
+RESOURCES=1 i_ribs_raw,10 i_hide,2 i_fur_light
+TAG.Barding.Diff=17.0
+// FollowerSlots=1
+CATEGORY=Mounts
+SUBSECTION=Tame
+DESCRIPTION=Llama
+
+ON=@Create
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={21 49}
+MAXHITS={15 27}
+DEX={56 75}
+MAXSTAM={56 75}
+INT={16 30}
+MAXMANA={16 30}
+MAGICRESISTANCE={15.0 20.0}
+TACTICS={19.0 29.0}
+TAMING={25.0 30.0}
+WRESTLING={19.0 29.0}
+// RESPHYSICAL={0 5}
+// RESCOLD={5 10}
+// RESENERGY={5 10}
+// RESFIRE={5 10}
+// RESPOISON={5 10}
+
+
+
+[CHARDEF 0d2]
+DEFNAME=c_ostard_desert
+NAME=Desert Ostard
+ICON=i_pet_ostard_desert
+SOUND=snd_animal_ostard_desert1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=8,18
+ARMOR=15
+// DESIRES=r_desert
+// AVERSIONS=e_carnivores2,e_carnivores3
+FOODTYPE=t_fruit,t_grain,t_grass
+MAXFOOD=25
+RESOURCES=3 i_ribs_raw
+TAG.Barding.Diff=32.3
+// TAG.SlayerGroup=BIRD
+// FollowerSlots=1
+// TEVENTS=e_ostards
+CATEGORY=Mounts
+SUBSECTION=Wild
+DESCRIPTION=Desert Ostard
+
+ON=@Create
+NPC=brain_animal
+FAME={1000 1499}
+KARMA={-500 -999}
+STR={94 170}
+MAXHITS={71 88}
+DEX={56 75}
+MAXSTAM={56 75}
+INT={6 10}
+MAXMANA={6 10}
+MAGICRESISTANCE={25.0 30.0}
+TACTICS={25.0 40.0}
+TAMING={25.0 30.0}
+WRESTLING={29.0 44.0}
+// RESPHYSICAL={0 5}
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE={5 10}
+// RESPOISON=0
+
+
+
+[CHARDEF 0db]
+DEFNAME=c_ostard_forest
+NAME=Forest Ostard
+ICON=i_pet_ostard_forest
+SOUND=snd_animal_ostard_desert1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=13,23
+ARMOR=15
+DESIRES=r_forests
+AVERSIONS=e_carnivores2,e_carnivores3
+FOODTYPE=t_fruit,t_grain,t_grass
+MAXFOOD=25
+RESOURCES=3 i_ribs_raw
+TAG.Barding.Diff=31.6
+TAG.SlayerGroup=BIRD
+// FollowerSlots=1
+TEVENTS=e_ostards
+CATEGORY=Mounts
+SUBSECTION=Wild
+DESCRIPTION=Forest Ostard
+
+ON=@Create
+NPC=brain_animal
+FAME={1000 1499}
+KARMA={-500 -999}
+STR={94 170}
+MAXHITS={71 88}
+DEX={56 75}
+MAXSTAM={56 75}
+INT={6 10}
+MAXMANA={6 10}
+MAGICRESISTANCE={25.0 30.0}
+TACTICS={29.0 44.0}
+TAMING={25.0 30.0}
+WRESTLING={29.0 44.0}
+// RESPHYSICAL={0 5}
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+
+[CHARDEF 0da]
+DEFNAME=c_ostard_frenzied
+NAME=Frenzied Ostard
+ICON=i_pet_ostard_frenzied
+SOUND=snd_animal_ostard_frenzied1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=25,35
+ARMOR=25
+DESIRES=r_swamp
+AVERSIONS=e_carnivores3
+FOODTYPE=t_meat_raw
+MAXFOOD=25
+RESOURCES=3 i_ribs_raw
+TAG.Barding.Diff=56.2
+TAG.SlayerGroup=BIRD
+// FollowerSlots=1
+// TEVENTS=e_carnivores
+// TEVENTS=e_ostards
+CATEGORY=Mounts
+SUBSECTION=Wild
+DESCRIPTION=Frenzied Ostard
+
+ON=@Create
+NPC=brain_animal
+FAME={1000 1499}
+KARMA={-1000 -1499}
+STR={94 170}
+MAXHITS={71 110}
+DEX={96 115}
+MAXSTAM={96 115}
+INT={6 10}
+MAXMANA={6 10}
+MAGICRESISTANCE={75.0 80.0}
+TACTICS={79.0 94.0}
+TAMING={75.0 80.0}
+WRESTLING={79.0 94.0}
+// RESPHYSICAL={0 5}
+// RESCOLD=0
+// RESENERGY={20 25}
+// RESFIRE={10 15}
+// RESPOISON={20 25}
+
+[eof]
+

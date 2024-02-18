@@ -1,70 +1,189 @@
 //****************************************************************************
-//SPHERE by : Menasoft ©1997-2007
-//www.sphereserver.net
-// All SPHERE script files and formats are copyright Menasoft & Partners.
-// This file may be freely edited for personal use, but may not be distributed
-// in whole or in part, in any format without express written permission from
-// Menasoft & Partners.  All donations and contributions 
-// become the property of Menasoft & Partners.
+// SPHERE by : Menasoft ©1997-2023
+// www.sphereserver.net
 //****************************************************************************
-// NOTE: This is loaded 2nd after SPHERE.INI watch out for order of dependancies ! (keyword DEFNAME)
-VERSION=0.56
+// FILE LAST UPDATED: 26.10.2023
+//
+VERSION=0.56T
+
+[COMMENT spheretables]
+NOTE: This file is loaded 2nd after SPHERE.INI and the order is very important,
+so be aware that the resources section is processed top down... if a file near
+the top is dependant on a file near the bottom, you may try to slide the dependent
+file up the list... but sometimes unreconcilable dependencies can happen, in which
+case the problematic file may need to be split.
+
+As a general rule:
+- DEFNAMEs come first
+- TYPEDEF and EVENTS second
+- ITEMDEF and CHARDEF
+- REGION* comes before AREADEF and ROOMDEF
+- TEMPLATE last
+
 
 [RESOURCES]
 // sphere.ini and spheretable.scp are automatic.
 // All the other scripts we want to load.
-scripts/sphere_defs.scp
-scripts/sphere_types.scp
-scripts/sphere_book.scp
-scripts/sphere_backward_compatibility.scp
-scripts/sphere_events_human.scp
-scripts/sphere_events_npcs.scp
-scripts/npcs/
-scripts/sphere_admin.scp
-scripts/sphere_dialog.scp
-scripts/items/sphere_item_resources.scp
-scripts/items/
-scripts/sphere_region.scp
-// -----------------------------------
-//          	Maps
-// -----------------------------------
-scripts/maps/sphere_map0.scp
-// scripts/maps/sphere_map0_ml.scp
-scripts/maps/sphere_map1.scp
-// scripts/maps/sphere_map2.scp
-// scripts/maps/sphere_map3.scp
-// scripts/maps/sphere_map4.scp
-// scripts/maps/sphere_map5.scp
-scripts/maps/sphere_map_points0.scp
-// scripts/maps/sphere_map_points0_ml.scp
-scripts/maps/sphere_map_points1.scp
-// scripts/maps/sphere_map_points2.scp
-// scripts/maps/sphere_map_points3.scp
-// scripts/maps/sphere_map_points4.scp
-// scripts/maps/sphere_map_points5.scp
-// -----------------------------------
-scripts/sphere_menu.scp
-scripts/sphere_name.scp
-scripts/sphere_skillmenu.scp
-scripts/sphere_spawns.scp
-scripts/sphere_speech.scp
-scripts/sphere_skills.scp
-scripts/sphere_spells.scp
-scripts/sphere_newb.scp
-scripts/sphere_template.scp
-scripts/sphere_template_loot.scp
-scripts/sphere_template_vend.scp
-scripts/sphere_triggers.scp
-scripts/sphere_serv_triggers.scp
-scripts/speech/
-// -----------------------------------
-//          Stone system
-// -----------------------------------
-// scripts/stones/
-// scripts/stones/guilds/
-// scripts/stones/towns/
-// -----------------------------------
-// scripts/custom/
+
+/////////////////
+// defnames Klasoru
+/////////////////
+
+defnames/sphere_defs.scp
+defnames/sphere_defs_backward.scp
+defnames/sphere_defs_height.scp
+defnames/sphere_defs_html.scp
+defnames/sphere_defs_hues.scp
+defnames/sphere_defs_mounts.scp
+defnames/sphere_defs_sounds.scp
+defnames/sphere_defs_template.scp
+
+
+/////////////////
+// dialogs Klasor
+/////////////////
+
+dialogs/
+
+/////////////////
+// Ana Klasor
+/////////////////
+
+sphere_name.scp
+sphere_serv_triggers.scp
+sphere_skills.scp
+sphere_skillmenu.scp
+sphere_spellmenu.scp
+sphere_newb.scp
+sphere_types.scp
+
+/////////////////
+// itemdefs Klasoru
+/////////////////
+
+itemdefs/
+itemdefs/artifact/
+itemdefs/custom/
+itemdefs/building/
+itemdefs/deco/
+itemdefs/holiday/
+itemdefs/misc/
+itemdefs/multis/
+itemdefs/multis/parts/ship/
+itemdefs/multis/parts/house/
+itemdefs/prof/
+itemdefs/prov/
+itemdefs/themes/
+itemdefs/magic/
+
+/////////////////
+// chardefs Klasoru
+/////////////////
+
+chardefs/
+chardefs/animals/
+chardefs/bodies/
+chardefs/mountables/
+
+
+/////////////////
+// speechs Klasoru
+/////////////////
+
+speechs/chars/
+speechs/npcs/
+speechs/multis/
+
+/////////////////
+// systems Klasoru
+/////////////////
+
+systems/
+
+systems/stones/
+systems/stones/guilds/
+systems/stones/towns/
+
+/////////////////
+// Ana Klasor
+/////////////////
+
+sphere_spawns.scp
+sphere_spells.scp
+sphere_region.scp
+
+
+/////////////////
+// Events Klasoru
+/////////////////
+
+events/chars/
+events/chars/class/
+events/items/
+events/npcs/
+events/regions/
+
+
+/////////////////
+// Staffs Klasoru
+/////////////////
+staffs/
+
+
+/////////////////
+// maps Klasoru
+/////////////////
+
+// map0 //
+maps/map0/sphere_map0.scp
+maps/map0/sphere_map0_ml.scp
+maps/map0/sphere_map0_sa.scp
+maps/map0/sphere_map0_hs.scp
+maps/map0/sphere_map_points0.scp
+maps/map0/sphere_map_points0_ml.scp
+maps/map0/sphere_map_points0_hs.scp
+maps/map0/sphere_map_points0_tol.scp
+
+// map1 //
+maps/map1/sphere_map1.scp
+maps/map1/sphere_map_points1.scp
+
+// map2 //
+maps/map2/sphere_map2.scp
+maps/map2/sphere_map2_ml.scp
+maps/map2/sphere_map_points2.scp
+maps/map2/sphere_map_points2_ml.scp
+
+// map3 //
+maps/map3/sphere_map3.scp
+maps/map3/sphere_map3_se.scp
+maps/map3/sphere_map3_ml.scp
+maps/map3/sphere_map_points3.scp
+maps/map3/sphere_map_points3_se.scp
+maps/map3/sphere_map_points3_ml.scp
+
+// map4 //
+maps/map4/sphere_map4.scp
+maps/map4/sphere_map_points4.scp
+
+// map5 //
+//maps/map5 /sphere_map5.scp
+//maps/map5/sphere_map5_tol.scp
+//maps/map5/sphere_map_points5.scp
+//maps/map5/sphere_map_points5_tol.scp
+
+/////////////////
+// templates Klasoru
+/////////////////
+
+templates/sphere_template_armor.scp
+templates/sphere_template_loot.scp
+templates/sphere_template_magic.scp
+templates/sphere_template_misc.scp
+templates/sphere_template_vend.scp
+templates/sphere_template_weapons.scp
+
+
 
 [OBSCENE]
 
@@ -126,7 +245,7 @@ Renowned
 Rude
 Disreputable
 Notorious
-Imfamous
+Infamous
 Dishonored
 
 Unsavory
@@ -183,23 +302,21 @@ Ylem
 Zan
 
 [PLEVEL 1]	// extra player commands.
-AFK
 WHERE
 HUNGRY
-CAST
-TELE
-SUICIDE
 SELF
 LAST
-HELP
 PASSWORD
-EMAIL
-HelpPage
+HELPPAGE
 
 [PLEVEL 2]	// extra counselor commands.
-ANIM
+//HELP
+EMAIL
 DETAIL
-SLEEP
+SUICIDE
+CAST
+TELE
+ANIM
 UNDERWEAR
 BARK
 FIX
@@ -233,7 +350,7 @@ ACCOUNT
 SETPRIV
 DIALOG
 BLOCKIP
-TOME
+//TOME
 EXTRACT
 UNEXTRACT
 EXPORT
@@ -254,4 +371,3 @@ PLEVEL
 SERV.MYSQLPASSWORD
 
 [EOF]
-

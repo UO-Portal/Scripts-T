@@ -1,0 +1,388 @@
+﻿
+
+[COMMENT sphere_item_typedefs]
+
+
+[TYPEDEF t_trapchest]
+ON=@DClick
+   IF (<SRC.TINKERING> >= 300)
+      SRC.MESSAGE You disarm the trap and open the chest.
+      TYPE=t_container
+      RETURN 0
+   ELSE
+      SRC.MESSAGE You fail to disarm the trap.
+      IF (RAND(2))
+         SRC.MESSAGE The trap does not go off.
+         TYPE=t_container
+         RETURN 0
+      ELSE
+         EFFECT=3,i_fx_explode
+         SOUND=snd_spell_explosion
+         SRC.DAMAGE={20 35} <DEF.dam_fire>
+         TYPE=t_container
+         RETURN 0
+      ENDIF
+   ENDIF
+
+
+[TYPEDEF t_sex_change]
+ON=@DClick
+   IF (<SRC.FLAGS> & <DEF.statf_polymorph>)
+      SRC.SPELLEFFECT=s_dispel 1000 // Dispell the polymorph effect
+   ENDIF
+   IF (<SRC.BODY> == c_man)
+      SRC.BODY=c_woman
+   ELSEIF (<SRC.BODY> == c_woman)
+      SRC.BODY=c_man
+   ELSEIF (<SRC.BODY> == c_elf_male)
+      SRC.BODY=c_elf_female
+   ELSEIF (<SRC.BODY> == c_elf_female)
+      SRC.BODY=c_elf_male
+   ELSEIF (<SRC.BODY> == c_gargoyle_male)
+      SRC.BODY=c_gargoyle_female
+   ELSEIF (<SRC.BODY> == c_gargoyle_female)
+      SRC.BODY=c_gargoyle_male
+   ELSE
+      RETURN 1
+   ENDIF
+   SERV.NEWITEM=i_fire_column              // create a fire column
+   NEW.ATTR=attr_decay|attr_move_never // allow it to decay and prevent move
+   NEW.TIMER=2                             // it lasts 2 seconds
+   NEW.P=<SRC.P>                           // put it on the player
+   SRC.SOUND=snd_spell_explosion           // play a sound
+   REMOVE   // gets rid of the object
+   RETURN 1
+
+
+[TYPEDEF t_guild_door]
+//Guild Members Only Door
+//Set the door to the Triger Type #, then Link the DOOR to the GUILDSTONE
+//DO NOT LINK THE GUILDSTONE TO THE DOOR - YOUR GUILDSTONE WILL DISAPPEAR IN THE NEXT SAVE.
+ON=@DClick
+   IF (<SRC.MEMORYFINDTYPE.0400.LINK> == <LINK>)
+      MOREP=<P>
+      SRC.MESSAGE You pass through the door magically.
+      SRC.GO <MOREP>
+   ELSE
+      SRC.MESSAGE The door seems magically locked.
+   ENDIF
+   RETURN 1
+
+[ITEMDEF i_bottle_blood]
+NAME=bottle of blood
+ID=i_bottle_black
+WEIGHT=1
+CATEGORY=Custom Items
+SUBSECTION=Race Items
+DESCRIPTION=Bottle of Blood
+
+ON=@Create
+COLOR=020
+
+
+
+[ITEMDEF i_spawn_invade]
+// the "spawner" of the invasion creatures
+ID=i_hole
+TYPE=t_spawn_char
+
+
+
+
+[TYPEDEF t_trapped]
+ON=@Equip
+   SRC.SOUND=snd_spell_explosion
+   SRC.DAMAGE={100 500} <DEF.dam_fire>
+   SRC.MESSAGE=The item was trapped!
+
+[ITEMDEF i_key_witch_castle]
+ID=i_key_iron
+NAME=Witch Castle Key
+
+[ITEMDEF i_door_witch_castle]
+ID=i_door_metal
+NAME=Witch Castle Door
+TYPE=t_door_locked
+CATEGORY=Quest Items
+SUBSECTION=Wizard of Oz
+DESCRIPTION=Metal Door
+ON=@DCLICK
+   IF !(<SRC.RESTEST 1 i_key_witch_castle>)
+      SRC.MESSAGE Your entry is blocked
+      RETURN 1
+   ELSE
+      TYPE=t_door
+      TIMER=30
+   ENDIF
+   RETURN 0
+ON=@Timer
+   TYPE=t_door_locked
+   RETURN 1
+
+
+
+
+[TYPEDEF t_magic_stone]
+// When you use an item of this type it raises your INT to 60.
+ON=@DCLICK
+   LOCAL.TEMP=60
+   if (<SRC.INT> < <LOCAL.TEMP>)
+      SRC.MESSAGE You feel a surge of magical energy go through your body.
+      SRC.MESSAGE You feel a lot more intelligent then you were 2 seconds ago.
+      SRC.INT=<LOCAL.TEMP>
+      SRC.MANA=<LOCAL.TEMP>
+   ELSE
+      SRC.MESSAGE You are already too powerful for the effects of this stone to work!
+   ENDIF
+   RETURN 1
+
+
+[TYPEDEF t_chest_locked]
+// This is how you make a chest with a lock. Add any item, then give it this
+// trigger. Double click on the item to get a chest with 2 keys.
+//
+// How do you give or set a trigger to an item?
+//   .set type t_chest_trap
+// How to make a trapped chest?
+//   .add i_chest_trap
+//   .set type t_chest_trap
+// A player needs tinkering and gears to open this chest. You can set the
+// following commands:
+//   .set more min     // the min damage the trap will do.
+//   .set more2 max    // the max damage the trap will do.
+//   .set morex amount // the minimum tinkering to disarm the chest.
+//
+ON=@DClick
+   SERV.NEWITEM={ i_key_copper 1 i_key_gold 1 i_key_iron 1 i_key_rusty 1 }
+   LOCAL.KEY=<NEW.UID>
+   NEW.MORE1=<NEW>
+   NEW.BOUNCE
+   NEW.DUPE
+   SERV.NEWITEM={ i_chest_metal 1 i_chest_metal_brass 1 i_chest_wooden_brass 1 }
+   NEW.MORE1=<LOCAL.KEY>
+   NEW.BOUNCE
+
+
+[TYPEDEF t_chest_trap]
+// Replace the TYPE of any container with this custom TYPE
+// 1. Check tinkering
+// 2. Check tools (no, 50% blow up)
+// 3. Check for gear
+// 4. Blow up if failed
+// 5. Consume gear
+ON=@DClick
+   IF (<SRC.RESTEST 1 i_gears>)
+      SRC.CONSUME 1 i_gears
+   ELSE
+      SRC.MESSAGE You fail to disarm the trap.
+      SRC.DAMAGE=<eval <MORE1> - <MORE2>> <DEF.dam_fire>
+      SERV.NEWITEM=i_fire_column
+      NEW.ATTR attr_can_decay|attr_move_never
+      NEW.P=<SRC.P>
+      NEW.TIMER 2
+      SRC.SOUND=snd_spell_explosion
+      RETURN 0
+   ENDIF
+   IF (<SRC.TINKERING> >= <MOREX>)
+      SRC.MESSAGE You attempt to disarm the trap.
+      IF (<SRC.RESTEST 1 i_tinker_tools>)
+         IF (RAND(2))
+            SRC.MESSAGE You disarm the trap successfully.
+            TIMER=<MOREY>
+            MOREZ=1
+            TYPE=t_container
+            RETURN 0
+         ELSE
+            SRC.MESSAGE You fail to disarm the trap.
+            SRC.DAMAGE=<eval <MORE1> - <MORE2>>
+            SERV.NEWITEM=i_FIRE_COLUMN
+            NEW.ATTR attr_can_decay|attr_move_never
+            NEW.TIMER 2
+            NEW.P=<SRC.P>
+            SRC.UPDATE
+            SRC.SOUND=snd_SPELL_EXPLOSION
+            RETURN 0
+         ENDIF
+      ELSE
+         IF (RAND(10) == 5)
+            SRC.MESSAGE You disarm the trap successfully.
+            TIMER=<MOREY>
+            MOREZ=1
+            TYPE=T_CONTAINER
+            RETURN 0
+         ELSE
+            SRC.MESSAGE You fail to disarm the trap.
+            SRC.DAMAGE=<eval <MORE1> - <MORE2>>
+            SERV.NEWITEM i_fire_column
+            NEW.ATTR attr_can_decay|attr_move_never
+            NEW.TIMER 2
+            NEW.P=<SRC.P>
+            SRC.UPDATE
+            SRC.SOUND snd_spell_explosion
+            RETURN 0
+         ENDIF
+      ENDIF
+   ENDIF
+ON=@Timer
+   MOREZ=0
+   RETURN 1
+
+
+[TYPEDEF t_custom_door]
+// TDATA1 is the ID when opened
+// TDATA2 is the ID when closed
+// FIXME: Implement keys, secure locks, pickable locks, and traps.
+ON=@DClick
+   IF (<ID>==<TDATA1>)
+      ID=<TDATA2>
+   ELSE
+      ID=<TDATA1>
+   ENDIF
+   UPDATE
+   RETURN 1
+
+
+[TYPEDEF t_horseshoes]
+// Gives slightly more dexterity to a hoofed animal.
+ON=@DClick
+   TARGET What animal needs this item?
+   RETURN 1
+ON=@Targon_Char
+   IF (<SRC.TARG.DEX> > 100)
+      SRC.SYSMESSAGE That animal does not need this item.
+      RETURN 1
+   ENDIF
+   IF (<SRC.TARG.OBODY>==(c_horse_pack|c_llama_pack|c_horse_gray|c_horse_brown_dk|c_horse_brown_lt|c_llama))
+      SRC.SYSMESSAGE Now the animal is faster.
+      SRC.TARG.MODDEX += <MORE1>
+      SRC.EFFECT=3,0374a,6,15,1
+      REMOVE
+   ELSE
+      SRC.SYSMESSAGE That animal can not wear this item.
+   ENDIF
+   RETURN 1
+
+[ITEMDEF i_gem_arcane]
+ID=i_worldgem_lg
+NAME=arcane gem
+TYPE=t_gem_arcane
+VALUE=5000
+CATEGORY=Provisions - Jewels and Jewelry
+SUBSECTION=Special Jewels
+DESCRIPTION=Arcane Gem
+
+[TYPEDEF t_aquarium]
+// If an item is of TYPE=t_container it can also have a TEVENTS=t_aquarium added
+// to it, in which case, it allows only t_fish and t_aquarium_item objects to be
+// put into it.  Every time it is opened, those objects change position...
+// hours of entertainment - no really!
+ON=@DClick
+   //Randomize all object locations when opened
+FORCONT <UID> 0
+	CONTP=<R1,348>,<R1,198>
+ENDFOR
+
+ON=@DropOn_Self
+//Only allow aquarium items and fish
+IF (<ARGO.TYPE>!=t_aquarium_item) && (<ARGO.TYPE>!=t_fish)
+     RETURN 1
+ENDIF
+
+
+[typedef t_equipitem]
+
+[typedef t_shrine]
+
+[typedef t_landmine]
+
+[typedef t_vend_machine]
+
+[typedef t_windgate]
+
+[typedef t_goodresgate]
+
+[typedef t_gate_res_evil]
+
+[typedef t_body_change]
+
+[typedef t_guild_red]
+
+[typedef t_guild_red_res]
+
+[typedef t_guild_green]
+
+[typedef t_guild_green_res]
+
+[typedef t_guild_blue]
+
+[typedef t_guild_blue_res]
+
+[typedef t_guild_yellow]
+
+[typedef t_guild_yellow_res]
+
+[typedef t_guild_purple]
+
+[typedef t_guild_purple_res]
+
+[typedef t_race_evil]
+
+[typedef t_gate_gm_all]
+
+[typedef t_shrine_guilt]
+
+[typedef t_blood]
+
+[typedef t_invade_1]
+
+[typedef t_invade_2]
+
+[typedef t_invade_trig]
+
+[typedef t_goshrine]
+
+[typedef t_jedi_morph]
+
+[typedef t_sew_barb]
+
+[typedef t_dye_tub_limited]
+
+[typedef t_gem_arcane]
+
+[typedef t_arcane_clothing]
+
+[typedef t_plantclipping_tool]
+
+[typedef t_cracked_lavarock]
+
+[typedef t_geode]
+
+[typedef t_aquarium_item]
+
+[typedef t_ninja_shuriken]
+
+[typedef t_kitchenknife]
+
+[typedef t_mounted_pixie]
+
+[typedef t_portrait_creepy]
+
+[typedef t_mailbox]
+
+[typedef t_chicken_coop]
+
+[typedef t_masonry_tool]
+
+[typedef t_glassblowing_tool]
+
+[typedef t_arcane_circle]
+
+[typedef t_weapon_throwing]//throwing skill comes back to thrower
+
+[typedef t_weapon_thrown]//throwing skill stays at target
+
+[typedef t_fletching]
+
+[typedef t_soulforge]
+
+[EOF]

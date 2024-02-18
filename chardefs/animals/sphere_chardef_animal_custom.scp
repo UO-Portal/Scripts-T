@@ -1,0 +1,177 @@
+
+
+/////////////
+// Animals //
+/////////////
+
+[CHARDEF c_rat_sewer]
+ID=c_rat_giant
+NAME=sewer rat
+CAN=MT_WALK|MT_RUN
+DAM=3,9
+ARMOR=9
+RESOURCES=1 i_ribs_raw,1 i_fur_dark
+// FollowerSlots=1
+DESCRIPTION=Sewer Rat
+SUBSECTION=Wild
+CATEGORY=Animals
+ON=@Create
+NPC=brain_monster
+FAME={1 499}
+KARMA={-500 -999}
+STR={32 74}
+DEX={46 65}
+INT={16 30}
+MAGICRESISTANCE={25.0 30.0}
+PARRYING={45.0 55.0}
+TACTICS={29.0 44.0}
+TAMING=45.0
+WRESTLING={29.0 44.0}
+// RESCOLD={1 10}
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+[CHARDEF c_bird_magpie]
+ID=c_bird
+NAME=magpie
+CAN=MT_WALK|MT_FLY
+DAM=1,2
+ARMOR=2
+// FollowerSlots=1
+DESCRIPTION=Magpie
+SUBSECTION=Air
+CATEGORY=Animals
+ON=@Create
+COLOR=colors_black
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={9 19}
+DEX={25 45}
+INT={5 15}
+MAGICRESISTANCE=5.0
+PARRYING=5.0
+TACTICS=4.0
+TAMING=15.0
+WRESTLING=5.0
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+[CHARDEF c_bird_tropical]
+ID=c_bird
+NAME=bird
+CAN=MT_WALK|MT_FLY
+DAM=1,2
+ARMOR=1
+// FollowerSlots=1
+CATEGORY=Animals
+SUBSECTION=Air
+DESCRIPTION=Tropical Bird
+ON=@Create
+NAME=#NAMES_BIRDS
+COLOR=colors_bird
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={1 4}
+DEX={26 35}
+INT={1 4}
+MAGICRESISTANCE=4.0
+PARRYING=4.0
+TACTICS=4.0
+TAMING=10.0
+WRESTLING=4.0
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+[CHARDEF c_bird_raven]
+ID=c_bird
+NAME=raven
+CAN=MT_WALK|MT_FLY
+DAM=1,2
+ARMOR=3
+// FollowerSlots=1
+CATEGORY=Animals
+SUBSECTION=Air
+DESCRIPTION=Raven
+ON=@Create
+COLOR=colors_black
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={9 19}
+DEX={25 36}
+INT={5 15}
+MAGICRESISTANCE=5.0
+PARRYING=5.0
+TACTICS=6.0
+WRESTLING=6.0
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+[CHARDEF c_bird_jungle]
+ID=c_bird
+NAME=jungle bird
+CAN=MT_WALK|MT_FLY
+DAM=1,2
+ARMOR=1
+// FollowerSlots=1
+DESCRIPTION=Jungle Bird
+SUBSECTION=Air
+CATEGORY=Animals
+ON=@Create
+COLOR=colors_bird
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={1 4}
+DEX={26 35}
+INT={1 4}
+MAGICRESISTANCE=4.0
+PARRYING=4.0
+TACTICS=4.0
+TAMING=10.0
+WRESTLING=4.0
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+
+[CHARDEF c_jackrabbit]
+ID=c_rabbit
+NAME=jackrabbit
+CAN=MT_WALK
+DAM=1,2
+ARMOR=2
+// FollowerSlots=1
+DESCRIPTION=Jackrabbit
+SUBSECTION=Land
+CATEGORY=Animals
+ON=@Create
+COLOR=colors_brown
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={5 12}
+DEX={23 30}
+INT={15 20}
+MAGICRESISTANCE=5.0
+PARRYING=5.0
+TACTICS=5.0
+TAMING=5.0
+WRESTLING=5.0
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+
+[eof]

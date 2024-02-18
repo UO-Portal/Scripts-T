@@ -1,0 +1,175 @@
+
+/////////////////////
+// Normal Animals
+////////////////////
+
+
+
+/////////////////////
+// Murder Animals
+////////////////////
+
+[CHARDEF 05]
+DEFNAME=c_eagle
+NAME=eagle
+ICON=i_pet_eagle
+SOUND=snd_animals_eagle1
+CAN=MT_WALK|MT_FLY|MT_NONHUM
+DAM=6,13
+ARMOR=20
+DESIRES=r_mountains,r_forests,r_plains,t_coin,t_fish
+AVERSIONS=r_civilization
+FOODTYPE=t_meat_raw
+MAXFOOD=5
+RESOURCES=36 i_feather,1 i_bird_raw
+TAG.Barding.Diff=22.0
+// FollowerSlots=1
+TAG.SlayerGroup=BIRD
+TEVENTS=e_carnivores
+CATEGORY=Animals
+SUBSECTION=Tame
+DESCRIPTION=Eagle
+ON=@Create
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={31 47}
+MAXHITS={20 27}
+DEX={36 60}
+MAXSTAM={36 60}
+INT={8 20}
+MAXMANA={8 20}
+MAGICRESISTANCE={15.0 30.0}
+TACTICS={18.0 37.0}
+TAMING={15.0 20.0}
+WRESTLING={20.0 30.0}
+// RESPHYSICAL={0 5}
+// RESCOLD={20 25}
+// RESENERGY={5 10}
+// RESFIRE={10 15}
+// RESPOISON={5 10}
+ON=@NPCRestock
+ITEM=i_gold,{50 100}
+ITEM=i_reag_black_pearl,{2 4}
+
+[CHARDEF 06]
+DEFNAME=c_bird
+NAME=#NAMES_BIRDS
+ICON=i_pet_bird
+SOUND=snd_animals_frstbrd1
+CAN=MT_WALK|MT_FLY|MT_NONHUM
+DAM=1,2
+ARMOR=1
+DESIRES=r_forests,r_jungle,t_foliage
+AVERSIONS=e_carnivores,e_carnivores2,e_carnivores3
+FOODTYPE=t_grain
+MAXFOOD=5
+RESOURCES=25 i_feather,1 i_bird_raw
+TAG.Barding.Diff=4.6
+// FollowerSlots=1
+TAG.SlayerGroup=BIRD
+CATEGORY=Animals
+SUBSECTION=Tame
+DESCRIPTION=Bird
+ON=@Create
+COLOR=colors_bird
+NPC=brain_animal
+FAME={1 499}
+KARMA={-1 -499}
+STR={1 5}
+MAXHITS={1 5}
+DEX={20 30}
+MAXSTAM={20 30}
+INT={1 5}
+MAXMANA={1 5}
+MAGICRESISTANCE={1.0 10.0}
+TACTICS={1.0 10.0}
+TAMING={0.1 5.0}
+WRESTLING={1.0 10.0}
+// RESCOLD=0
+// RESENERGY=0
+// RESFIRE=0
+// RESPOISON=0
+
+
+
+[CHARDEF 017]
+DEFNAME=c_wolf_dire
+NAME=dire wolf
+ICON=i_pet_wolf_dire
+SOUND=snd_animals_wolf1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=20,32
+ARMOR=20
+DESIRES=r_jungle,r_forests
+AVERSIONS=r_civilization
+FOODTYPE=t_meat_raw
+MAXFOOD=15
+RESOURCES=1 i_ribs_raw,7 i_hide_spined
+TAG.Barding.Diff=50.3
+// FollowerSlots=1
+TAG.SlayerGroup=WOLF
+TEVENTS=e_carnivores
+CATEGORY=Animals
+SUBSECTION=Wild
+DESCRIPTION=Wolf (dire)
+ON=@Create
+NPC=brain_animal
+FAME={1000 1499}
+KARMA={-1000 -1499}
+STR={96 120}
+MAXHITS={58 72}
+DEX={81 105}
+MAXSTAM={81 105}
+INT={36 60}
+MAXMANA={36 60}
+MAGICRESISTANCE={57.0 75.0}
+TACTICS={50.0 70.0}
+TAMING={80.0 85.0}
+WRESTLING={60.0 80.0}
+// RESPHYSICAL={0 5}
+// RESCOLD={5 10}
+// RESENERGY={10 15}
+// RESFIRE={10 20}
+// RESPOISON={5 10}
+
+
+[CHARDEF 019]
+DEFNAME=c_wolf_grey
+NAME=grey wolf
+ICON=i_pet_wolf_grey
+SOUND=snd_animals_wolf1
+CAN=MT_WALK|MT_RUN|MT_NONHUM
+DAM=4,10
+ARMOR=15
+DESIRES=r_jungle
+AVERSIONS=r_civilization
+FOODTYPE=t_meat_raw
+MAXFOOD=15
+RESOURCES=1 i_ribs_raw,6 i_hide
+TAG.Barding.Diff=30.2
+// FollowerSlots=1
+TAG.SlayerGroup=WOLF
+TEVENTS=e_carnivores
+CATEGORY=Animals
+SUBSECTION=Wild
+DESCRIPTION=Wolf (grey)
+ON=@Create
+NPC=brain_animal
+FAME={500 999}
+KARMA={-800 -999}
+STR={56 80}
+MAXHITS={34 48}
+DEX={55 75}
+MAXSTAM={55 75}
+INT={31 55}
+MAXMANA={31 55}
+MAGICRESISTANCE={20.0 35.0}
+TACTICS={45.0 60.0}
+TAMING={50.0 55.0}
+WRESTLING={45.0 60.0}
+// RESPHYSICAL={0 5}
+// RESCOLD={20 25}
+// RESENERGY={10 15}
+// RESFIRE={10 15}
+// RESPOISON={10 15}

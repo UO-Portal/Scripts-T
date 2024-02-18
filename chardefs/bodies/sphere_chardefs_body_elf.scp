@@ -1,0 +1,120 @@
+
+[CHARDEF 025d]
+DEFNAME=c_elf_male
+NAME=#NAMES_ELF_MALE the Elf Male
+ICON=i_pet_man
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_USEHANDS|MT_EQUIP|MT_MOUNT
+DAM=1,4
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=t_food,t_drink,t_fruit,t_grain
+MAXFOOD=20
+RESOURCES=i_flesh_head_2, i_flesh_torso, i_flesh_right_arm, i_flesh_left_arm, i_flesh_left_leg, i_flesh_right_leg, i_servered_elf_ears
+RESLEVEL=5
+RESDISPDNID=c_man
+RESDISPDNHUE=0410
+// MAXFOLLOWER=5
+// RESPHYSICALMAX=70
+// RESFIREMAX=70
+// RESCOLDMAX=70
+// RESPOISONMAX=70
+// RESENERGYMAX=70
+// INCREASEDEFCHANCEMAX=45
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Elf (male)
+
+ON=@Create
+COLOR=colors_skin
+NPC=brain_human
+
+
+
+[CHARDEF 025e]
+DEFNAME=c_elf_female
+NAME=#NAMES_ELF_FEMALE the Elf Female
+ICON=i_pet_woman
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_FEMALE|MT_USEHANDS|MT_EQUIP|MT_MOUNT
+DAM=1,3
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=t_food,t_drink,t_fruit,t_grain
+MAXFOOD=20
+RESOURCES=i_flesh_head_2, i_flesh_torso, i_flesh_right_arm, i_flesh_left_arm, i_flesh_left_leg, i_flesh_right_leg, i_servered_elf_ears
+RESLEVEL=5
+RESDISPDNID=c_woman
+RESDISPDNHUE=0410
+// MAXFOLLOWER=5
+// RESPHYSICALMAX=70
+// RESFIREMAX=70
+// RESCOLDMAX=70
+// RESPOISONMAX=70
+// RESENERGYMAX=70
+// INCREASEDEFCHANCEMAX=45
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Elf (female)
+
+ON=@Create
+COLOR=colors_skin
+NPC=brain_human
+
+
+
+
+[CHARDEF 025f]
+DEFNAME=c_elf_ghost_man
+NAME=Elf Male Ghost
+ICON=i_pet_man
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_GHOST|MT_EQUIP
+// DAM=
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=
+MAXFOOD=
+RESOURCES=
+BLOODCOLOR=-1
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Elf ghost (male)
+RESLEVEL=5
+RESDISPDNID=c_ghost_man
+RESDISPDNHUE=0
+
+ON=@Create
+NPC=brain_human
+
+
+
+[CHARDEF 0260]
+DEFNAME=c_elf_ghost_woman
+NAME=Elf Female Ghost
+ICON=i_pet_woman
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_GHOST|MT_FEMALE|MT_EQUIP
+// DAM=
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=
+MAXFOOD=
+RESOURCES=
+BLOODCOLOR=-1
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Elf ghost (female)
+RESLEVEL=5
+RESDISPDNHUE=0
+RESDISPDNID=c_ghost_woman
+
+ON=@Create
+NPC=brain_human
+   
+   
+[EOF]

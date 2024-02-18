@@ -1,0 +1,38 @@
+
+
+
+[ITEMDEF I_POUCH_TRAPPED]
+DEFNAME=I_POUCH_TRAPPED
+ID=I_POUCH
+TYPE=t_script
+NAME=trapped pouch%s
+SKILLMAKE=
+RESOURCES=
+WEIGHT=0.1
+VALUE=0
+RESDISPDNHUE=08a1
+
+on=@create
+COLOR=<SERV.ITEMDEF.<BASEID>.RESDISPDNHUE>
+
+ON=@DCLICK
+IF (<AMOUNT> <= 0)
+REMOVE
+ENDIF
+SRC.SYSMESSAGE @,,1,1 Paralyze halinde otomatik olarak aktif olur. Bu şekilde kullanamazsınız.
+RETURN 1
+
+on=@click
+IF (<AMOUNT> <= 0)
+	REMOVE
+ENDIF
+MESSAGE <QVAL (<AMOUNT>)?<AMOUNT>:> <NAME>
+RETURN 1
+
+ON=@DROPON_SELF
+IF (<ARGO.BASEID> != <BASEID>)
+	RETURN 1
+ENDIF
+
+
+[eof]

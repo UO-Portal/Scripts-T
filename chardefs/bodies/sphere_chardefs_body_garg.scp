@@ -1,0 +1,68 @@
+
+
+[CHARDEF 029a]
+DEFNAME=c_gargoyle_male
+NAME=#NAMES_GARGOYLE_MALE the Gargoyle Male
+ICON=i_pet_gargoyle_male
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_USEHANDS|MT_EQUIP
+DAM=1,4
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=t_food,t_drink,t_fruit,t_grain
+MAXFOOD=30
+RESOURCES=i_flesh_head_2, i_flesh_torso, i_flesh_right_arm, i_flesh_left_arm, i_flesh_left_leg, i_flesh_right_leg
+RESLEVEL=7
+RESDISPDNID=c_man
+RESDISPDNHUE=0410
+// MAXFOLLOWER=5
+// RESPHYSICALMAX=70
+// RESFIREMAX=70
+// RESCOLDMAX=70
+// RESPOISONMAX=70
+// RESENERGYMAX=70
+// INCREASEDEFCHANCEMAX=45
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Gargoyle (male)
+ON=@Create
+COLOR=colors_skin_gargoyle
+NPC=brain_human
+
+
+
+
+
+[CHARDEF 029b]
+DEFNAME=c_gargoyle_female
+NAME=#NAMES_GARGOYLE_FEMALE the Gargoyle Female
+ICON=i_pet_gargoyle_female
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_USEHANDS|MT_EQUIP|MT_FEMALE
+DAM=1,4
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=t_food,t_drink,t_fruit,t_grain
+MAXFOOD=20
+RESOURCES=i_flesh_head_2, i_flesh_torso, i_flesh_right_arm, i_flesh_left_arm, i_flesh_left_leg, i_flesh_right_leg
+RESLEVEL=5
+RESDISPDNID=c_woman
+RESDISPDNHUE=0410
+// MAXFOLLOWER=5
+// RESPHYSICALMAX=70
+// RESFIREMAX=70
+// RESCOLDMAX=70
+// RESPOISONMAX=70
+// RESENERGYMAX=70
+// INCREASEDEFCHANCEMAX=45
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Gargoyle (female)
+
+ON=@Create
+COLOR=colors_skin_gargoyle
+NPC=brain_human
+
+[eof]

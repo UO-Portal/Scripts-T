@@ -1,0 +1,111 @@
+
+
+[CHARDEF 0190]
+DEFNAME=c_man
+ICON=i_pet_man
+NAME=#NAMES_HUMANMALE the Man
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_USEHANDS|MT_EQUIP|MT_MOUNT
+DAM=1,4
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=t_food,t_drink,t_fruit,t_grain
+MAXFOOD=20
+RESOURCES=i_flesh_head_2, i_flesh_torso, i_flesh_right_arm, i_flesh_left_arm, i_flesh_left_leg, i_flesh_right_leg
+// MAXFOLLOWER=5
+// RESPHYSICALMAX=70
+// RESFIREMAX=70
+// RESCOLDMAX=70
+// RESPOISONMAX=70
+// RESENERGYMAX=70
+// INCREASEDEFCHANCEMAX=45
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Human (male)
+
+ON=@Create
+COLOR=colors_skin
+NPC=brain_human
+
+
+
+
+[CHARDEF 0191]
+DEFNAME=c_woman
+NAME=#NAMES_HUMANFEMALE the Woman
+ICON=i_pet_woman
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_FEMALE|MT_USEHANDS|MT_EQUIP|MT_MOUNT
+DAM=1,3
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=t_food,t_drink,t_fruit,t_grain
+MAXFOOD=20
+RESOURCES=i_flesh_head_2, i_flesh_torso, i_flesh_right_arm, i_flesh_left_arm, i_flesh_left_leg, i_flesh_right_leg
+// MAXFOLLOWER=5
+// RESPHYSICALMAX=70
+// RESFIREMAX=70
+// RESCOLDMAX=70
+// RESPOISONMAX=70
+// RESENERGYMAX=70
+// INCREASEDEFCHANCEMAX=45
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Human (female)
+
+ON=@Create
+COLOR=colors_skin
+NPC=brain_human
+
+
+//////////////////////////
+// Ghosts
+//////////////////////////
+
+
+
+[CHARDEF 0192]
+DEFNAME=c_ghost_man
+NAME=Ghost Man
+ICON=i_pet_man
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_GHOST|MT_EQUIP
+// DAM=
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=
+MAXFOOD=
+RESOURCES=
+BLOODCOLOR=-1
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Human ghost (male)
+
+ON=@Create
+NPC=brain_human
+
+[CHARDEF 0193]
+DEFNAME=c_ghost_woman
+NAME=Ghost Woman
+ICON=i_pet_woman
+SOUND=snd_special_human
+CAN=MT_WALK|MT_RUN|MT_GHOST|MT_FEMALE|MT_EQUIP
+// DAM=
+// ARMOR=
+// DESIRES=
+// AVERSIONS=
+FOODTYPE=
+MAXFOOD=
+RESOURCES=
+BLOODCOLOR=-1
+CATEGORY=Civilized
+SUBSECTION=Miscellaneous
+DESCRIPTION=Human ghost (female)
+
+ON=@Create
+NPC=brain_human
+
+[EOF]
