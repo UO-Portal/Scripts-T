@@ -1,5 +1,5 @@
-//****************************************************************************
-// SPHERE by : Menasoft ©1997-2023
+ï»¿//****************************************************************************
+// SPHERE by : Menasoft Â©1997-2023
 // www.sphereserver.net
 //****************************************************************************
 // FILE LAST UPDATED: 26.10.2023
@@ -817,18 +817,18 @@ RANGE=7
 
 ON=@Fail
 // SRC.SYSMESSAGE You fail to tame the creature.
-SRC.SYSMESSAGE @38,,1,1 Evcilleþtirmeyi baþarýsýz oldu.
+SRC.SYSMESSAGE @38,,1,1 EvcilleÅŸtirmeyi baÅŸarÄ±sÄ±z oldu.
 
 ON=@Abort
 // SRC.SYSMESSAGE You give up trying to tame the creature.
-SRC.SYSMESSAGE @38,,1,1 Evcilleþtirmekten vazgeçtiniz.
+SRC.SYSMESSAGE @38,,1,1 EvcilleÅŸtirmekten vazgeÃ§tiniz.
 
 // ON=@Wait
 // SRC.SYSMESSAGE Wait
 
 ON=@Success
 IF !(<SRC.FINDID.I_STAFF_TAMING>)
-	SRC.SYSMESSAGE @38,,1,1 Yanýnýzda Taming staff bulunmuyor.
+	SRC.SYSMESSAGE @38,,1,1 YanÄ±nÄ±zda Taming staff bulunmuyor.
 	RETURN 1
 ENDIF
 REF1=<ACT.SPAWNITEM>				// SPAWNITEM
@@ -846,10 +846,10 @@ ENDIF
 
 ON=@Select
 IF !(<SRC.FINDID.I_STAFF_TAMING>)
-	SRC.SYSMESSAGE @38,,1,1 Yanýnýzda Taming staff bulunmuyor.
+	SRC.SYSMESSAGE @38,,1,1 YanÄ±nÄ±zda Taming staff bulunmuyor.
 	RETURN 1
 ELSEIF (<SRC.REGION.FLAGS>&REGION_FLAG_SAFE)
-	SRC.SYSMESSAGE @38,,1,1 Bu alanda evcilleþtirme yapamazsýnýz.
+	SRC.SYSMESSAGE @38,,1,1 Bu alanda evcilleÅŸtirme yapamazsÄ±nÄ±z.
 	RETURN 1
 ENDIF
 
@@ -857,12 +857,12 @@ ON=@Start
 REF1=<SRC.FINDID.I_STAFF_TAMING>
 
 IF !(<SRC.FINDID.I_STAFF_TAMING>)
-	SRC.SYSMESSAGE @38,,1,1 Yanýnýzda Taming staff bulunmuyor.
+	SRC.SYSMESSAGE @38,,1,1 YanÄ±nÄ±zda Taming staff bulunmuyor.
 	RETURN 1
 ENDIF
 IF (<ACT.ISCHAR>)
 	IF !(<ACT.NPC> == brain_Animal)
-		SRC.SYSMESSAGE @38,,1,1 Sadece hayvanlarý evcilleþtirebilirsiniz.
+		SRC.SYSMESSAGE @38,,1,1 Sadece hayvanlarÄ± evcilleÅŸtirebilirsiniz.
 		RETURN 1
 				
 	ELSEIF (<ACT.TAG0.TAMER> == <SRC>) 
@@ -877,7 +877,7 @@ IF (<ACT.ISCHAR>)
 		
 	ELSEIF (<SRC.TARG.SPAWNITEM>)
 		IF (<SRC.TARG.DISTANCE <SRC.TARG.SPAWNITEM>> > 5)
-			SRC.SYSMESSAGE @38,,1,1 Bu hayvan yuvasýndan uzakta.
+			SRC.SYSMESSAGE @38,,1,1 Bu hayvan yuvasÄ±ndan uzakta.
 			RETURN 1
 		ENDIF
 	ENDIF
