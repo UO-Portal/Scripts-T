@@ -8,9 +8,12 @@ VERSION=0.56T
 
 [TYPEDEF ei_item_general]
 ON=@CLICK
-IF (<ATTR>&ATTR_NEWBIE)
-	MESSAGE <defmsg.TOOLTIP_TAG_NEWBIE>
-ENDIF
+// Newbified mesajı emülatörden geliyor, mesajı değiştirmek için sphere_msgs.scp içinde tooltip_tag_newbie düzenleyiniz.
+// IF (<ATTR>&ATTR_NEWBIE)
+	// MESSAGE <defmsg.TOOLTIP_TAG_NEWBIE>
+// ENDIF
+
+//
 // REF1=<CRAFTEDBY>
 // IF (<REF1>) && (<REF1.ISCHAR>)
 	// IF (0<REF1.ACCOUNT.PLEVEL> == 1)

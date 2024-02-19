@@ -8,70 +8,71 @@ VERSION=0.56T
 
 [speech spk_ship_cmds]
 on=set name *
-	// changes ship name, where *=name.
-	// name=<strmid(<args>,8,64)>
+// changes ship name, where *=name.
+// name=<strmid(<args>,8,64)>
 
-on=furl sail	// stop
-on=stop			// stops current ship movement.
-	shipstop
+on=furl sail// stop
+on=stop// stops current ship movement.
+SHIPSTOP
 
 on=turn left
-on=port			// turn left
-	shipturnleft
+on=port// turn left
+SHIPTURNLEFT
 
 on=turn right
-on=starboard	// turn right
-	shipturnright
+on=starboard// turn right
+SHIPTURNRIGHT
 
-on=left			// move ship in desired direction.
+on=left// move ship in desired direction.
 on=drift left
-	shipdriftleft
+SHIPDRIFTLEFT
 
-on=right		// move ship in desired direction.
+on=right// move ship in desired direction.
 on=drift right
-	shipdriftright
+SHIPDRIFTRIGHT
 
-on=back			// move ship backwards
-on=backward		// move ship backwards
-on=backwards	// move ship backwards
-	shipback
+on=back// move ship backwards
+on=backward// move ship backwards
+on=backwards// move ship backwards
+SHIPBACK
 
 on=forward
-on=foreward		// moves ship forward.
-on=unfurl sail	// moves ship forward.
-	shipfore
+on=foreward// moves ship forward.
+on=unfurl sail// moves ship forward.
+SHIPFORE
 
 on=forward left
-	shipforeleft
+SHIPFORELEFT
 
 on=forward right
-	shipforeright
+SHIPFORERIGHT
 
 on=backward left
 on=back left
-	shipbackleft
+SHIPBACKLEFT
 
 on=backward right
 on=back right
-	shipbackright
+SHIPBACKRIGHT
 
 on=raise anchor
-	shipanchorraise
+SHIPANCHORRAISE
 
 on=drop anchor
-	shipanchordrop
+SHIPANCHORDROP
 
-on=turn around	// turns ship around and proceeds.
-on=come about	// turns ship around and proceeds.
-	shipturn
+// gemiyi çevirir ve yoluna devam eder.
+on=turn around
+on=come about
+SHIPTURN
 
 on=up
-	shipup
+SHIPUP
 
 on=down
-	shipdown
+SHIPDOWN
 
 on=land
-	shipland
+SHIPLAND
 
 [eof]

@@ -8,7 +8,7 @@ VERSION=0.56T
 
 
 [SPEECH spk_char_general]
-
+ON=*
 
 
 [EOF]

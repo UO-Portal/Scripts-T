@@ -10,7 +10,7 @@ VERSION=0.56T
 The sphereserver has a number of hardcoded spellmenu's, this file contains the softcoded component.  The prupose of each is as follows:
 // Spells
 sm_summon				= Triggered by the Magery "summoning" spell
-sm_summon_familiar	= Triggered by the Necromancy "Summon Familiar" spell
+sm_summon_familiar		= Triggered by the Necromancy "Summon Familiar" spell
 sm_polymorph			= Triggered by the Magery Polymorph spell
 
 //////////////
