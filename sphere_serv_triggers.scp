@@ -304,11 +304,11 @@ SERV.LOG <QVAL (<ARGO>)?<ARGO>:<src.name>/<SRC>> karakter silindi.
 
 
 [FUNCTION f_onchar_logout_client]
-serv.log f_onchar_logout_client: <src>
+// serv.log f_onchar_logout_client: <src>
 
 
 [FUNCTION f_onchar_disconnect_client]
-serv.log f_onchar_disconnect_client: <src>
+// serv.log f_onchar_disconnect_client: <src>
 
 
 [FUNCTION f_onserver_broadcast]

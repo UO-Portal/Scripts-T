@@ -31,11 +31,11 @@ DHTMLGUMP +180 +70 75 20 0 0 <DEF.BFONT_GREEN>Vazgec
 [DIALOG d_pet_release BUTTON]
 ON=1
 IF !(<SRC.CANSEELOS <UID>>) 
-SRC.SYSMESSAGE @38,,1,1 Varliga uzaksiniz.
-RETURN 1
+	SRC.SYSMESSAGE @38,,1,1 Varliga uzaksiniz.
+	RETURN 1
 ELSEIF !(<ISMYPET>)
-SRC.SYSMESSAGE @38,,1,1 Varlik size ait degil.
-RETURN 1
+	SRC.SYSMESSAGE @38,,1,1 Varlik size ait degil.
+	RETURN 1
 ENDIF
 LOCAL.RESULT <SRC.SetProcessDelay PetRelease,100>
 IF !(<LOCAL.RESULT>)
